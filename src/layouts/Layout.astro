@@ -1,0 +1,157 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	activePage?: 'home' | 'about' | 'services' | 'contact' | 'blog';
+}
+
+const {
+	title = 'Bits And Bytes IT Solutions | Web, Mobile & Desktop Development',
+	description = 'Modern websites and software applications for ambitious businesses.',
+	activePage = 'home'
+} = Astro.props;
+
+const navItems = [
+	{ label: 'Home', href: '/', key: 'home' },
+	{ label: 'About', href: '/about', key: 'about' },
+	{ label: 'Services', href: '/services', key: 'services' },
+	{ label: 'Contact', href: '/contact', key: 'contact' },
+	{ label: 'Blog', href: '/blog', key: 'blog' }
+];
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+	<body class="flex min-h-screen flex-col bg-slate-950 text-slate-100 antialiased">
+		<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+			<div class="orb orb-cyan"></div>
+			<div class="orb orb-violet"></div>
+			<div class="grid-mask"></div>
+		</div>
+
+		<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
+			<div class="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+				<a href="/" class="brand-mark" aria-label="Bits And Bytes IT Solutions home">
+					<span class="brand-star">✦</span>
+					<span>Bits And Bytes IT Solutions</span>
+				</a>
+
+				<button
+					id="mobile-nav-toggle"
+					type="button"
+					class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-slate-900/70 p-2 text-slate-100 transition hover:border-violet-500 md:hidden"
+					aria-expanded="false"
+					aria-controls="mobile-nav"
+				>
+					<span class="sr-only">Toggle navigation menu</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M4 7h16"></path>
+						<path d="M4 12h16"></path>
+						<path d="M4 17h16"></path>
+					</svg>
+				</button>
+
+				<nav aria-label="Main navigation" class="hidden md:block">
+					<ul class="flex flex-wrap items-center gap-1 rounded-full border border-white/15 bg-white/5 p-1 text-sm md:text-base">
+						{
+							navItems.map((item) => (
+								<li>
+									<a
+										href={item.href}
+										class:list={[
+											'nav-link',
+											activePage === item.key && 'nav-link-active'
+										]}
+									>
+										{item.label}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+			</div>
+
+			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-5 pb-4 md:hidden md:px-8">
+				<nav aria-label="Mobile navigation">
+					<ul class="grid gap-1 rounded-2xl border border-white/15 bg-white/5 p-2 text-sm">
+						{
+							navItems.map((item) => (
+								<li>
+									<a
+										href={item.href}
+										class:list={[
+											'nav-link w-full justify-center',
+											activePage === item.key && 'nav-link-active'
+										]}
+									>
+										{item.label}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main class="mx-auto w-full max-w-6xl flex-1 px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-14">
+			<slot />
+		</main>
+
+		<footer class="border-t border-white/10 bg-slate-950/90">
+			<div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-slate-300 md:px-8">
+				<div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+					<p>© {new Date().getFullYear()} Bits And Bytes IT Solutions. Built with modern TypeScript tooling.</p>
+					<p>Remote-first delivery for startups, agencies, and internal product teams.</p>
+				</div>
+				<nav aria-label="Legal navigation">
+					<ul class="flex flex-wrap gap-4 text-sm text-slate-400">
+						<li><a href="/privacy" class="transition hover:text-cyan-300">Privacy Policy</a></li>
+						<li><a href="/terms-and-conditions" class="transition hover:text-cyan-300">Terms & Conditions</a></li>
+						<li><a href="/data-retention-policy" class="transition hover:text-cyan-300">Data Retention Policy</a></li>
+					</ul>
+				</nav>
+			</div>
+		</footer>
+
+		<script is:inline>
+			const toggleButton = document.getElementById('mobile-nav-toggle');
+			const mobileNav = document.getElementById('mobile-nav');
+
+			if (toggleButton && mobileNav) {
+				const closeMenu = () => {
+					mobileNav.classList.add('hidden');
+					toggleButton.setAttribute('aria-expanded', 'false');
+				};
+
+				toggleButton.addEventListener('click', () => {
+					const isOpen = !mobileNav.classList.contains('hidden');
+					mobileNav.classList.toggle('hidden', isOpen);
+					toggleButton.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+				});
+
+				mobileNav.querySelectorAll('a').forEach((link) => {
+					link.addEventListener('click', closeMenu);
+				});
+
+				window.addEventListener('resize', () => {
+					if (window.innerWidth >= 768) {
+						closeMenu();
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

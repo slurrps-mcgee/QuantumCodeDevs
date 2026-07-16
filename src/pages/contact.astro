@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '';
+const hasEndpoint = Boolean(contactEndpoint);
+---
+
+<Layout
+  title="Contact | Bits And Bytes IT Solutions"
+  description="Contact Bits And Bytes IT Solutions to discuss your website or software application project."
+  activePage="contact"
+>
+  <section class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="space-y-5">
+      <p class="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100">
+        Let&apos;s Build Together
+      </p>
+      <h1 class="text-4xl font-semibold text-white md:text-5xl">Tell us what you are building and where you need support.</h1>
+      <p class="max-w-xl text-lg text-slate-300">
+        Share your goals, timeline, and platform priorities. We typically respond within one business day with a suggested engagement model, estimate range, and proposed next steps.
+      </p>
+
+      <div class="glass-card space-y-3 text-slate-300">
+        <p><strong class="text-white">Email:</strong> hello@bitsandbytesitsolutions.com</p>
+        <p><strong class="text-white">Location:</strong> Remote team, global delivery</p>
+        <p><strong class="text-white">Availability:</strong> New projects starting each month</p>
+      </div>
+
+      <div class="glass-card space-y-4 text-slate-300">
+        <h2 class="text-xl font-semibold text-white">What Happens After You Submit</h2>
+        <ul class="space-y-2 text-sm">
+          <li>1. We review your goals, constraints, and required platforms.</li>
+          <li>2. We share a recommended build approach and initial estimate.</li>
+          <li>3. We schedule a short discovery call to finalize scope and milestones.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card space-y-3 text-sm text-slate-300">
+        <h2 class="text-xl font-semibold text-white">Typical Project Inputs</h2>
+        <p><strong class="text-white">Business goals:</strong> Revenue growth, workflow automation, customer experience improvements.</p>
+        <p><strong class="text-white">Primary platforms:</strong> Angular web, Ionic mobile, Electron desktop, NestJS backend.</p>
+        <p><strong class="text-white">Delivery style:</strong> Fixed-scope milestones or ongoing monthly product support.</p>
+      </div>
+    </div>
+
+    <form class="glass-card space-y-4" method="post" action={hasEndpoint ? contactEndpoint : 'mailto:hello@bitsandbytesitsolutions.com'} enctype={hasEndpoint ? undefined : 'text/plain'}>
+      {
+        hasEndpoint ? (
+          <>
+            <input type="hidden" name="_subject" value="New project inquiry from website" />
+            <input type="hidden" name="_captcha" value="false" />
+          </>
+        ) : (
+          <p class="rounded-lg border border-amber-300/30 bg-amber-300/10 px-3 py-2 text-sm text-amber-100">
+            Form endpoint not configured yet. Submitting will open your email client. Set <strong>PUBLIC_CONTACT_FORM_ENDPOINT</strong> to connect Formspree/Getform.
+          </p>
+        )
+      }
+
+      <div>
+        <label for="name" class="mb-1 block text-sm font-medium text-slate-200">Name</label>
+        <input id="name" name="name" type="text" required class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring" />
+      </div>
+
+      <div>
+        <label for="email" class="mb-1 block text-sm font-medium text-slate-200">Email</label>
+        <input id="email" name="email" type="email" required class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring" />
+      </div>
+
+      <div>
+        <label for="company" class="mb-1 block text-sm font-medium text-slate-200">Company (Optional)</label>
+        <input id="company" name="company" type="text" class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring" />
+      </div>
+
+      <div>
+        <label for="projectType" class="mb-1 block text-sm font-medium text-slate-200">Project Type</label>
+        <select id="projectType" name="projectType" class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring">
+          <option>Business Website</option>
+          <option>Web Application</option>
+          <option>Mobile Application</option>
+          <option>Desktop Application</option>
+          <option>Backend / API Development</option>
+          <option>Ongoing Support</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend class="mb-2 block text-sm font-medium text-slate-200">Services Needed</legend>
+        <div class="grid gap-2 text-sm text-slate-300 sm:grid-cols-2">
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="Discovery & Planning" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />Discovery & Planning</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="UI/UX Design" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />UI/UX Design</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="Frontend Development" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />Frontend Development</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="Backend/API Development" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />Backend/API Development</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="DevOps & Deployment" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />DevOps & Deployment</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="services" value="Post-launch Support" class="h-4 w-4 rounded border-white/30 bg-slate-900/70" />Post-launch Support</label>
+        </div>
+      </fieldset>
+
+      <div>
+        <label for="budget" class="mb-1 block text-sm font-medium text-slate-200">Estimated Budget</label>
+        <select id="budget" name="budget" class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring">
+          <option>$1k - $5k</option>
+          <option>$5k - $15k</option>
+          <option>$15k - $50k</option>
+          <option>$50k+</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="timeline" class="mb-1 block text-sm font-medium text-slate-200">Target Timeline</label>
+        <select id="timeline" name="timeline" class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring">
+          <option>ASAP (0-2 weeks)</option>
+          <option>Near term (2-6 weeks)</option>
+          <option>Planned (1-3 months)</option>
+          <option>Flexible / Exploring</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="message" class="mb-1 block text-sm font-medium text-slate-200">Project Details</label>
+        <textarea id="message" name="message" rows="6" required class="w-full rounded-lg border border-white/20 bg-slate-900/60 px-3 py-2 text-white outline-none ring-cyan-300 transition focus:ring" placeholder="Tell us what success looks like, your current challenges, and key requirements."></textarea>
+      </div>
+
+      <button type="submit" class="w-full rounded-lg bg-cyan-300 px-4 py-3 font-semibold text-slate-900 transition hover:bg-cyan-200">
+        Submit Project Inquiry
+      </button>
+
+      <p class="text-xs text-slate-400">By submitting this form, you agree to be contacted about your project inquiry.</p>
+    </form>
+  </section>
+</Layout>
