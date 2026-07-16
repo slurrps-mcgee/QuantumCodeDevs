@@ -4,11 +4,11 @@ import '../styles/global.css';
 interface Props {
 	title?: string;
 	description?: string;
-	activePage?: 'home' | 'about' | 'services' | 'contact' | 'blog';
+	activePage?: 'home' | 'about' | 'services' | 'developers' | 'contact' | 'blog';
 }
 
 const {
-	title = 'Bits And Bytes IT Solutions | Web, Mobile & Desktop Development',
+	title = 'Quantum Code Devs | Web, Mobile & Desktop Development',
 	description = 'Modern websites and software applications for ambitious businesses.',
 	activePage = 'home'
 } = Astro.props;
@@ -17,6 +17,7 @@ const navItems = [
 	{ label: 'Home', href: '/', key: 'home' },
 	{ label: 'About', href: '/about', key: 'about' },
 	{ label: 'Services', href: '/services', key: 'services' },
+	{ label: 'Developers', href: '/developers', key: 'developers' },
 	{ label: 'Contact', href: '/contact', key: 'contact' },
 	{ label: 'Blog', href: '/blog', key: 'blog' }
 ];
@@ -42,9 +43,9 @@ const navItems = [
 
 		<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
 			<div class="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-				<a href="/" class="brand-mark" aria-label="Bits And Bytes IT Solutions home">
+				<a href="/" class="brand-mark" aria-label="Quantum Code Devs home">
 					<span class="brand-star">✦</span>
-					<span>Bits And Bytes IT Solutions</span>
+					<span>Quantum Code Devs</span>
 				</a>
 
 				<button
@@ -113,7 +114,7 @@ const navItems = [
 		<footer class="border-t border-white/10 bg-slate-950/90">
 			<div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-slate-300 md:px-8">
 				<div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-					<p>© {new Date().getFullYear()} Bits And Bytes IT Solutions. Built with modern TypeScript tooling.</p>
+					<p>© {new Date().getFullYear()} Quantum Code Devs. Built with modern TypeScript tooling.</p>
 					<p>Remote-first delivery for startups, agencies, and internal product teams.</p>
 				</div>
 				<nav aria-label="Legal navigation">

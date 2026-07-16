@@ -1,4 +1,4 @@
-# Bits And Bytes IT Solutions Site
+# Quantum Code Devs Site
 
 Modern multi-page Astro + Tailwind website for an IT business that builds websites and software applications.
 
@@ -25,7 +25,7 @@ title: "How to Scope a Software MVP"
 description: "A practical framework to pick the right first features."
 publishDate: 2026-07-16
 category: "Product Strategy"
-author: "Bits And Bytes Team"
+author: "Quantum Code Devs"
 ---
 
 Start with one clear user outcome and build only what is required to validate it.
@@ -56,3 +56,31 @@ PUBLIC_CONTACT_FORM_ENDPOINT="https://formspree.io/f/your-form-id"
 4. Restart the dev server.
 
 If `PUBLIC_CONTACT_FORM_ENDPOINT` is not set, the form falls back to opening the default mail client.
+
+## GitHub Pages Deployment With GitHub Actions
+
+This repository includes a workflow at `.github/workflows/deploy.yml` that builds the Astro site and deploys it to GitHub Pages.
+
+### Setup Steps
+
+1. Go to your GitHub repository settings.
+2. Open **Pages** and set the source to **GitHub Actions**.
+3. Go to **Settings > Secrets and variables > Actions > Variables**.
+4. Add a repository variable named `PUBLIC_CONTACT_FORM_ENDPOINT` with your Formspree endpoint, for example:
+
+```text
+https://formspree.io/f/your-form-id
+```
+
+5. Push to `main` or manually run the **Deploy to GitHub Pages** workflow.
+
+### How It Works
+
+- The workflow sets `GITHUB_PAGES=true` so Astro builds with the correct GitHub Pages base path.
+- The Formspree endpoint is injected at build time through `PUBLIC_CONTACT_FORM_ENDPOINT`.
+- If the variable is missing, the contact page falls back to opening the email client.
+
+### Notes
+
+- Set `PUBLIC_SITE_URL` and `PUBLIC_BASE_PATH` as repository variables to match your GitHub Pages or custom domain setup.
+- If you change the repository name or use a custom domain, update those variables and the workflow configuration accordingly.

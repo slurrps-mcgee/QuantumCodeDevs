@@ -3,7 +3,7 @@ title: "Web, Mobile, or Desktop First?"
 description: "A framework to pick the right first platform based on user context, timeline, and budget."
 publishDate: 2026-06-21
 category: "Architecture"
-author: "Bits And Bytes Team"
+author: "Quantum Code Devs"
 ---
 
 Platform selection is one of the highest-impact early decisions in product development.

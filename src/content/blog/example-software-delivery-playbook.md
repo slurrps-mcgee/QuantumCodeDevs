@@ -3,7 +3,7 @@ title: "Software Delivery Playbook for Fast-Moving Teams"
 description: "A practical guide for scoping, building, and launching a stable first release."
 publishDate: 2026-07-16
 category: "Delivery"
-author: "Bits And Bytes Team"
+author: "Quantum Code Devs"
 ---
 
 This is an example Markdown post for your blog collection.

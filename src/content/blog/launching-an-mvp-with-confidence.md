@@ -3,7 +3,7 @@ title: "Launching an MVP with Confidence"
 description: "How to prioritize features, reduce risk, and ship a practical first version of your product."
 publishDate: 2026-07-10
 category: "Product Strategy"
-author: "Bits And Bytes Team"
+author: "Quantum Code Devs"
 ---
 
 A successful MVP is not a smaller version of your full product. It is the shortest path to validated learning.

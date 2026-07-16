@@ -8,7 +8,7 @@ const blog = defineCollection({
     description: z.string(),
     publishDate: z.coerce.date(),
     category: z.string(),
-    author: z.string().default('Bits And Bytes Team')
+    author: z.string().default('Quantum Code Devs')
   })
 });
 
