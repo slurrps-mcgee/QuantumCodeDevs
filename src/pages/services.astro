@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
 const coreServices = [
   {
     title: 'Web Application Delivery',
-    description: 'Angular-based platforms, admin systems, portals, and dashboards with strong UX and scalable architecture.'
+    description: 'Astro and Angular-based platforms, admin systems, portals, and dashboards with strong UX and scalable architecture.'
   },
   {
     title: 'Mobile Application Delivery',
@@ -37,6 +37,7 @@ const pricingFactors = [
 ];
 
 const techStack = [
+  '<strong class="text-white">Web Platforms:</strong> Astro, Tailwind CSS, TypeScript, component-driven architecture, and content modeling for scalable websites and portals.',
   '<strong class="text-white">Web Apps:</strong> Angular 20, TypeScript, Angular Material, SCSS, Tailwind CSS, NgRx, Angular Signals.',
   '<strong class="text-white">Mobile Apps:</strong> Ionic + Angular with Capacitor for Android/iOS and native integrations.',
   '<strong class="text-white">Desktop Apps:</strong> Electron + Angular with local storage, file-system access, and offline support.',
@@ -121,7 +122,7 @@ const techStack = [
       I do not try to offer everything. The business is intentionally centered on websites and bespoke software applications, plus the platforms and integrations needed to support them well.
     </p>
     <div class="mt-4 grid gap-3 md:grid-cols-2">
-      <InsetCard class="text-slate-300"><p><strong class="text-white">Primary fit:</strong> Angular, Ionic, Electron, NestJS, MySQL, and Astro for simpler sites.</p></InsetCard>
+      <InsetCard class="text-slate-300"><p><strong class="text-white">Primary fit:</strong> Astro, Angular, Ionic, Electron, NestJS, and MySQL for production web and software delivery.</p></InsetCard>
       <InsetCard class="text-slate-300"><p><strong class="text-white">Additional fit:</strong> C# / .NET when a project benefits from Microsoft ecosystem alignment.</p></InsetCard>
     </div>
   </GlassCard>
@@ -151,7 +152,7 @@ const techStack = [
       {techStack.map((item) => <InsetCard><p set:html={item} /></InsetCard>)}
     </div>
     <p class="mt-5 text-slate-300">
-      For simpler marketing websites or lightweight blogs, we also deliver streamlined Astro + Tailwind builds.
+      Astro is a primary offering across landing pages, content hubs, and high-performance website builds.
     </p>
   </GlassCard>
 </Layout>
