@@ -1,0 +1,30 @@
+---
+interface Props {
+  as?: 'article' | 'div' | 'section' | 'aside';
+  title?: string;
+  titleTag?: 'h2' | 'h3';
+  class?: string;
+  titleClass?: string;
+  bodyClass?: string;
+}
+
+const {
+  as = 'article',
+  title,
+  titleTag = 'h2',
+  class: className = '',
+  titleClass = 'text-2xl font-semibold text-white',
+  bodyClass = title ? 'mt-2 text-slate-300' : '',
+  ...rest
+} = Astro.props as Props & Record<string, unknown>;
+
+const Tag = as;
+const TitleTag = titleTag;
+---
+
+<Tag {...rest} class:list={['glass-card', className]}>
+  {title && <TitleTag class={titleClass}>{title}</TitleTag>}
+  <div class={bodyClass}>
+    <slot />
+  </div>
+</Tag>

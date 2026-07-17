@@ -1,5 +1,64 @@
 ---
+import GlassCard from '../components/GlassCard.astro';
+import InsetCard from '../components/InsetCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
+
+const servicePillars = [
+  {
+    title: 'Product Discovery',
+    description: 'We map business goals to technical requirements, reducing expensive pivots later.'
+  },
+  {
+    title: 'Design + Build',
+    description: 'UX, interface systems, and robust implementation developed as one integrated process.'
+  },
+  {
+    title: 'Launch + Grow',
+    description: 'Post-launch support, performance tuning, and roadmap planning for continuous growth.'
+  }
+];
+
+const deliveryModel = [
+  {
+    title: 'Weekly Momentum',
+    description: 'Structured check-ins, async updates, and review demos ensure progress is visible and decisions are quick.'
+  },
+  {
+    title: 'Roadmap-Driven Execution',
+    description: 'We break work into practical milestones tied to business outcomes, not just feature lists.'
+  },
+  {
+    title: 'Modern Engineering Stack',
+    description: 'Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET power scalable systems with a clean TypeScript-first foundation.'
+  },
+  {
+    title: 'Support Beyond Launch',
+    description: 'We continue with optimization, enhancements, and technical advisory as your product evolves.'
+  }
+];
+
+const industries = [
+  'Service businesses modernizing operations and sales workflows',
+  'Startups validating MVP products and scaling into v2 platforms',
+  'Internal teams replacing spreadsheets and legacy tools with purpose-built software',
+  'Organizations needing secure web portals, dashboards, and admin systems'
+];
+
+const engagements = [
+  {
+    title: 'Fixed-Scope Build',
+    description: 'Best for clearly defined deliverables and timelines.'
+  },
+  {
+    title: 'Monthly Retainer',
+    description: 'Ongoing development and iteration for growing products.'
+  },
+  {
+    title: 'Technical Partner Support',
+    description: 'Architecture planning, codebase audits, and team enablement.'
+  }
+];
 ---
 
 <Layout
@@ -9,21 +68,21 @@ import Layout from '../layouts/Layout.astro';
 >
   <section class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
     <div class="space-y-5">
-      <p class="fade-rise inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100" style="--delay: 80ms;">
+      <p class="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100">
         About Quantum Code Devs
       </p>
-      <h1 class="fade-rise text-4xl font-semibold text-white md:text-5xl" style="--delay: 160ms;">
+      <h1 class="text-4xl font-semibold text-white md:text-5xl">
         We build practical digital products as a solo LLC, with a scope that stays realistic and focused.
       </h1>
-      <p class="fade-rise text-lg text-slate-300" style="--delay: 260ms;">
+      <p class="text-lg text-slate-300">
         Quantum Code Devs partners with founders, business owners, and internal teams to design, build, and scale web, mobile, and desktop software. The business is currently just me, which keeps communication direct and the delivery model honest.
       </p>
-      <p class="fade-rise text-slate-300" style="--delay: 320ms;">
+      <p class="text-slate-300">
         My core strengths are Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET when the project calls for it, so I can match the technology to the problem instead of forcing one stack everywhere.
       </p>
     </div>
 
-    <aside class="glass-card fade-rise" style="--delay: 340ms;">
+    <aside class="glass-card">
       <h2 class="text-2xl font-semibold text-white">What We Stand For</h2>
       <ul class="mt-4 space-y-3 text-sm text-slate-200">
         <li><strong class="text-white">Clarity:</strong> We define scope and milestones before writing production code.</li>
@@ -36,68 +95,55 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="mt-12 grid gap-4 md:grid-cols-3">
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Product Discovery</h2>
-      <p class="mt-2 text-slate-300">We map business goals to technical requirements, reducing expensive pivots later.</p>
-    </article>
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Design + Build</h2>
-      <p class="mt-2 text-slate-300">UX, interface systems, and robust implementation developed as one integrated process.</p>
-    </article>
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Launch + Grow</h2>
-      <p class="mt-2 text-slate-300">Post-launch support, performance tuning, and roadmap planning for continuous growth.</p>
-    </article>
+    {
+      servicePillars.map((pillar) => (
+        <GlassCard title={pillar.title} titleClass="text-xl font-semibold text-white">
+          <p>{pillar.description}</p>
+        </GlassCard>
+      ))
+    }
   </section>
 
-  <section class="mt-12 glass-card">
-    <h2 class="text-2xl font-semibold text-white">Our Delivery Model</h2>
+  <GlassCard as="section" class="mt-12" title="Our Delivery Model">
     <div class="mt-4 grid gap-4 md:grid-cols-2">
-      <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-        <h3 class="text-lg font-semibold text-white">Weekly Momentum</h3>
-        <p class="mt-2 text-sm text-slate-300">Structured check-ins, async updates, and review demos ensure progress is visible and decisions are quick.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-        <h3 class="text-lg font-semibold text-white">Roadmap-Driven Execution</h3>
-        <p class="mt-2 text-sm text-slate-300">We break work into practical milestones tied to business outcomes, not just feature lists.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-        <h3 class="text-lg font-semibold text-white">Modern Engineering Stack</h3>
-        <p class="mt-2 text-sm text-slate-300">Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET power scalable systems with a clean TypeScript-first foundation.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-        <h3 class="text-lg font-semibold text-white">Support Beyond Launch</h3>
-        <p class="mt-2 text-sm text-slate-300">We continue with optimization, enhancements, and technical advisory as your product evolves.</p>
-      </div>
+      {
+        deliveryModel.map((item) => (
+          <InsetCard>
+            <h3 class="text-lg font-semibold text-white">{item.title}</h3>
+            <p class="mt-2 text-sm text-slate-300">{item.description}</p>
+          </InsetCard>
+        ))
+      }
     </div>
-  </section>
+  </GlassCard>
 
   <section class="mt-12 grid gap-4 lg:grid-cols-2">
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Industries We Commonly Support</h2>
+    <GlassCard title="Industries We Commonly Support">
       <ul class="mt-4 space-y-3 text-slate-300">
-        <li>Service businesses modernizing operations and sales workflows</li>
-        <li>Startups validating MVP products and scaling into v2 platforms</li>
-        <li>Internal teams replacing spreadsheets and legacy tools with purpose-built software</li>
-        <li>Organizations needing secure web portals, dashboards, and admin systems</li>
+        {industries.map((industry) => <li>{industry}</li>)}
       </ul>
-    </article>
+    </GlassCard>
 
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Engagement Formats</h2>
+    <GlassCard title="Engagement Formats">
       <ul class="mt-4 space-y-3 text-slate-300">
-        <li><strong class="text-white">Fixed-Scope Build:</strong> Best for clearly defined deliverables and timelines.</li>
-        <li><strong class="text-white">Monthly Retainer:</strong> Ongoing development and iteration for growing products.</li>
-        <li><strong class="text-white">Technical Partner Support:</strong> Architecture planning, codebase audits, and team enablement.</li>
+        {
+          engagements.map((item) => (
+            <li><strong class="text-white">{item.title}:</strong> {item.description}</li>
+          ))
+        }
       </ul>
-    </article>
+    </GlassCard>
   </section>
 
   <section class="mt-12 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-6 md:p-8">
-    <h2 class="text-3xl font-semibold text-white">Let’s build the right thing, not just the next thing.</h2>
-    <p class="mt-3 max-w-3xl text-slate-300">
-      If you are planning a website refresh, a business application, or a full product build, we can help you scope it clearly and execute it with confidence.
-    </p>
+    <SectionHeader
+      titleTag="h2"
+      title="Let’s build the right thing, not just the next thing."
+      description="If you are planning a website refresh, a business application, or a full product build, we can help you scope it clearly and execute it with confidence."
+      class="space-y-3"
+      titleClass="text-3xl font-semibold text-white"
+      descriptionClass="max-w-3xl text-slate-300"
+    />
     <div class="mt-5 flex flex-wrap gap-3">
       <a href="/contact" class="btn-primary">Start a Project Conversation</a>
       <a href="/services" class="btn-secondary">Review Services & Pricing</a>

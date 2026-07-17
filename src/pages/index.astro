@@ -1,5 +1,64 @@
 ---
+import GlassCard from '../components/GlassCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
+
+const serviceCards = [
+	{
+		title: 'Website Development',
+		description: 'Conversion-focused websites, landing pages, and content platforms designed to scale with your brand.'
+	},
+	{
+		title: 'Application Engineering',
+		description: 'Robust web, mobile, and desktop software with performance, security, and usability built in from day one.'
+	},
+	{
+		title: 'Ongoing Product Support',
+		description: 'Iterative improvements, analytics-led optimization, and long-term technical guidance after launch.'
+	}
+];
+
+const processSteps = [
+	{
+		step: '01 Discovery',
+		title: 'Define Goals',
+		description: 'We map requirements, user needs, and key success metrics before any implementation begins.'
+	},
+	{
+		step: '02 Blueprint',
+		title: 'Plan Scope',
+		description: 'You receive a delivery plan with milestones, architecture direction, and clear estimate ranges.'
+	},
+	{
+		step: '03 Build',
+		title: 'Ship Iteratively',
+		description: 'We release in small increments with weekly demos, keeping momentum and reducing project risk.'
+	},
+	{
+		step: '04 Scale',
+		title: 'Optimize Growth',
+		description: 'After launch, we monitor usage, improve performance, and evolve your product roadmap.'
+	}
+];
+
+const technologyColumns = [
+	{
+		title: 'Frontend',
+		description: 'Angular 20, TypeScript, Angular Material, Ionic UI, SCSS, Tailwind CSS, NgRx, Angular Signals, RxJS.'
+	},
+	{
+		title: 'Backend',
+		description: 'Node.js LTS with NestJS (primary), REST APIs, optional GraphQL, JWT/OAuth2 auth flows, RBAC, Swagger.'
+	},
+	{
+		title: 'Data & Real-Time',
+		description: 'MySQL 8 with Sequelize, migrations and transactions, plus Socket.IO / NestJS gateways for live features.'
+	},
+	{
+		title: 'DevOps',
+		description: 'GitHub Actions CI/CD, Docker + Compose, Nginx reverse proxy, and deployment on VPS or cloud infrastructure.'
+	}
+];
 ---
 
 <Layout
@@ -9,22 +68,22 @@ import Layout from '../layouts/Layout.astro';
 >
 	<section class="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
 		<div class="space-y-7">
-			<p class="fade-rise inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100" style="--delay: 80ms;">
-				Solo LLC for Practical Digital Delivery
+			<p class="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
+				Practical Digital Delivery
 			</p>
-			<h1 class="fade-rise text-4xl font-semibold leading-tight text-white md:text-6xl" style="--delay: 160ms;">
+			<h1 class="text-4xl font-semibold leading-tight text-white md:text-6xl">
 				We build websites and bespoke software that stay within scope and deliver real business value.
 			</h1>
-			<p class="fade-rise max-w-2xl text-lg text-slate-300" style="--delay: 260ms;">
+			<p class="max-w-2xl text-lg text-slate-300">
 				Quantum Code Devs is a solo LLC focused on websites and custom software applications. I keep the offering intentionally narrow so I can deliver well, while also bringing strong C# and .NET experience when a project needs it.
 			</p>
-			<div class="fade-rise flex flex-wrap gap-3" style="--delay: 340ms;">
+			<div class="flex flex-wrap gap-3">
 				<a href="/services" class="btn-primary">Explore Services</a>
 				<a href="/contact" class="btn-secondary">Book a Discovery Call</a>
 			</div>
 		</div>
 
-		<div class="glass-card fade-rise space-y-5" style="--delay: 420ms;">
+		<div class="glass-card space-y-5">
 			<p class="text-xs uppercase tracking-[0.2em] text-cyan-100">Delivery Snapshot</p>
 			<ul class="space-y-3 text-sm text-slate-200">
 				<li class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-cyan-300"></span>Full-cycle web engineering with Angular, TypeScript, and NestJS APIs.</li>
@@ -40,49 +99,34 @@ import Layout from '../layouts/Layout.astro';
 	</section>
 
 	<section class="mt-14 grid gap-4 md:grid-cols-3">
-		<article class="glass-card fade-rise" style="--delay: 100ms;">
-			<h2 class="text-2xl font-semibold text-white">Website Development</h2>
-			<p class="mt-2 text-slate-300">Conversion-focused websites, landing pages, and content platforms designed to scale with your brand.</p>
-		</article>
-		<article class="glass-card fade-rise" style="--delay: 180ms;">
-			<h2 class="text-2xl font-semibold text-white">Application Engineering</h2>
-			<p class="mt-2 text-slate-300">Robust web, mobile, and desktop software with performance, security, and usability built in from day one.</p>
-		</article>
-		<article class="glass-card fade-rise" style="--delay: 260ms;">
-			<h2 class="text-2xl font-semibold text-white">Ongoing Product Support</h2>
-			<p class="mt-2 text-slate-300">Iterative improvements, analytics-led optimization, and long-term technical guidance after launch.</p>
-		</article>
+		{
+			serviceCards.map((card) => (
+				<GlassCard title={card.title} titleClass="text-2xl font-semibold text-white">
+					<p>{card.description}</p>
+				</GlassCard>
+			))
+		}
 	</section>
 
 	<section class="mt-14">
-		<div class="mb-6 flex items-end justify-between gap-4">
-			<div>
-				<p class="text-xs uppercase tracking-[0.2em] text-cyan-200">How We Work</p>
-				<h2 class="mt-2 text-3xl font-semibold text-white md:text-4xl">A practical process designed for shipping, not stalling.</h2>
-			</div>
-		</div>
+		<SectionHeader
+			titleTag="h2"
+			eyebrow="How We Work"
+			title="A practical process designed for shipping, not stalling."
+			class="mb-6"
+			eyebrowClass="text-xs uppercase tracking-[0.2em] text-cyan-200"
+			titleClass="mt-2 text-3xl font-semibold text-white md:text-4xl"
+		/>
 
 		<div class="grid gap-4 md:grid-cols-4">
-			<article class="glass-card">
-				<p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">01 Discovery</p>
-				<h3 class="mt-2 text-xl font-semibold text-white">Define Goals</h3>
-				<p class="mt-2 text-sm text-slate-300">We map requirements, user needs, and key success metrics before any implementation begins.</p>
-			</article>
-			<article class="glass-card">
-				<p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">02 Blueprint</p>
-				<h3 class="mt-2 text-xl font-semibold text-white">Plan Scope</h3>
-				<p class="mt-2 text-sm text-slate-300">You receive a delivery plan with milestones, architecture direction, and clear estimate ranges.</p>
-			</article>
-			<article class="glass-card">
-				<p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">03 Build</p>
-				<h3 class="mt-2 text-xl font-semibold text-white">Ship Iteratively</h3>
-				<p class="mt-2 text-sm text-slate-300">We release in small increments with weekly demos, keeping momentum and reducing project risk.</p>
-			</article>
-			<article class="glass-card">
-				<p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">04 Scale</p>
-				<h3 class="mt-2 text-xl font-semibold text-white">Optimize Growth</h3>
-				<p class="mt-2 text-sm text-slate-300">After launch, we monitor usage, improve performance, and evolve your product roadmap.</p>
-			</article>
+			{
+				processSteps.map((step) => (
+					<GlassCard title={step.title} titleTag="h3" titleClass="mt-2 text-xl font-semibold text-white" bodyClass="mt-2 text-sm text-slate-300">
+						<p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">{step.step}</p>
+						<p>{step.description}</p>
+					</GlassCard>
+				))
+			}
 		</div>
 	</section>
 
@@ -120,30 +164,23 @@ import Layout from '../layouts/Layout.astro';
 	</section>
 
 	<section class="mt-14">
-		<div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-			<div>
-				<p class="text-xs uppercase tracking-[0.2em] text-cyan-200">Technology Stack</p>
-				<h2 class="mt-2 text-3xl font-semibold text-white md:text-4xl">Primary stack for production-grade web, mobile, and desktop products.</h2>
-			</div>
-		</div>
+		<SectionHeader
+			titleTag="h2"
+			eyebrow="Technology Stack"
+			title="Primary stack for production-grade web, mobile, and desktop products."
+			class="mb-6"
+			eyebrowClass="text-xs uppercase tracking-[0.2em] text-cyan-200"
+			titleClass="mt-2 text-3xl font-semibold text-white md:text-4xl"
+		/>
 
 		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-			<article class="glass-card">
-				<h3 class="text-lg font-semibold text-white">Frontend</h3>
-				<p class="mt-2 text-sm text-slate-300">Angular 20, TypeScript, Angular Material, Ionic UI, SCSS, Tailwind CSS, NgRx, Angular Signals, RxJS.</p>
-			</article>
-			<article class="glass-card">
-				<h3 class="text-lg font-semibold text-white">Backend</h3>
-				<p class="mt-2 text-sm text-slate-300">Node.js LTS with NestJS (primary), REST APIs, optional GraphQL, JWT/OAuth2 auth flows, RBAC, Swagger.</p>
-			</article>
-			<article class="glass-card">
-				<h3 class="text-lg font-semibold text-white">Data & Real-Time</h3>
-				<p class="mt-2 text-sm text-slate-300">MySQL 8 with Sequelize, migrations and transactions, plus Socket.IO / NestJS gateways for live features.</p>
-			</article>
-			<article class="glass-card">
-				<h3 class="text-lg font-semibold text-white">DevOps</h3>
-				<p class="mt-2 text-sm text-slate-300">GitHub Actions CI/CD, Docker + Compose, Nginx reverse proxy, and deployment on VPS or cloud infrastructure.</p>
-			</article>
+			{
+				technologyColumns.map((column) => (
+					<GlassCard title={column.title} titleTag="h3" titleClass="text-lg font-semibold text-white" bodyClass="mt-2 text-sm text-slate-300">
+						<p>{column.description}</p>
+					</GlassCard>
+				))
+			}
 		</div>
 
 		<div class="mt-4 rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm text-slate-200">
@@ -164,11 +201,11 @@ import Layout from '../layouts/Layout.astro';
 		<article class="glass-card">
 			<h2 class="text-2xl font-semibold text-white">Quick Links</h2>
 			<div class="mt-4 grid gap-3 sm:grid-cols-2">
-				<a href="https://your-portfolio-site.example" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-cyan-300 hover:text-white">
+				<a href="https://kenny.quantumcode.dev" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-cyan-300 hover:text-white">
 					<p class="text-xs uppercase tracking-[0.16em] text-cyan-300">Portfolio</p>
 					<p class="mt-2 font-semibold">Your portfolio site</p>
 				</a>
-				<a href="https://github.com/your-github-username" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-violet-300 hover:text-white">
+				<a href="https://github.com/slurrps-mcgee" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-violet-300 hover:text-white">
 					<p class="text-xs uppercase tracking-[0.16em] text-violet-300">GitHub</p>
 					<p class="mt-2 font-semibold">Your GitHub profile</p>
 				</a>

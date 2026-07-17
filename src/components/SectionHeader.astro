@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  class?: string;
+  titleTag?: 'h1' | 'h2' | 'h3';
+  eyebrowClass?: string;
+  titleClass?: string;
+  descriptionClass?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  class: className = '',
+  titleTag = 'h1',
+  eyebrowClass = 'inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100',
+  titleClass = 'text-4xl font-semibold text-white md:text-5xl',
+  descriptionClass = 'max-w-3xl text-lg text-slate-300'
+} = Astro.props as Props;
+
+const TitleTag = titleTag;
+---
+
+<div class:list={['space-y-5', className]}>
+  {eyebrow && <p class={eyebrowClass}>{eyebrow}</p>}
+  <TitleTag class={titleClass}>{title}</TitleTag>
+  {description && <p class={descriptionClass}>{description}</p>}
+  <slot />
+</div>

@@ -122,9 +122,42 @@ h3,
 	pointer-events: none;
 }
 
-.fade-rise {
-	animation: fadeRise 700ms ease both;
-	animation-delay: var(--delay, 0ms);
+.content-stagger > * {
+	opacity: 0;
+	animation: fadeRise 650ms ease both;
+	animation-delay: var(--entry-delay, 0ms);
+}
+
+.content-stagger > *:nth-child(1) {
+	--entry-delay: 60ms;
+}
+
+.content-stagger > *:nth-child(2) {
+	--entry-delay: 140ms;
+}
+
+.content-stagger > *:nth-child(3) {
+	--entry-delay: 220ms;
+}
+
+.content-stagger > *:nth-child(4) {
+	--entry-delay: 300ms;
+}
+
+.content-stagger > *:nth-child(5) {
+	--entry-delay: 380ms;
+}
+
+.content-stagger > *:nth-child(6) {
+	--entry-delay: 460ms;
+}
+
+.content-stagger > *:nth-child(7) {
+	--entry-delay: 540ms;
+}
+
+.content-stagger > *:nth-child(8) {
+	--entry-delay: 620ms;
 }
 
 @layer components {
@@ -172,5 +205,12 @@ h3,
 @media (max-width: 768px) {
 	.orb {
 		opacity: 0.38;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.content-stagger > * {
+		opacity: 1;
+		animation: none;
 	}
 }

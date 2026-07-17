@@ -1,5 +1,49 @@
 ---
+import GlassCard from '../components/GlassCard.astro';
+import InsetCard from '../components/InsetCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
+
+const coreServices = [
+  {
+    title: 'Web Application Delivery',
+    description: 'Angular-based platforms, admin systems, portals, and dashboards with strong UX and scalable architecture.'
+  },
+  {
+    title: 'Mobile Application Delivery',
+    description: 'Ionic + Angular mobile apps with Capacitor integrations for native features on Android and iOS.'
+  },
+  {
+    title: 'Desktop Application Delivery',
+    description: 'Electron + Angular desktop tools with offline support, local workflows, and operational reliability.'
+  },
+  {
+    title: 'Backend & API Systems',
+    description: 'NestJS/Node.js APIs, authentication, authorization, integrations, and MySQL-backed data layers. C# / .NET options are available when a Microsoft stack is the right fit.'
+  }
+];
+
+const includedItems = [
+  '<strong class="text-white">Planning:</strong> Scope definition, milestones, timeline mapping, and risk alignment.',
+  '<strong class="text-white">Delivery:</strong> Iterative builds with weekly progress demos and actionable feedback loops.',
+  '<strong class="text-white">Quality:</strong> Production standards for maintainability, performance, and operational stability.',
+  '<strong class="text-white">Handover:</strong> Documentation, deployment guidance, and post-launch support options.'
+];
+
+const pricingFactors = [
+  '<strong class="text-white">Complexity:</strong> Advanced features, integrations, and custom workflows increase effort.',
+  '<strong class="text-white">Timeline:</strong> Tight deadlines usually require added team capacity and premium rates.',
+  '<strong class="text-white">Location:</strong> Typical rates differ across regions and talent markets.'
+];
+
+const techStack = [
+  '<strong class="text-white">Web Apps:</strong> Angular 20, TypeScript, Angular Material, SCSS, Tailwind CSS, NgRx, Angular Signals.',
+  '<strong class="text-white">Mobile Apps:</strong> Ionic + Angular with Capacitor for Android/iOS and native integrations.',
+  '<strong class="text-white">Desktop Apps:</strong> Electron + Angular with local storage, file-system access, and offline support.',
+  '<strong class="text-white">Backend:</strong> Node.js LTS + NestJS, JWT/OAuth2 auth, RBAC, validation, and Swagger docs.',
+  '<strong class="text-white">Database:</strong> MySQL 8 with Sequelize (or TypeORM/Prisma), migrations, pooling, and transactions.',
+  '<strong class="text-white">DevOps:</strong> Docker, GitHub Actions, Nginx, and cloud/VPS deployment pipelines.'
+];
 ---
 
 <Layout
@@ -7,33 +51,20 @@ import Layout from '../layouts/Layout.astro';
   description="Explore services and pricing for web, mobile, and desktop software development."
   activePage="services"
 >
-  <section class="space-y-5">
-    <p class="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
-      Services & Pricing
-    </p>
-    <h1 class="text-4xl font-semibold text-white md:text-5xl">Product-focused engineering services for web, mobile, desktop, and backend systems.</h1>
-    <p class="max-w-3xl text-lg text-slate-300">
-      We help teams scope clearly, build confidently, and launch maintainable digital products. Every engagement is shaped around business outcomes, technical quality, and delivery speed.
-    </p>
-  </section>
+  <SectionHeader
+    eyebrow="Services & Pricing"
+    title="Product-focused engineering services for web, mobile, desktop, and backend systems."
+    description="We help teams scope clearly, build confidently, and launch maintainable digital products. Every engagement is shaped around business outcomes, technical quality, and delivery speed."
+  />
 
   <section class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Web Application Delivery</h2>
-      <p class="mt-2 text-sm text-slate-300">Angular-based platforms, admin systems, portals, and dashboards with strong UX and scalable architecture.</p>
-    </article>
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Mobile Application Delivery</h2>
-      <p class="mt-2 text-sm text-slate-300">Ionic + Angular mobile apps with Capacitor integrations for native features on Android and iOS.</p>
-    </article>
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Desktop Application Delivery</h2>
-      <p class="mt-2 text-sm text-slate-300">Electron + Angular desktop tools with offline support, local workflows, and operational reliability.</p>
-    </article>
-    <article class="glass-card">
-      <h2 class="text-xl font-semibold text-white">Backend & API Systems</h2>
-      <p class="mt-2 text-sm text-slate-300">NestJS/Node.js APIs, authentication, authorization, integrations, and MySQL-backed data layers. C# / .NET options are available when a Microsoft stack is the right fit.</p>
-    </article>
+    {
+      coreServices.map((service) => (
+        <GlassCard title={service.title} titleClass="text-xl font-semibold text-white" bodyClass="mt-2 text-sm text-slate-300">
+          <p>{service.description}</p>
+        </GlassCard>
+      ))
+    }
   </section>
 
   <section class="mt-10 grid gap-4 md:grid-cols-3">
@@ -59,7 +90,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
-          <h3 class="text-lg font-semibold text-violet-100">Mobile Applications</h3>
+          <h3 class="text-lg font-semibold text-cyan-100">Mobile Applications</h3>
           <ul class="mt-2 space-y-2 text-sm text-slate-300">
             <li>Simple mobile app: <strong class="text-white">$5,000 - $15,000</strong></li>
             <li>Moderate app: <strong class="text-white">$15,000 - $50,000</strong></li>
@@ -79,38 +110,30 @@ import Layout from '../layouts/Layout.astro';
     </article>
   </section>
 
-  <section class="mt-10 glass-card">
-    <h2 class="text-2xl font-semibold text-white">What Is Included In Every Engagement</h2>
+  <GlassCard as="section" class="mt-10" title="What Is Included In Every Engagement">
     <div class="mt-4 grid gap-3 text-slate-300 md:grid-cols-2 lg:grid-cols-4">
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Planning:</strong> Scope definition, milestones, timeline mapping, and risk alignment.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Delivery:</strong> Iterative builds with weekly progress demos and actionable feedback loops.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Quality:</strong> Production standards for maintainability, performance, and operational stability.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Handover:</strong> Documentation, deployment guidance, and post-launch support options.</p>
+      {includedItems.map((item) => <InsetCard><p set:html={item} /></InsetCard>)}
     </div>
-  </section>
+  </GlassCard>
 
-  <section class="mt-10 glass-card">
-    <h2 class="text-2xl font-semibold text-white">Where I Stay Deliberately Focused</h2>
+  <GlassCard as="section" class="mt-10" title="Where I Stay Deliberately Focused">
     <p class="mt-3 text-slate-300">
       I do not try to offer everything. The business is intentionally centered on websites and bespoke software applications, plus the platforms and integrations needed to support them well.
     </p>
     <div class="mt-4 grid gap-3 md:grid-cols-2">
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-300"><strong class="text-white">Primary fit:</strong> Angular, Ionic, Electron, NestJS, MySQL, and Astro for simpler sites.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-300"><strong class="text-white">Additional fit:</strong> C# / .NET when a project benefits from Microsoft ecosystem alignment.</p>
+      <InsetCard class="text-slate-300"><p><strong class="text-white">Primary fit:</strong> Angular, Ionic, Electron, NestJS, MySQL, and Astro for simpler sites.</p></InsetCard>
+      <InsetCard class="text-slate-300"><p><strong class="text-white">Additional fit:</strong> C# / .NET when a project benefits from Microsoft ecosystem alignment.</p></InsetCard>
     </div>
-  </section>
+  </GlassCard>
 
-  <section class="mt-10 glass-card">
-    <h2 class="text-2xl font-semibold text-white">What Influences Final Price?</h2>
+  <GlassCard as="section" class="mt-10" title="What Influences Final Price?">
     <ul class="mt-4 grid gap-3 text-slate-300 md:grid-cols-3">
-      <li class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Complexity:</strong> Advanced features, integrations, and custom workflows increase effort.</li>
-      <li class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Timeline:</strong> Tight deadlines usually require added team capacity and premium rates.</li>
-      <li class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Location:</strong> Typical rates differ across regions and talent markets.</li>
+      {pricingFactors.map((factor) => <li><InsetCard><p set:html={factor} /></InsetCard></li>)}
     </ul>
     <p class="mt-5 text-slate-300">
       Engagement options include fixed-price projects, hourly development, and long-term monthly retainers. If you have a specific project in mind, we can provide a tailored estimate.
     </p>
-  </section>
+  </GlassCard>
 
   <section class="mt-10 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-6 md:p-8">
     <h2 class="text-3xl font-semibold text-white">Ready to scope your project?</h2>
@@ -123,18 +146,12 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <section class="mt-10 glass-card">
-    <h2 class="text-2xl font-semibold text-white">Core Technology Stack We Deliver</h2>
+  <GlassCard as="section" class="mt-10" title="Core Technology Stack We Deliver">
     <div class="mt-4 grid gap-3 text-slate-300 md:grid-cols-2">
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Web Apps:</strong> Angular 20, TypeScript, Angular Material, SCSS, Tailwind CSS, NgRx, Angular Signals.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Mobile Apps:</strong> Ionic + Angular with Capacitor for Android/iOS and native integrations.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Desktop Apps:</strong> Electron + Angular with local storage, file-system access, and offline support.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Backend:</strong> Node.js LTS + NestJS, JWT/OAuth2 auth, RBAC, validation, and Swagger docs.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">Database:</strong> MySQL 8 with Sequelize (or TypeORM/Prisma), migrations, pooling, and transactions.</p>
-      <p class="rounded-xl border border-white/10 bg-slate-900/55 p-4"><strong class="text-white">DevOps:</strong> Docker, GitHub Actions, Nginx, and cloud/VPS deployment pipelines.</p>
+      {techStack.map((item) => <InsetCard><p set:html={item} /></InsetCard>)}
     </div>
     <p class="mt-5 text-slate-300">
       For simpler marketing websites or lightweight blogs, we also deliver streamlined Astro + Tailwind builds.
     </p>
-  </section>
+  </GlassCard>
 </Layout>

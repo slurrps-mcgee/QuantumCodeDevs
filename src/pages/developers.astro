@@ -1,8 +1,47 @@
 ---
+import GlassCard from '../components/GlassCard.astro';
+import InsetCard from '../components/InsetCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
 
-const portfolioUrl = 'https://your-portfolio-site.example';
-const githubUrl = 'https://github.com/your-github-username';
+const portfolioUrl = 'https://kenny.quantumcode.dev';
+const githubUrl = 'https://github.com/QuantumCodeDevs';
+
+const strengths = [
+  {
+    title: 'Frontend',
+    description: 'Angular, Ionic, Tailwind CSS, SCSS, RxJS, NgRx, Angular Signals.'
+  },
+  {
+    title: 'Backend',
+    description: 'NestJS, Node.js, MySQL, API design, auth flows, and integrations.'
+  },
+  {
+    title: 'Desktop',
+    description: 'Electron apps with offline support and native integration points.'
+  },
+  {
+    title: 'Microsoft Stack',
+    description: 'C# / .NET when a project benefits from a Microsoft platform fit.'
+  }
+];
+
+const links = [
+  {
+    label: 'Portfolio',
+    textClass: 'text-cyan-300',
+    hoverClass: 'hover:border-cyan-300',
+    href: portfolioUrl,
+    description: 'Visit the main portfolio / personal site for Quantum Code Devs.'
+  },
+  {
+    label: 'GitHub',
+    textClass: 'text-violet-300',
+    hoverClass: 'hover:border-violet-300',
+    href: githubUrl,
+    description: 'Visit the GitHub profile for Quantum Code Devs.'
+  }
+];
 ---
 
 <Layout
@@ -10,20 +49,16 @@ const githubUrl = 'https://github.com/your-github-username';
   description="Developer profile page for Quantum Code Devs."
   activePage="developers"
 >
-  <section class="space-y-5">
-    <p class="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
-      Developer Profile
-    </p>
-    <h1 class="text-4xl font-semibold text-white md:text-5xl">The developer behind Quantum Code Devs.</h1>
-    <p class="max-w-3xl text-lg text-slate-300">
-      For now, the business is just one developer: a solo founder focused on delivering websites, bespoke software applications, and the occasional simpler Astro site when that is the better fit.
-    </p>
-  </section>
+  <SectionHeader
+    eyebrow="Developer Profile"
+    title="The developer behind Quantum Code Devs."
+    description="For now, the business is just one developer: a solo founder focused on delivering websites, bespoke software applications, and the occasional simpler Astro site when that is the better fit."
+  />
 
   <section class="mt-10 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
-    <article class="glass-card">
+    <GlassCard>
       <div class="h-40 rounded-xl border border-white/10 bg-gradient-to-br from-cyan-500/20 to-violet-500/20"></div>
-      <h2 class="mt-4 text-2xl font-semibold text-white">Solo Founder</h2>
+      <h2 class="mt-4 text-2xl font-semibold text-white">Kenneth Lamb: Solo Founder</h2>
       <p class="mt-3 text-slate-300">
         Direct communication, fast decisions, and a realistic delivery model keep projects moving without the overhead of a larger agency.
       </p>
@@ -31,42 +66,32 @@ const githubUrl = 'https://github.com/your-github-username';
         <a href={portfolioUrl} target="_blank" rel="noreferrer" class="btn-primary">Quantum Code Devs Portfolio</a>
         <a href={githubUrl} target="_blank" rel="noreferrer" class="btn-secondary">GitHub</a>
       </div>
-    </article>
+    </GlassCard>
 
-    <article class="glass-card space-y-4">
-      <h2 class="text-2xl font-semibold text-white">Core Strengths</h2>
+    <GlassCard class="space-y-4" title="Core Strengths">
       <div class="grid gap-3 md:grid-cols-2">
-        <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-          <h3 class="font-semibold text-white">Frontend</h3>
-          <p class="mt-2 text-sm text-slate-300">Angular, Ionic, Tailwind CSS, SCSS, RxJS, NgRx, Angular Signals.</p>
-        </div>
-        <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-          <h3 class="font-semibold text-white">Backend</h3>
-          <p class="mt-2 text-sm text-slate-300">NestJS, Node.js, MySQL, API design, auth flows, and integrations.</p>
-        </div>
-        <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-          <h3 class="font-semibold text-white">Desktop</h3>
-          <p class="mt-2 text-sm text-slate-300">Electron apps with offline support and native integration points.</p>
-        </div>
-        <div class="rounded-xl border border-white/10 bg-slate-900/55 p-4">
-          <h3 class="font-semibold text-white">Microsoft Stack</h3>
-          <p class="mt-2 text-sm text-slate-300">C# / .NET when a project benefits from a Microsoft platform fit.</p>
-        </div>
+        {
+          strengths.map((strength) => (
+            <InsetCard>
+              <h3 class="font-semibold text-white">{strength.title}</h3>
+              <p class="mt-2 text-sm text-slate-300">{strength.description}</p>
+            </InsetCard>
+          ))
+        }
       </div>
-    </article>
+    </GlassCard>
   </section>
 
-  <section class="mt-10 glass-card">
-    <h2 class="text-2xl font-semibold text-white">What I Typically Link To</h2>
+  <GlassCard as="section" class="mt-10" title="What I Typically Link To">
     <div class="mt-4 grid gap-3 md:grid-cols-2">
-      <a href={portfolioUrl} target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 transition hover:border-cyan-300">
-        <p class="text-xs uppercase tracking-[0.16em] text-cyan-300">Portfolio</p>
-        <p class="mt-2 text-slate-200">Add your main portfolio / personal site here for Quantum Code Devs.</p>
-      </a>
-      <a href={githubUrl} target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 transition hover:border-violet-300">
-        <p class="text-xs uppercase tracking-[0.16em] text-violet-300">GitHub</p>
-        <p class="mt-2 text-slate-200">Add your GitHub profile here for Quantum Code Devs.</p>
-      </a>
+      {
+        links.map((link) => (
+          <a href={link.href} target="_blank" rel="noreferrer" class:list={['rounded-xl border border-white/10 bg-slate-900/55 p-4 transition', link.hoverClass]}>
+            <p class:list={['text-xs uppercase tracking-[0.16em]', link.textClass]}>{link.label}</p>
+            <p class="mt-2 text-slate-200">{link.description}</p>
+          </a>
+        ))
+      }
     </div>
-  </section>
+  </GlassCard>
 </Layout>

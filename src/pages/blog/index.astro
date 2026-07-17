@@ -22,8 +22,8 @@ const posts = (await getCollection('blog')).sort(
       {
         posts.length > 0 ? (
           <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, index) => (
-              <a href={`/blog/${post.id}`} class="card fade-rise group flex h-full flex-col" style={`--delay: ${index * 90 + 70}ms;`}>
+            {posts.map((post) => (
+              <a href={`/blog/${post.id}`} class="card group flex h-full flex-col">
                 <h2 class="mb-3 line-clamp-2 text-2xl font-bold text-white transition-colors group-hover:text-violet-400">
                   {post.data.title}
                 </h2>
