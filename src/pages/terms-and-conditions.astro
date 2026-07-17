@@ -1,4 +1,5 @@
 ---
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -6,14 +7,13 @@ import Layout from '../layouts/Layout.astro';
   title="Terms & Conditions | Quantum Code Devs"
   description="Terms and conditions for using Quantum Code Devs website and services."
 >
-  <section class="space-y-5">
-    <p class="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
-      Legal
-    </p>
-    <h1 class="text-4xl font-semibold text-white md:text-5xl">Terms & Conditions</h1>
-    <p class="max-w-3xl text-lg text-slate-300">
-      These terms govern your use of our website and any professional services provided by Quantum Code Devs.
-    </p>
+  <section>
+    <SectionHeader
+      eyebrow="Legal"
+      title="Terms & Conditions"
+      description="These terms govern your use of our website and any professional services provided by Quantum Code Devs."
+      descriptionClass="max-w-3xl text-lg text-slate-300"
+    />
     <p class="text-sm text-slate-400">Last updated: July 16, 2026</p>
   </section>
 

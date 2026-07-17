@@ -67,16 +67,15 @@ const technologyColumns = [
 	activePage="home"
 >
 	<section class="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
-		<div class="space-y-7">
-			<p class="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
-				Practical Digital Delivery
-			</p>
-			<h1 class="text-4xl font-semibold leading-tight text-white md:text-6xl">
-				We build websites and bespoke software that stay within scope and deliver real business value.
-			</h1>
-			<p class="max-w-2xl text-lg text-slate-300">
-				Quantum Code Devs is a solo LLC focused on websites and custom software applications. I keep the offering intentionally narrow so I can deliver well, while also bringing strong C# and .NET experience when a project needs it.
-			</p>
+		<div>
+			<SectionHeader
+				eyebrow="Practical Digital Delivery"
+				title="We build websites and bespoke software that stay within scope and deliver real business value."
+				description="Quantum Code Devs is a solo LLC focused on websites and custom software applications. I keep the offering intentionally narrow so I can deliver well, while also bringing strong C# and .NET experience when a project needs it."
+				eyebrowClass="inline-flex rounded-full border border-cyan-200/30 bg-cyan-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100"
+				titleClass="text-4xl font-semibold leading-tight text-white md:text-6xl"
+				descriptionClass="max-w-2xl text-lg text-slate-300"
+			/>
 			<div class="flex flex-wrap gap-3">
 				<a href="/services" class="btn-primary">Explore Services</a>
 				<a href="/contact" class="btn-secondary">Book a Discovery Call</a>
@@ -114,7 +113,6 @@ const technologyColumns = [
 			eyebrow="How We Work"
 			title="A practical process designed for shipping, not stalling."
 			class="mb-6"
-			eyebrowClass="text-xs uppercase tracking-[0.2em] text-cyan-200"
 			titleClass="mt-2 text-3xl font-semibold text-white md:text-4xl"
 		/>
 
@@ -169,7 +167,6 @@ const technologyColumns = [
 			eyebrow="Technology Stack"
 			title="Primary stack for production-grade web, mobile, and desktop products."
 			class="mb-6"
-			eyebrowClass="text-xs uppercase tracking-[0.2em] text-cyan-200"
 			titleClass="mt-2 text-3xl font-semibold text-white md:text-4xl"
 		/>
 

@@ -1,4 +1,6 @@
 ---
+import GlassCard from '../components/GlassCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import Layout from '../layouts/Layout.astro';
 
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '';
@@ -12,35 +14,43 @@ const hasEndpoint = Boolean(contactEndpoint);
 >
   <section class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
     <div class="space-y-5">
-      <p class="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100">
-        Let&apos;s Build Together
-      </p>
-      <h1 class="text-4xl font-semibold text-white md:text-5xl">Tell us what you are building and where you need support.</h1>
-      <p class="max-w-xl text-lg text-slate-300">
-        Share your goals, timeline, and platform priorities. We typically respond within one business day with a suggested engagement model, estimate range, and proposed next steps.
-      </p>
+      <SectionHeader
+        eyebrow="Let's Build Together"
+        title="Tell us what you are building and where you need support."
+        description="Share your goals, timeline, and platform priorities. We typically respond within one business day with a suggested engagement model, estimate range, and proposed next steps."
+        eyebrowClass="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100"
+        descriptionClass="max-w-xl text-lg text-slate-300"
+      />
 
-      <div class="glass-card space-y-3 text-slate-300">
+      <GlassCard bodyClass="space-y-3 text-slate-300">
         <p><strong class="text-white">Email:</strong> hello@quantumcodedevs.com</p>
         <p><strong class="text-white">Location:</strong> Remote team, global delivery</p>
         <p><strong class="text-white">Availability:</strong> New projects starting each month</p>
-      </div>
+      </GlassCard>
 
-      <div class="glass-card space-y-4 text-slate-300">
-        <h2 class="text-xl font-semibold text-white">What Happens After You Submit</h2>
+      <GlassCard
+        title="What Happens After You Submit"
+        titleTag="h2"
+        titleClass="text-xl font-semibold text-white"
+        bodyClass="mt-4 text-slate-300"
+      >
         <ul class="space-y-2 text-sm">
           <li>1. We review your goals, constraints, and required platforms.</li>
           <li>2. We share a recommended build approach and initial estimate.</li>
           <li>3. We schedule a short discovery call to finalize scope and milestones.</li>
         </ul>
-      </div>
+      </GlassCard>
 
-      <div class="glass-card space-y-3 text-sm text-slate-300">
-        <h2 class="text-xl font-semibold text-white">Typical Project Inputs</h2>
+      <GlassCard
+        title="Typical Project Inputs"
+        titleTag="h2"
+        titleClass="text-xl font-semibold text-white"
+        bodyClass="mt-3 space-y-3 text-sm text-slate-300"
+      >
         <p><strong class="text-white">Business goals:</strong> Revenue growth, workflow automation, customer experience improvements.</p>
         <p><strong class="text-white">Primary platforms:</strong> Angular web, Ionic mobile, Electron desktop, NestJS backend.</p>
         <p><strong class="text-white">Delivery style:</strong> Fixed-scope milestones or ongoing monthly product support.</p>
-      </div>
+      </GlassCard>
     </div>
 
     <form class="glass-card space-y-4" method="post" action={hasEndpoint ? contactEndpoint : 'mailto:hello@quantumcodedevs.com'} enctype={hasEndpoint ? undefined : 'text/plain'}>

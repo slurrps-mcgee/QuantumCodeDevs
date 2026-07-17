@@ -67,20 +67,16 @@ const engagements = [
   activePage="about"
 >
   <section class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-    <div class="space-y-5">
-      <p class="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100">
-        About Quantum Code Devs
-      </p>
-      <h1 class="text-4xl font-semibold text-white md:text-5xl">
-        We build practical digital products as a solo LLC, with a scope that stays realistic and focused.
-      </h1>
-      <p class="text-lg text-slate-300">
-        Quantum Code Devs partners with founders, business owners, and internal teams to design, build, and scale web, mobile, and desktop software. The business is currently just me, which keeps communication direct and the delivery model honest.
-      </p>
+    <SectionHeader
+      eyebrow="About Quantum Code Devs"
+      title="We build practical digital products as a solo LLC, with a scope that stays realistic and focused."
+      description="Quantum Code Devs partners with founders, business owners, and internal teams to design, build, and scale web, mobile, and desktop software. The business is currently just me, which keeps communication direct and the delivery model honest."
+      eyebrowClass="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100"
+    >
       <p class="text-slate-300">
         My core strengths are Astro, Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET when the project calls for it, so I can match the technology to the problem instead of forcing one stack everywhere.
       </p>
-    </div>
+    </SectionHeader>
 
     <aside class="glass-card">
       <h2 class="text-2xl font-semibold text-white">What We Stand For</h2>
