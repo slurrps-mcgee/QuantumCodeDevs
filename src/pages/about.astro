@@ -2,68 +2,19 @@
 import GlassCard from '../components/GlassCard.astro';
 import InsetCard from '../components/InsetCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import {
+	deliveryModel,
+	engagements,
+	industries,
+	pageMeta,
+	servicePillars
+} from '../data/site';
 import Layout from '../layouts/Layout.astro';
-
-const servicePillars = [
-  {
-    title: 'Product Discovery',
-    description: 'We map business goals to technical requirements, reducing expensive pivots later.'
-  },
-  {
-    title: 'Design + Build',
-    description: 'UX, interface systems, and robust implementation developed as one integrated process.'
-  },
-  {
-    title: 'Launch + Grow',
-    description: 'Post-launch support, performance tuning, and roadmap planning for continuous growth.'
-  }
-];
-
-const deliveryModel = [
-  {
-    title: 'Weekly Momentum',
-    description: 'Structured check-ins, async updates, and review demos ensure progress is visible and decisions are quick.'
-  },
-  {
-    title: 'Roadmap-Driven Execution',
-    description: 'We break work into practical milestones tied to business outcomes, not just feature lists.'
-  },
-  {
-    title: 'Modern Engineering Stack',
-    description: 'Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET power scalable systems with a clean TypeScript-first foundation.'
-  },
-  {
-    title: 'Support Beyond Launch',
-    description: 'We continue with optimization, enhancements, and technical advisory as your product evolves.'
-  }
-];
-
-const industries = [
-  'Service businesses modernizing operations and sales workflows',
-  'Startups validating MVP products and scaling into v2 platforms',
-  'Internal teams replacing spreadsheets and legacy tools with purpose-built software',
-  'Organizations needing secure web portals, dashboards, and admin systems'
-];
-
-const engagements = [
-  {
-    title: 'Fixed-Scope Build',
-    description: 'Best for clearly defined deliverables and timelines.'
-  },
-  {
-    title: 'Monthly Retainer',
-    description: 'Ongoing development and iteration for growing products.'
-  },
-  {
-    title: 'Technical Partner Support',
-    description: 'Architecture planning, codebase audits, and team enablement.'
-  }
-];
 ---
 
 <Layout
-  title="About | Quantum Code Devs"
-  description="Learn about Quantum Code Devs and how we deliver web and software products."
+  title={pageMeta.about.title}
+  description={pageMeta.about.description}
   activePage="about"
 >
   <section class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
@@ -90,14 +41,17 @@ const engagements = [
     </aside>
   </section>
 
-  <section class="mt-12 grid gap-4 md:grid-cols-3">
-    {
-      servicePillars.map((pillar) => (
-        <GlassCard title={pillar.title} titleClass="text-xl font-semibold text-white">
-          <p>{pillar.description}</p>
-        </GlassCard>
-      ))
-    }
+  <section class="mt-12" aria-labelledby="about-pillars-heading">
+    <h2 id="about-pillars-heading" class="sr-only">Service pillars</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {
+        servicePillars.map((pillar) => (
+          <GlassCard title={pillar.title} titleTag="h3" titleClass="text-xl font-semibold text-white">
+            <p>{pillar.description}</p>
+          </GlassCard>
+        ))
+      }
+    </div>
   </section>
 
   <GlassCard as="section" class="mt-12" title="Our Delivery Model">

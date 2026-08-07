@@ -82,5 +82,6 @@ https://formspree.io/f/your-form-id
 
 ### Notes
 
-- Set `PUBLIC_SITE_URL` as a repository variable if you want canonical URLs in the generated site.
+- Set `PUBLIC_SITE_URL` as a Cloudflare / repository variable to your production origin (defaults to `https://quantumcodedevs.com`). This powers canonical URLs, Open Graph tags, the sitemap, and RSS.
+- After deploy, submit `https://your-domain/sitemap-index.xml` in Google Search Console.
 - If you want to use a custom domain or route, configure it in Cloudflare Pages.

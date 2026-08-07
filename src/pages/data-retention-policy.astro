@@ -1,17 +1,19 @@
 ---
 import SectionHeader from '../components/SectionHeader.astro';
+import { pageMeta, siteName } from '../data/site';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Data Retention Policy | Quantum Code Devs"
-  description="Data retention policy for Quantum Code Devs."
+  title={pageMeta.dataRetention.title}
+  description={pageMeta.dataRetention.description}
+  activePage="none"
 >
   <section>
     <SectionHeader
       eyebrow="Legal"
       title="Data Retention Policy"
-      description="This policy outlines how long Quantum Code Devs stores data collected through client communication, project delivery, and website interactions."
+      description={`This policy outlines how long ${siteName} stores data collected through client communication, project delivery, and website interactions.`}
       descriptionClass="max-w-3xl text-lg text-slate-300"
     />
     <p class="text-sm text-slate-400">Last updated: July 16, 2026</p>

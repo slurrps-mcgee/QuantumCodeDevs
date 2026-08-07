@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { assets, siteName, siteUrl } from '../../data/site';
 import { getCollection, render } from 'astro:content';
 
 export const prerender = true;
@@ -33,16 +34,49 @@ const plainText = (post.body ?? '')
 
 const wordCount = plainText ? plainText.split(' ').length : 0;
 const readTime = Math.max(1, Math.ceil(wordCount / 200));
+
+const site = Astro.site ?? new URL(siteUrl);
+const postUrl = new URL(`/blog/${post.id}/`, site);
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: post.data.author
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: siteName,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL(assets.logo, site).href
+    }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': postUrl.href
+  },
+  url: postUrl.href,
+  articleSection: post.data.category,
+  wordCount,
+  timeRequired: `PT${readTime}M`
+};
 ---
 
 <Layout
-  title={`${post.data.title} | Quantum Code Devs Blog`}
+  title={`${post.data.title} | ${siteName} Blog`}
   description={post.data.description}
   activePage="blog"
+  type="article"
+  jsonLd={articleJsonLd}
 >
   <section class="bg-slate-950 px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
     <div class="mx-auto max-w-3xl">
-      <a href="/blog" class="mb-8 inline-block text-violet-400 transition hover:text-cyan-400">← Back to Blog</a>
+      <a href="/blog" class="mb-8 inline-block text-violet-300 transition hover:text-cyan-300">← Back to Blog</a>
 
       <article class="card border-2 border-slate-700">
         <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl">{post.data.title}</h1>
@@ -58,7 +92,7 @@ const readTime = Math.max(1, Math.ceil(wordCount / 200));
           <span>{readTime} min read</span>
         </div>
 
-        <div class="prose prose-invert max-w-none prose-headings:text-violet-400 prose-h3:text-white prose-strong:text-white prose-p:text-slate-300 prose-li:text-slate-300 prose-a:text-cyan-400">
+        <div class="prose prose-invert max-w-none prose-headings:text-violet-300 prose-h3:text-white prose-strong:text-white prose-p:text-slate-300 prose-li:text-slate-300 prose-a:text-cyan-300">
           <Content />
         </div>
       </article>
@@ -70,14 +104,14 @@ const readTime = Math.max(1, Math.ceil(wordCount / 200));
             <div class="grid gap-6">
               {relatedPosts.map((related) => (
                 <a href={`/blog/${related.id}`} class="card group hover:border-violet-500">
-                  <h3 class="mb-2 text-xl font-bold text-white transition-colors group-hover:text-violet-400">
+                  <h3 class="mb-2 text-xl font-bold text-white transition-colors group-hover:text-violet-300">
                     {related.data.title}
                   </h3>
                   <p class="mb-3 line-clamp-2 text-slate-400">{related.data.description}</p>
-                  <div class="flex items-center justify-between text-sm text-slate-500">
+                  <div class="flex items-center justify-between text-sm text-slate-400">
                     <span>By {related.data.author}</span>
-                    <span class="font-semibold text-violet-400 transition-transform group-hover:translate-x-1">
-                      Read →
+                    <span class="font-semibold text-violet-300 motion-safe:transition-transform motion-safe:group-hover:translate-x-1">
+                      Read <span aria-hidden="true">→</span>
                     </span>
                   </div>
                 </a>

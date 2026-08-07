@@ -1,69 +1,19 @@
 ---
 import GlassCard from '../components/GlassCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import {
+	homeQuickLinks,
+	homeServiceCards,
+	pageMeta,
+	processSteps,
+	technologyColumns
+} from '../data/site';
 import Layout from '../layouts/Layout.astro';
-
-const serviceCards = [
-	{
-		title: 'Website Development',
-		description: 'Conversion-focused websites, landing pages, and content platforms designed to scale with your brand.'
-	},
-	{
-		title: 'Application Engineering',
-		description: 'Robust web, mobile, and desktop software with performance, security, and usability built in from day one.'
-	},
-	{
-		title: 'Ongoing Product Support',
-		description: 'Iterative improvements, analytics-led optimization, and long-term technical guidance after launch.'
-	}
-];
-
-const processSteps = [
-	{
-		step: '01 Discovery',
-		title: 'Define Goals',
-		description: 'We map requirements, user needs, and key success metrics before any implementation begins.'
-	},
-	{
-		step: '02 Blueprint',
-		title: 'Plan Scope',
-		description: 'You receive a delivery plan with milestones, architecture direction, and clear estimate ranges.'
-	},
-	{
-		step: '03 Build',
-		title: 'Ship Iteratively',
-		description: 'We release in small increments with weekly demos, keeping momentum and reducing project risk.'
-	},
-	{
-		step: '04 Scale',
-		title: 'Optimize Growth',
-		description: 'After launch, we monitor usage, improve performance, and evolve your product roadmap.'
-	}
-];
-
-const technologyColumns = [
-	{
-		title: 'Frontend',
-		description: 'Astro, Angular 20, TypeScript, Angular Material, Ionic UI, SCSS, Tailwind CSS, NgRx, Angular Signals, RxJS.'
-	},
-	{
-		title: 'Backend',
-		description: 'Node.js LTS with NestJS (primary), REST APIs, optional GraphQL, JWT/OAuth2 auth flows, RBAC, Swagger.'
-	},
-	{
-		title: 'Data & Real-Time',
-		description: 'MySQL 8 with Sequelize, migrations and transactions, plus Socket.IO / NestJS gateways for live features.'
-	},
-	{
-		title: 'DevOps',
-		description: 'GitHub Actions CI/CD, Docker + Compose, Nginx reverse proxy, and deployment on VPS or cloud infrastructure.'
-	}
-];
 ---
 
 <Layout
-	title="Quantum Code Devs | Modern IT Solutions"
-	description="Quantum Code Devs builds premium websites and software applications for web, mobile, and desktop."
+	title={pageMeta.home.title}
+	description={pageMeta.home.description}
 	activePage="home"
 >
 	<section class="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
@@ -97,14 +47,17 @@ const technologyColumns = [
 		</div>
 	</section>
 
-	<section class="mt-14 grid gap-4 md:grid-cols-3">
-		{
-			serviceCards.map((card) => (
-				<GlassCard title={card.title} titleClass="text-2xl font-semibold text-white">
-					<p>{card.description}</p>
-				</GlassCard>
-			))
-		}
+	<section class="mt-14" aria-labelledby="home-services-heading">
+		<h2 id="home-services-heading" class="sr-only">Core services</h2>
+		<div class="grid gap-4 md:grid-cols-3">
+			{
+				homeServiceCards.map((card) => (
+					<GlassCard title={card.title} titleTag="h3" titleClass="text-2xl font-semibold text-white">
+						<p>{card.description}</p>
+					</GlassCard>
+				))
+			}
+		</div>
 	</section>
 
 	<section class="mt-14">
@@ -127,39 +80,6 @@ const technologyColumns = [
 			}
 		</div>
 	</section>
-
-	<!-- <section class="mt-14">
-		<div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-			<div>
-				<p class="text-xs uppercase tracking-[0.2em] text-cyan-200">Example Work</p>
-				<h2 class="mt-2 text-3xl font-semibold text-white md:text-4xl">Sample projects and outcomes (placeholders)</h2>
-			</div>
-			<a href="/contact" class="btn-secondary">Request Full Portfolio</a>
-		</div>
-
-		<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-			<article class="card">
-				<div class="h-36 rounded-lg border border-violet-400/30 bg-gradient-to-br from-violet-500/20 to-cyan-500/20"></div>
-				<h3 class="mt-4 text-xl font-semibold text-white">SaaS Admin Dashboard</h3>
-				<p class="mt-2 text-sm text-slate-300">Placeholder case study: reporting workflows, role-based access, and performance-focused analytics views.</p>
-				<p class="mt-3 text-xs uppercase tracking-[0.16em] text-violet-300">Angular + NestJS + MySQL</p>
-			</article>
-
-			<article class="card">
-				<div class="h-36 rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-500/20 to-indigo-500/20"></div>
-				<h3 class="mt-4 text-xl font-semibold text-white">Service Business Website</h3>
-				<p class="mt-2 text-sm text-slate-300">Placeholder case study: redesigned marketing website with stronger messaging and lead-driven page structure.</p>
-				<p class="mt-3 text-xs uppercase tracking-[0.16em] text-cyan-300">Astro + Tailwind + TypeScript</p>
-			</article>
-
-			<article class="card">
-				<div class="h-36 rounded-lg border border-violet-400/30 bg-gradient-to-br from-indigo-500/20 to-violet-500/20"></div>
-				<h3 class="mt-4 text-xl font-semibold text-white">Cross-Platform Field App</h3>
-				<p class="mt-2 text-sm text-slate-300">Placeholder case study: operations app concept for teams needing mobile-first task management and offline support.</p>
-				<p class="mt-3 text-xs uppercase tracking-[0.16em] text-violet-300">Ionic + Capacitor + Electron</p>
-			</article>
-		</div>
-	</section> -->
 
 	<section class="mt-14">
 		<SectionHeader
@@ -198,14 +118,24 @@ const technologyColumns = [
 		<article class="glass-card">
 			<h2 class="text-2xl font-semibold text-white">Quick Links</h2>
 			<div class="mt-4 grid gap-3 sm:grid-cols-2">
-				<a href="https://kenny.quantumcode.dev" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-cyan-300 hover:text-white">
-					<p class="text-xs uppercase tracking-[0.16em] text-cyan-300">Portfolio</p>
-					<p class="mt-2 font-semibold">Your portfolio site</p>
-				</a>
-				<a href="https://github.com/slurrps-mcgee" target="_blank" rel="noreferrer" class="rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition hover:border-violet-300 hover:text-white">
-					<p class="text-xs uppercase tracking-[0.16em] text-violet-300">GitHub</p>
-					<p class="mt-2 font-semibold">Your GitHub profile</p>
-				</a>
+				{
+					homeQuickLinks.map((link) => (
+						<a
+							href={link.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class:list={[
+								'rounded-xl border border-white/10 bg-slate-900/55 p-4 text-slate-200 transition',
+								link.hoverClass
+							]}
+						>
+							<p class:list={['text-xs uppercase tracking-[0.16em]', link.textClass]}>{link.label}</p>
+							<p class="mt-2 font-semibold">
+								{link.title} <span class="sr-only">(opens in a new tab)</span>
+							</p>
+						</a>
+					))
+				}
 			</div>
 		</article>
 	</section>
