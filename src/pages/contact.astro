@@ -19,8 +19,8 @@ const hasEndpoint = Boolean(contactEndpoint);
         eyebrow="Let's Build Together"
         title="Tell us what you are building and where you need support."
         description="Share your goals, timeline, and platform priorities. We typically respond within one business day with a suggested engagement model, estimate range, and proposed next steps."
-        eyebrowClass="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100"
-        descriptionClass="max-w-xl text-lg text-slate-300"
+        eyebrowClass="inline-flex max-w-full text-wrap rounded-full border border-violet-200/30 bg-violet-200/10 px-3 py-1 text-xs font-medium uppercase tracking-wide text-violet-100 sm:px-4 sm:tracking-[0.22em]"
+        descriptionClass="max-w-xl text-base text-slate-300 sm:text-lg"
       />
 
       <GlassCard bodyClass="space-y-3 text-slate-300">
@@ -107,7 +107,7 @@ const hasEndpoint = Boolean(contactEndpoint);
 
       <fieldset>
         <legend class="mb-2 block text-sm font-medium text-slate-200">Services Needed</legend>
-        <div class="grid gap-2 text-sm text-slate-300 sm:grid-cols-2">
+        <div class="grid grid-cols-1 gap-2 text-sm text-slate-300 sm:grid-cols-2">
           {
             contactForm.services.map((service) => (
               <label class="flex min-h-11 items-center gap-3">
@@ -143,12 +143,12 @@ const hasEndpoint = Boolean(contactEndpoint);
           rows="6"
           required
           aria-required="true"
-          class="form-control"
+          class="form-control min-h-32"
           placeholder={contactForm.messagePlaceholder}
         ></textarea>
       </div>
 
-      <button type="submit" class="w-full rounded-lg bg-cyan-300 px-4 py-3 font-semibold text-slate-900 transition hover:bg-cyan-200">
+      <button type="submit" class="min-h-11 w-full rounded-lg bg-cyan-300 px-4 py-3 font-semibold text-slate-900 transition hover:bg-cyan-200">
         Submit Project Inquiry
       </button>
 

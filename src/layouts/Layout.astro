@@ -37,6 +37,8 @@ const {
 const site = Astro.site ?? new URL(siteUrl);
 const canonicalURL = new URL(Astro.url.pathname, site);
 const imageURL = new URL(image, site);
+const fontStylesheet =
+	'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap';
 
 const organizationJsonLd = {
 	'@context': 'https://schema.org',
@@ -58,7 +60,10 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href={fontStylesheet} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href={assets.appleTouchIcon} />
@@ -76,6 +81,8 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:image" content={imageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content={`${siteName} — web, mobile, and desktop software`} />
 		<meta property="og:locale" content="en_US" />
 
@@ -100,9 +107,9 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 			<div class="grid-mask"></div>
 		</div>
 
-		<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
-			<div class="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-				<a href="/" class="brand-mark" aria-label={`${siteName} home`}>
+		<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
+			<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:py-4">
+				<a href="/" class="brand-mark min-w-0" aria-label={`${siteName} home`}>
 					<span class="brand-star" aria-hidden="true">✦</span>
 					<span>{siteName}</span>
 				</a>
@@ -110,7 +117,7 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 				<button
 					id="mobile-nav-toggle"
 					type="button"
-					class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-white/20 bg-slate-900/70 p-2 text-slate-100 transition hover:border-violet-500 md:hidden"
+					class="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-slate-900/70 p-2 text-slate-100 transition hover:border-violet-500 md:hidden"
 					aria-expanded="false"
 					aria-controls="mobile-nav"
 				>
@@ -148,7 +155,7 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 				</nav>
 			</div>
 
-			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-5 pb-4 md:hidden md:px-8">
+			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-4 pb-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:hidden md:px-8">
 				<nav aria-label="Mobile navigation">
 					<ul class="grid gap-1 rounded-2xl border border-white/15 bg-white/5 p-2 text-sm">
 						{
@@ -157,7 +164,7 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 									<a
 										href={item.href}
 										class:list={[
-											'nav-link w-full justify-center',
+											'nav-link w-full justify-start',
 											activePage === item.key && 'nav-link-active'
 										]}
 										aria-current={activePage === item.key ? 'page' : undefined}
@@ -172,22 +179,26 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 			</div>
 		</header>
 
-		<main id="main-content" class="content-stagger mx-auto w-full max-w-6xl flex-1 px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-14">
+		<main
+			id="main-content"
+			class="content-stagger mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-8 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
+			tabindex="-1"
+		>
 			<slot />
 		</main>
 
-		<footer class="border-t border-white/10 bg-slate-950/90">
-			<div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-slate-300 md:px-8">
+		<footer class="border-t border-white/10 bg-slate-950/90 pb-[env(safe-area-inset-bottom,0px)]">
+			<div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] text-sm text-slate-300 md:px-8">
 				<div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
 					<p>© {new Date().getFullYear()} {siteName}. Built with modern TypeScript tooling.</p>
 					<p>Remote-first delivery for startups, agencies, and internal product teams.</p>
 				</div>
 				<nav aria-label="Legal navigation">
-					<ul class="flex flex-wrap gap-4 text-sm text-slate-400">
+					<ul class="flex flex-wrap gap-2 text-sm text-slate-400">
 						{
 							legalLinks.map((link) => (
 								<li>
-									<a href={link.href} class="transition hover:text-cyan-300">{link.label}</a>
+									<a href={link.href} class="inline-flex min-h-11 items-center transition hover:text-cyan-300">{link.label}</a>
 								</li>
 							))
 						}
@@ -221,9 +232,6 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 				toggleButton.addEventListener('click', () => {
 					const willOpen = mobileNav.classList.contains('hidden');
 					setOpen(willOpen);
-					if (willOpen) {
-						menuLinks[0]?.focus();
-					}
 				});
 
 				menuLinks.forEach((link) => {

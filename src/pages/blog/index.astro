@@ -13,49 +13,47 @@ const posts = (await getCollection('blog')).sort(
   description={pageMeta.blog.description}
   activePage="blog"
 >
-  <section class="py-8 sm:py-12">
-    <div class="mx-auto max-w-7xl">
-      <h1 class="section-title text-center">Engineering Blog</h1>
-      <p class="section-subtitle mx-auto mt-3 max-w-2xl text-center">
-        Latest articles, implementation guides, and product delivery notes.
-      </p>
+  <section>
+    <h1 class="section-title text-center">Engineering Blog</h1>
+    <p class="section-subtitle mx-auto mt-3 max-w-2xl text-center">
+      Latest articles, implementation guides, and product delivery notes.
+    </p>
 
-      {
-        posts.length > 0 ? (
-          <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <a href={`/blog/${post.id}`} class="card group flex h-full flex-col">
-                <h2 class="mb-3 line-clamp-2 text-2xl font-bold text-white transition-colors group-hover:text-violet-300">
-                  {post.data.title}
-                </h2>
+    {
+      posts.length > 0 ? (
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-12 lg:grid-cols-3 lg:gap-8">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}`} class="card group flex h-full min-h-11 flex-col">
+              <h2 class="mb-3 line-clamp-2 text-xl font-bold text-white transition-colors group-hover:text-violet-300 sm:text-2xl">
+                {post.data.title}
+              </h2>
 
-                <p class="mb-4 line-clamp-3 flex-grow text-slate-400">
-                  {post.data.description}
+              <p class="mb-4 line-clamp-3 flex-grow text-slate-400">
+                {post.data.description}
+              </p>
+
+              <div class="border-t border-slate-700 pt-4">
+                <p class="mb-2 text-sm text-slate-400">By {post.data.author}</p>
+                <p class="text-sm font-semibold text-violet-300">
+                  {post.data.publishDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                 </p>
+              </div>
 
-                <div class="border-t border-slate-700 pt-4">
-                  <p class="mb-2 text-sm text-slate-400">By {post.data.author}</p>
-                  <p class="text-sm font-semibold text-violet-300">
-                    {post.data.publishDate.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </p>
-                </div>
-
-                <div class="mt-4 font-semibold text-violet-300 motion-safe:transition-transform motion-safe:group-hover:translate-x-2">
-                  Read More <span aria-hidden="true">→</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <div class="py-12 text-center">
-            <p class="text-slate-400">No blog posts yet. Check back soon.</p>
-          </div>
-        )
-      }
-    </div>
+              <div class="mt-4 font-semibold text-violet-300 motion-safe:transition-transform motion-safe:group-hover:translate-x-2">
+                Read More <span aria-hidden="true">→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="py-12 text-center">
+          <p class="text-slate-400">No blog posts yet. Check back soon.</p>
+        </div>
+      )
+    }
   </section>
 </Layout>

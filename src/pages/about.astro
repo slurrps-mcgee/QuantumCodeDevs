@@ -22,7 +22,7 @@ import Layout from '../layouts/Layout.astro';
       eyebrow="About Quantum Code Devs"
       title="We build practical digital products as a solo LLC, with a scope that stays realistic and focused."
       description="Quantum Code Devs partners with founders, business owners, and internal teams to design, build, and scale web, mobile, and desktop software. The business is currently just me, which keeps communication direct and the delivery model honest."
-      eyebrowClass="inline-flex rounded-full border border-violet-200/30 bg-violet-200/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.22em] text-violet-100"
+      eyebrowClass="inline-flex max-w-full text-wrap rounded-full border border-violet-200/30 bg-violet-200/10 px-3 py-1 text-xs font-medium uppercase tracking-wide text-violet-100 sm:px-4 sm:tracking-[0.22em]"
     >
       <p class="text-slate-300">
         My core strengths are Astro, Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET when the project calls for it, so I can match the technology to the problem instead of forcing one stack everywhere.
@@ -41,9 +41,9 @@ import Layout from '../layouts/Layout.astro';
     </aside>
   </section>
 
-  <section class="mt-12" aria-labelledby="about-pillars-heading">
+  <section class="mt-10 md:mt-12" aria-labelledby="about-pillars-heading">
     <h2 id="about-pillars-heading" class="sr-only">Service pillars</h2>
-    <div class="grid gap-4 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         servicePillars.map((pillar) => (
           <GlassCard title={pillar.title} titleTag="h3" titleClass="text-xl font-semibold text-white">
@@ -54,8 +54,8 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <GlassCard as="section" class="mt-12" title="Our Delivery Model">
-    <div class="mt-4 grid gap-4 md:grid-cols-2">
+  <GlassCard as="section" class="mt-10 md:mt-12" title="Our Delivery Model">
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
       {
         deliveryModel.map((item) => (
           <InsetCard>
@@ -67,7 +67,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </GlassCard>
 
-  <section class="mt-12 grid gap-4 lg:grid-cols-2">
+  <section class="mt-10 grid grid-cols-1 gap-4 md:mt-12 lg:grid-cols-2">
     <GlassCard title="Industries We Commonly Support">
       <ul class="mt-4 space-y-3 text-slate-300">
         {industries.map((industry) => <li>{industry}</li>)}
@@ -85,18 +85,18 @@ import Layout from '../layouts/Layout.astro';
     </GlassCard>
   </section>
 
-  <section class="mt-12 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-6 md:p-8">
+  <section class="mt-10 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-5 md:mt-12 md:p-8">
     <SectionHeader
       titleTag="h2"
       title="Let’s build the right thing, not just the next thing."
       description="If you are planning a website refresh, a business application, or a full product build, we can help you scope it clearly and execute it with confidence."
       class="space-y-3"
-      titleClass="text-3xl font-semibold text-white"
-      descriptionClass="max-w-3xl text-slate-300"
+      titleClass="text-2xl font-semibold text-white sm:text-3xl"
+      descriptionClass="max-w-3xl text-base text-slate-300 sm:text-lg"
     />
-    <div class="mt-5 flex flex-wrap gap-3">
-      <a href="/contact" class="btn-primary">Start a Project Conversation</a>
-      <a href="/services" class="btn-secondary">Review Services & Pricing</a>
+    <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a href="/contact" class="btn-primary w-full sm:w-auto">Start a Project Conversation</a>
+      <a href="/services" class="btn-secondary w-full sm:w-auto">Review Services & Pricing</a>
     </div>
   </section>
 </Layout>

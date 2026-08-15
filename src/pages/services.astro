@@ -25,9 +25,9 @@ import Layout from '../layouts/Layout.astro';
     description="We help teams scope clearly, build confidently, and launch maintainable digital products. Every engagement is shaped around business outcomes, technical quality, and delivery speed."
   />
 
-  <section class="mt-10" aria-labelledby="core-services-heading">
+  <section class="mt-10 md:mt-14" aria-labelledby="core-services-heading">
     <h2 id="core-services-heading" class="sr-only">Core service offerings</h2>
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {
         coreServices.map((service) => (
           <GlassCard title={service.title} titleTag="h3" titleClass="text-xl font-semibold text-white" bodyClass="mt-2 text-sm text-slate-300">
@@ -38,7 +38,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <section class="mt-10 grid gap-4 md:grid-cols-3">
+  <section class="mt-10 grid grid-cols-1 gap-4 md:mt-14">
     <article class="glass-card">
       <h2 class="text-2xl font-semibold text-white">Base Hourly Rate</h2>
       <ul class="mt-3 space-y-2 text-slate-300">
@@ -47,9 +47,9 @@ import Layout from '../layouts/Layout.astro';
       <p class="mt-3 text-sm text-slate-400">Fixed-scope and milestone-based pricing is available for clearly defined projects.</p>
     </article>
 
-    <article class="glass-card md:col-span-2">
+    <article class="glass-card">
       <h2 class="text-2xl font-semibold text-white">Project-Based Pricing</h2>
-      <div class="mt-4 grid gap-4 md:grid-cols-3">
+      <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
           <h3 class="text-lg font-semibold text-cyan-100">Web Applications</h3>
           <ul class="mt-2 space-y-2 text-sm text-slate-300">
@@ -80,8 +80,8 @@ import Layout from '../layouts/Layout.astro';
     </article>
   </section>
 
-  <GlassCard as="section" class="mt-10" title="What Is Included In Every Engagement">
-    <div class="mt-4 grid gap-3 text-slate-300 md:grid-cols-2 lg:grid-cols-4">
+  <GlassCard as="section" class="mt-10 md:mt-14" title="What Is Included In Every Engagement">
+    <div class="mt-4 grid grid-cols-1 gap-3 text-slate-300 sm:grid-cols-2 lg:grid-cols-4">
       {
         includedItems.map((item) => (
           <InsetCard>
@@ -92,18 +92,18 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </GlassCard>
 
-  <GlassCard as="section" class="mt-10" title="Where I Stay Deliberately Focused">
+  <GlassCard as="section" class="mt-10 md:mt-14" title="Where I Stay Deliberately Focused">
     <p class="mt-3 text-slate-300">
       I do not try to offer everything. The business is intentionally centered on websites and bespoke software applications, plus the platforms and integrations needed to support them well.
     </p>
-    <div class="mt-4 grid gap-3 md:grid-cols-2">
+    <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
       <InsetCard class="text-slate-300"><p><strong class="text-white">Primary fit:</strong> Astro, Angular, Ionic, Electron, NestJS, and MySQL for production web and software delivery.</p></InsetCard>
       <InsetCard class="text-slate-300"><p><strong class="text-white">Additional fit:</strong> C# / .NET when a project benefits from Microsoft ecosystem alignment.</p></InsetCard>
     </div>
   </GlassCard>
 
-  <GlassCard as="section" class="mt-10" title="What Influences Final Price?">
-    <ul class="mt-4 grid gap-3 text-slate-300 md:grid-cols-3">
+  <GlassCard as="section" class="mt-10 md:mt-14" title="What Influences Final Price?">
+    <ul class="mt-4 grid grid-cols-1 gap-3 text-slate-300 sm:grid-cols-2 lg:grid-cols-3">
       {
         pricingFactors.map((factor) => (
           <li>
@@ -119,19 +119,19 @@ import Layout from '../layouts/Layout.astro';
     </p>
   </GlassCard>
 
-  <section class="mt-10 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-6 md:p-8">
-    <h2 class="text-3xl font-semibold text-white">Ready to scope your project?</h2>
+  <section class="mt-10 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-5 md:mt-14 md:p-8">
+    <h2 class="text-2xl font-semibold text-white sm:text-3xl">Ready to scope your project?</h2>
     <p class="mt-3 max-w-3xl text-slate-300">
       Share your goals, timeline, and preferred platform. We can provide a structured estimate and execution plan aligned to your business priorities.
     </p>
-    <div class="mt-5 flex flex-wrap gap-3">
-      <a href="/contact" class="btn-primary">Request Project Estimate</a>
-      <a href="/about" class="btn-secondary">Learn How We Work</a>
+    <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a href="/contact" class="btn-primary w-full sm:w-auto">Request Project Estimate</a>
+      <a href="/about" class="btn-secondary w-full sm:w-auto">Learn How We Work</a>
     </div>
   </section>
 
-  <GlassCard as="section" class="mt-10" title="Core Technology Stack We Deliver">
-    <div class="mt-4 grid gap-3 text-slate-300 md:grid-cols-2">
+  <GlassCard as="section" class="mt-10 md:mt-14" title="Core Technology Stack We Deliver">
+    <div class="mt-4 grid grid-cols-1 gap-3 text-slate-300 sm:grid-cols-2">
       {
         techStack.map((item) => (
           <InsetCard>
