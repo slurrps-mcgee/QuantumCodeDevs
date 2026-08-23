@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Keep in sync with siteUrl in src/data/site.ts (or PUBLIC_SITE_URL)
-Sitemap: https://quantumcodedevs.com/sitemap-index.xml
+Sitemap: https://quantumcode.dev/sitemap-index.xml

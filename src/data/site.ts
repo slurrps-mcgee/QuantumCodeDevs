@@ -1,13 +1,13 @@
 /** Site-wide constants and page content data. */
 
 export const siteName = 'Quantum Code Devs';
-export const siteUrl = 'https://quantumcodedevs.com';
-export const siteEmail = 'hello@quantumcodedevs.com';
+export const siteUrl = 'https://quantumcode.dev';
+export const siteEmail = 'quantumcodedevs@gmail.com';
 export const defaultDescription =
-	'Modern websites and software applications for ambitious businesses.';
-export const defaultTitle = `${siteName} | Web, Mobile & Desktop Development`;
+	'Custom websites for small businesses, built directly with an experienced software developer.';
+export const defaultTitle = `${siteName} | Custom Website Development`;
 export const organizationDescription =
-	'Solo software LLC building websites and custom web, mobile, and desktop applications.';
+	'A solo software studio that designs and builds custom websites for businesses.';
 
 export const assets = {
 	ogImage: '/images/og-default.png',
@@ -23,13 +23,12 @@ export const urls = {
 
 export const sameAs = [urls.portfolio, urls.github] as const;
 
-export type NavKey = 'home' | 'about' | 'services' | 'developers' | 'contact' | 'blog';
+export type NavKey = 'home' | 'work' | 'services' | 'about' | 'contact' | 'blog';
 
 export const navItems: { label: string; href: string; key: NavKey }[] = [
-	{ label: 'Home', href: '/', key: 'home' },
-	{ label: 'About', href: '/about', key: 'about' },
+	{ label: 'Work', href: '/work', key: 'work' },
 	{ label: 'Services', href: '/services', key: 'services' },
-	{ label: 'Developers', href: '/developers', key: 'developers' },
+	{ label: 'About', href: '/about', key: 'about' },
 	{ label: 'Contact', href: '/contact', key: 'contact' },
 	{ label: 'Blog', href: '/blog', key: 'blog' }
 ];
@@ -37,379 +36,203 @@ export const navItems: { label: string; href: string; key: NavKey }[] = [
 export const legalLinks = [
 	{ label: 'Privacy Policy', href: '/privacy' },
 	{ label: 'Terms & Conditions', href: '/terms-and-conditions' },
-	{ label: 'Data Retention Policy', href: '/data-retention-policy' },
-	{ label: 'RSS Feed', href: '/rss.xml' }
+	{ label: 'Data Retention Policy', href: '/data-retention-policy' }
 ] as const;
 
 export const pageMeta = {
 	home: {
-		title: `${siteName} | Web, Mobile & Desktop Software`,
+		title: `${siteName} | Custom Websites for Businesses`,
 		description:
-			'Solo LLC building conversion-focused websites and custom web, mobile, and desktop apps with Astro, Angular, Ionic, Electron, and NestJS.'
+			'Quantum Code Devs builds custom, modern websites for small businesses. Work directly with an experienced software developer. Website projects start at $1,000.'
+	},
+	work: {
+		title: `Work | ${siteName}`,
+		description:
+			'Selected websites and software projects from Quantum Code Devs, including personal and studio work.'
 	},
 	about: {
-		title: `About ${siteName} | Solo Software LLC`,
+		title: `About | ${siteName}`,
 		description:
-			`Meet ${siteName} — a solo LLC delivering websites and custom software with direct communication, clear scope, and iterative shipping.`
+			'Quantum Code Devs is a solo studio run by Kenneth Lamb, a software developer with 10+ years of experience building custom websites.'
 	},
 	services: {
-		title: `Services & Pricing | ${siteName}`,
+		title: `Website Development | ${siteName}`,
 		description:
-			'Website, web app, mobile, desktop, and NestJS backend development with transparent pricing from $50/hr and fixed-scope project ranges.'
-	},
-	developers: {
-		title: `Kenneth Lamb | Developer at ${siteName}`,
-		description:
-			`Kenneth Lamb is the solo founder behind ${siteName} — Astro, Angular, Ionic, Electron, NestJS, and .NET for production software.`
+			'Custom website design and development for small businesses. Projects start at $1,000 and are quoted after we understand the scope.'
 	},
 	contact: {
-		title: `Contact | ${siteName}`,
+		title: `Start a Project | ${siteName}`,
 		description:
-			`Start a project with ${siteName}. Share goals, timeline, and platforms — typically a response within one business day.`
+			'Tell Quantum Code Devs about your website project. We typically reply within one business day with next steps and a project quote.'
 	},
 	blog: {
-		title: `Engineering Blog | ${siteName}`,
-		description:
-			`Practical guides on MVP scoping, software delivery, and choosing web, mobile, or desktop platforms from ${siteName}.`
+		title: `Blog | ${siteName}`,
+		description: `Articles and updates from ${siteName}.`
+	},
+	faq: {
+		title: `FAQ | ${siteName}`,
+		description: `Answers about website pricing, process, and working with ${siteName}.`
 	},
 	privacy: {
 		title: `Privacy Policy | ${siteName}`,
-		description:
-			`How ${siteName} collects, uses, and protects personal information from website visitors and client inquiries.`
+		description: `How ${siteName} collects, uses, and protects personal information from website visitors and project inquiries.`
 	},
 	terms: {
 		title: `Terms & Conditions | ${siteName}`,
-		description:
-			`Terms governing use of the ${siteName} website and professional software development services.`
+		description: `Terms governing use of the ${siteName} website and professional website development services.`
 	},
 	dataRetention: {
 		title: `Data Retention Policy | ${siteName}`,
-		description:
-			`How long ${siteName} retains client, project, and website interaction data, and when records are deleted.`
+		description: `How long ${siteName} retains inquiry, project, and website interaction data.`
 	}
 } as const;
 
 export const rss = {
 	title: `${siteName} Blog`,
-	description: 'Strategy, architecture, and delivery insights for websites and custom software.'
+	description: 'Articles and updates from Quantum Code Devs.'
 } as const;
 
-export const homeServiceCards = [
+export const hero = {
+	eyebrow: 'Website development studio',
+	title: 'Websites built by a software developer.',
+	description:
+		'Custom, modern websites designed to help businesses look professional online and turn visitors into customers.',
+	primaryCta: { label: 'Start a Project', href: '/contact' },
+	secondaryCta: { label: 'View Our Work', href: '/work' }
+} as const;
+
+export const credibilityItems = [
 	{
-		title: 'Website Development',
-		description:
-			'Conversion-focused websites, landing pages, and content platforms designed to scale with your brand.'
+		label: '10+ years',
+		title: 'Software experience',
+		description: 'A decade of professional development behind every website we ship.'
 	},
 	{
-		title: 'Application Engineering',
-		description:
-			'Robust web, mobile, and desktop software with performance, security, and usability built in from day one.'
+		label: 'Custom work',
+		title: 'Not a template mill',
+		description: 'Each site is designed around the business, the audience, and the goals.'
 	},
 	{
-		title: 'Ongoing Product Support',
-		description:
-			'Iterative improvements, analytics-led optimization, and long-term technical guidance after launch.'
+		label: 'Modern build',
+		title: 'Fast and responsive',
+		description: 'Sites that load quickly, work on phones, and are ready for search and analytics.'
+	},
+	{
+		label: 'Direct line',
+		title: 'One developer',
+		description: 'You work with the person designing and building the site. No sales handoff.'
 	}
+] as const;
+
+export const websiteIncludes = [
+	'Custom design',
+	'Responsive development',
+	'Contact forms',
+	'SEO foundations',
+	'Analytics setup',
+	'Performance-conscious build',
+	'Launch and hosting guidance',
+	'Post-launch support'
 ] as const;
 
 export const processSteps = [
 	{
-		step: '01 Discovery',
-		title: 'Define Goals',
-		description:
-			'We map requirements, user needs, and key success metrics before any implementation begins.'
+		step: '01',
+		title: 'Tell us about your project',
+		description: 'Share your business, goals, and what you need the website to do.'
 	},
 	{
-		step: '02 Blueprint',
-		title: 'Plan Scope',
-		description:
-			'You receive a delivery plan with milestones, architecture direction, and clear estimate ranges.'
+		step: '02',
+		title: 'Define the project',
+		description: 'We agree on scope, timeline, requirements, and a clear project price.'
 	},
 	{
-		step: '03 Build',
-		title: 'Ship Iteratively',
-		description:
-			'We release in small increments with weekly demos, keeping momentum and reducing project risk.'
+		step: '03',
+		title: 'Build',
+		description: 'Design, development, review, and communication throughout the work.'
 	},
 	{
-		step: '04 Scale',
-		title: 'Optimize Growth',
-		description:
-			'After launch, we monitor usage, improve performance, and evolve your product roadmap.'
+		step: '04',
+		title: 'Launch',
+		description: 'The site goes live, and you have what you need to use and maintain it.'
 	}
 ] as const;
 
-export const technologyColumns = [
-	{
-		title: 'Frontend',
-		description:
-			'Astro, Angular 20, TypeScript, Angular Material, Ionic UI, SCSS, Tailwind CSS, NgRx, Angular Signals, RxJS.'
-	},
-	{
-		title: 'Backend',
-		description:
-			'Node.js LTS with NestJS (primary), REST APIs, optional GraphQL, JWT/OAuth2 auth flows, RBAC, Swagger.'
-	},
-	{
-		title: 'Data & Real-Time',
-		description:
-			'MySQL 8 with Sequelize, migrations and transactions, plus Socket.IO / NestJS gateways for live features.'
-	},
-	{
-		title: 'DevOps',
-		description:
-			'GitHub Actions CI/CD, Docker + Compose, Nginx reverse proxy, and deployment on VPS or cloud infrastructure.'
-	}
-] as const;
+export const pricing = {
+	startingAt: '$1,000',
+	headline: 'Website projects starting at $1,000.',
+	body: 'Every project is different. After we understand your goals, content, and requirements, you receive a clear project quote — not an open-ended hourly surprise.'
+} as const;
 
-export const homeQuickLinks = [
-	{
-		label: 'Portfolio',
-		textClass: 'text-cyan-300',
-		hoverClass: 'hover:border-cyan-300',
-		href: urls.portfolio,
-		title: 'Your portfolio site'
-	},
-	{
-		label: 'GitHub',
-		textClass: 'text-violet-300',
-		hoverClass: 'hover:border-violet-300',
-		href: urls.githubPersonal,
-		title: 'Your GitHub profile'
-	}
-] as const;
+export const aboutPreview = {
+	eyebrow: 'Meet the developer',
+	title: 'You work directly with Kenneth Lamb.',
+	body: 'Quantum Code Devs is a solo studio. There is no account manager and no handoff. You talk with the developer who is designing and building the website.',
+	cta: { label: 'About the studio', href: '/about' },
+	portfolioLabel: 'Learn more about Kenneth and his broader software development experience.',
+	portfolioHref: urls.portfolio
+} as const;
 
-export const servicePillars = [
-	{
-		title: 'Product Discovery',
-		description: 'We map business goals to technical requirements, reducing expensive pivots later.'
-	},
-	{
-		title: 'Design + Build',
-		description: 'UX, interface systems, and robust implementation developed as one integrated process.'
-	},
-	{
-		title: 'Launch + Grow',
-		description: 'Post-launch support, performance tuning, and roadmap planning for continuous growth.'
-	}
-] as const;
+export const finalCta = {
+	title: 'Have a website project in mind?',
+	body: 'Tell us what you are looking to build and we will determine whether Quantum Code Devs is a good fit.',
+	button: 'Start a Project'
+} as const;
 
-export const deliveryModel = [
-	{
-		title: 'Weekly Momentum',
-		description:
-			'Structured check-ins, async updates, and review demos ensure progress is visible and decisions are quick.'
+export const servicePage = {
+	eyebrow: 'Services',
+	title: 'Website development, focused on the business.',
+	description:
+		'Quantum Code Devs designs and builds custom websites for small businesses, professional services, and organizations that need a stronger online presence.',
+	primary: {
+		title: 'Website Development',
+		body: 'Custom websites designed and developed around your business, your audience, and your goals — not a reused template with a new logo.'
 	},
-	{
-		title: 'Roadmap-Driven Execution',
-		description:
-			'We break work into practical milestones tied to business outcomes, not just feature lists.'
-	},
-	{
-		title: 'Modern Engineering Stack',
-		description:
-			'Angular, Ionic, Electron, NestJS, MySQL, and C# / .NET power scalable systems with a clean TypeScript-first foundation.'
-	},
-	{
-		title: 'Support Beyond Launch',
-		description:
-			'We continue with optimization, enhancements, and technical advisory as your product evolves.'
-	}
-] as const;
+	secondary:
+		'Have a project that goes beyond a website? We also have experience building custom desktop and mobile applications. Those projects are quoted separately.'
+} as const;
 
-export const industries = [
-	'Service businesses modernizing operations and sales workflows',
-	'Startups validating MVP products and scaling into v2 platforms',
-	'Internal teams replacing spreadsheets and legacy tools with purpose-built software',
-	'Organizations needing secure web portals, dashboards, and admin systems'
-] as const;
-
-export const engagements = [
-	{
-		title: 'Fixed-Scope Build',
-		description: 'Best for clearly defined deliverables and timelines.'
-	},
-	{
-		title: 'Monthly Retainer',
-		description: 'Ongoing development and iteration for growing products.'
-	},
-	{
-		title: 'Technical Partner Support',
-		description: 'Architecture planning, codebase audits, and team enablement.'
-	}
-] as const;
-
-export const coreServices = [
-	{
-		title: 'Web Application Delivery',
-		description:
-			'Astro and Angular-based platforms, admin systems, portals, and dashboards with strong UX and scalable architecture.'
-	},
-	{
-		title: 'Mobile Application Delivery',
-		description:
-			'Ionic + Angular mobile apps with Capacitor integrations for native features on Android and iOS.'
-	},
-	{
-		title: 'Desktop Application Delivery',
-		description:
-			'Electron + Angular desktop tools with offline support, local workflows, and operational reliability.'
-	},
-	{
-		title: 'Backend & API Systems',
-		description:
-			'NestJS/Node.js APIs, authentication, authorization, integrations, and MySQL-backed data layers. C# / .NET options are available when a Microsoft stack is the right fit.'
-	}
-] as const;
-
-export const includedItems = [
-	{
-		label: 'Planning',
-		description: 'Scope definition, milestones, timeline mapping, and risk alignment.'
-	},
-	{
-		label: 'Delivery',
-		description: 'Iterative builds with weekly progress demos and actionable feedback loops.'
-	},
-	{
-		label: 'Quality',
-		description: 'Production standards for maintainability, performance, and operational stability.'
-	},
-	{
-		label: 'Handover',
-		description: 'Documentation, deployment guidance, and post-launch support options.'
-	}
-] as const;
-
-export const pricingFactors = [
-	{
-		label: 'Complexity',
-		description: 'Advanced features, integrations, and custom workflows increase effort.'
-	},
-	{
-		label: 'Timeline',
-		description: 'Tight deadlines usually require added team capacity and premium rates.'
-	},
-	{
-		label: 'Location',
-		description: 'Typical rates differ across regions and talent markets.'
-	}
-] as const;
-
-export const techStack = [
-	{
-		label: 'Web Platforms',
-		description:
-			'Astro, Tailwind CSS, TypeScript, component-driven architecture, and content modeling for scalable websites and portals.'
-	},
-	{
-		label: 'Web Apps',
-		description: 'Angular 20, TypeScript, Angular Material, SCSS, Tailwind CSS, NgRx, Angular Signals.'
-	},
-	{
-		label: 'Mobile Apps',
-		description: 'Ionic + Angular with Capacitor for Android/iOS and native integrations.'
-	},
-	{
-		label: 'Desktop Apps',
-		description: 'Electron + Angular with local storage, file-system access, and offline support.'
-	},
-	{
-		label: 'Backend',
-		description: 'Node.js LTS + NestJS, JWT/OAuth2 auth, RBAC, validation, and Swagger docs.'
-	},
-	{
-		label: 'Database',
-		description: 'MySQL 8 with Sequelize (or TypeORM/Prisma), migrations, pooling, and transactions.'
-	},
-	{
-		label: 'DevOps',
-		description: 'Docker, GitHub Actions, Nginx, and cloud/VPS deployment pipelines.'
-	}
-] as const;
-
-export const hourlyRate = '$50/hr';
-
-export const projectPricing = {
-	web: [
-		{ label: 'Basic website', range: '$1,000 - $5,000' },
-		{ label: 'Small web app', range: '$5,000 - $15,000' },
-		{ label: 'Medium complexity', range: '$15,000 - $50,000' },
-		{ label: 'Complex platform', range: '$50,000 - $150,000+' }
-	],
-	mobile: [
-		{ label: 'Simple mobile app', range: '$5,000 - $15,000' },
-		{ label: 'Moderate app', range: '$15,000 - $50,000' },
-		{ label: 'Complex app', range: '$50,000 - $150,000+' }
-	],
-	desktop: [
-		{ label: 'Simple desktop app', range: '$5,000 - $15,000' },
-		{ label: 'Medium complexity', range: '$15,000 - $40,000' },
-		{ label: 'Complex desktop app', range: '$40,000 - $100,000+' }
+export const aboutPage = {
+	eyebrow: 'About',
+	title: 'A small studio with serious software experience.',
+	description:
+		'Quantum Code Devs is operated by Kenneth Lamb, a software developer with 10+ years of professional experience. The studio is intentionally small so communication stays direct and the work stays focused.',
+	points: [
+		{
+			title: 'Direct communication',
+			body: 'You are not passed between a salesperson, a project manager, and a developer. You work with Kenneth.'
+		},
+		{
+			title: 'Built around the business',
+			body: 'The website is planned from your audience, offer, and content — not from a generic industry template.'
+		},
+		{
+			title: 'Engineering behind the site',
+			body: 'Years of software work show up as clean structure, careful performance, and a site that is maintainable after launch.'
+		}
 	]
 } as const;
 
-export const developerStrengths = [
-	{
-		title: 'Frontend',
-		description: 'Astro, Angular, Ionic, Tailwind CSS, SCSS, RxJS, NgRx, Angular Signals.'
-	},
-	{
-		title: 'Backend',
-		description: 'NestJS, Node.js, MySQL, API design, auth flows, and integrations.'
-	},
-	{
-		title: 'Desktop',
-		description: 'Electron apps with offline support and native integration points.'
-	},
-	{
-		title: 'Microsoft Stack',
-		description: 'C# / .NET when a project benefits from a Microsoft platform fit.'
-	}
-] as const;
-
-export const developerLinks = [
-	{
-		label: 'Portfolio',
-		textClass: 'text-cyan-300',
-		hoverClass: 'hover:border-cyan-300',
-		href: urls.portfolio,
-		description: `Visit the main portfolio / personal site for ${siteName}.`
-	},
-	{
-		label: 'GitHub',
-		textClass: 'text-violet-300',
-		hoverClass: 'hover:border-violet-300',
-		href: urls.github,
-		description: `Visit the GitHub profile for ${siteName}.`
-	}
-] as const;
+export const contactPage = {
+	eyebrow: 'Start a project',
+	title: 'Tell us about the website you need.',
+	description:
+		'Share a little context. We typically reply within one business day with whether the project is a fit, what we would need to quote it, and suggested next steps.',
+	emailLabel: 'Email',
+	locationLabel: 'Location',
+	locationValue: 'Remote, working with clients anywhere',
+	afterSubmit: [
+		'We review your goals, current site, timeline, and budget range.',
+		'You receive a reply with fit, questions, and an initial direction.',
+		'If it looks like a match, we define scope and send a project quote.'
+	]
+} as const;
 
 export const contactForm = {
-	projectTypes: [
-		'Business Website',
-		'Web Application',
-		'Mobile Application',
-		'Desktop Application',
-		'Backend / API Development',
-		'Ongoing Support'
-	],
-	services: [
-		'Discovery & Planning',
-		'UI/UX Design',
-		'Frontend Development',
-		'Backend/API Development',
-		'DevOps & Deployment',
-		'Post-launch Support'
-	],
-	budgets: ['$1k - $5k', '$5k - $15k', '$15k - $50k', '$50k+'],
-	timelines: [
-		'ASAP (0-2 weeks)',
-		'Near term (2-6 weeks)',
-		'Planned (1-3 months)',
-		'Flexible / Exploring'
-	],
+	websiteTypes: ['New website', 'Website redesign', 'Something else'],
+	budgets: ['$1k – $5k', '$5k – $15k', '$15k+', 'Not sure'],
+	timelines: ['As soon as possible', 'In the next 1–2 months', 'Later this year', 'Just exploring'],
 	messagePlaceholder:
-		'Tell us what success looks like, your current challenges, and key requirements.',
-	subject: 'New project inquiry from website'
+		'Describe the business, what the site needs to do, and anything else that would help us understand the project.',
+	subject: 'New website project inquiry'
 } as const;

@@ -11,6 +11,7 @@ import {
 	siteEmail,
 	siteName,
 	siteUrl,
+	urls,
 	type NavKey
 } from '../data/site';
 
@@ -38,7 +39,7 @@ const site = Astro.site ?? new URL(siteUrl);
 const canonicalURL = new URL(Astro.url.pathname, site);
 const imageURL = new URL(image, site);
 const fontStylesheet =
-	'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap';
+	'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap';
 
 const organizationJsonLd = {
 	'@context': 'https://schema.org',
@@ -50,7 +51,22 @@ const organizationJsonLd = {
 	description: organizationDescription,
 	email: siteEmail,
 	areaServed: 'Worldwide',
-	sameAs: [...sameAs]
+	priceRange: '$1,000+',
+	sameAs: [...sameAs],
+	makesOffer: {
+		'@type': 'Offer',
+		itemOffered: {
+			'@type': 'Service',
+			name: 'Website development',
+			description: 'Custom website design and development for businesses.'
+		},
+		priceSpecification: {
+			'@type': 'PriceSpecification',
+			minPrice: 1000,
+			priceCurrency: 'USD',
+			name: 'Website projects starting at $1,000'
+		}
+	}
 };
 
 const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
@@ -71,7 +87,7 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 		<link rel="alternate" type="application/rss+xml" title={`${siteName} Blog`} href={new URL('/rss.xml', site)} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#020617" />
+		<meta name="theme-color" content="#E7E6F7" />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<title>{title}</title>
 
@@ -83,14 +99,14 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 		<meta property="og:image" content={imageURL} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content={`${siteName} — web, mobile, and desktop software`} />
+		<meta property="og:image:alt" content={`${siteName} — custom websites for businesses`} />
 		<meta property="og:locale" content="en_US" />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={imageURL} />
-		<meta name="twitter:image:alt" content={`${siteName} — web, mobile, and desktop software`} />
+		<meta name="twitter:image:alt" content={`${siteName} — custom websites for businesses`} />
 
 		{
 			jsonLdBlocks.map((block) => (
@@ -98,52 +114,24 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 			))
 		}
 	</head>
-	<body class="flex min-h-screen flex-col bg-slate-950 text-slate-100 antialiased">
+	<body class="flex min-h-screen flex-col bg-canvas text-ink antialiased">
 		<a href="#main-content" class="skip-link">Skip to main content</a>
 
-		<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-			<div class="orb orb-cyan"></div>
-			<div class="orb orb-violet"></div>
-			<div class="grid-mask"></div>
-		</div>
-
-		<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
+		<header class="sticky top-0 z-50 border-b border-line/70 bg-canvas/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-lg">
 			<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:py-4">
 				<a href="/" class="brand-mark min-w-0" aria-label={`${siteName} home`}>
 					<span class="brand-star" aria-hidden="true">✦</span>
 					<span>{siteName}</span>
 				</a>
 
-				<button
-					id="mobile-nav-toggle"
-					type="button"
-					class="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-slate-900/70 p-2 text-slate-100 transition hover:border-violet-500 md:hidden"
-					aria-expanded="false"
-					aria-controls="mobile-nav"
-				>
-					<span class="sr-only" data-menu-label>Open navigation menu</span>
-					<svg data-icon="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<path d="M4 7h16"></path>
-						<path d="M4 12h16"></path>
-						<path d="M4 17h16"></path>
-					</svg>
-					<svg data-icon="close" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<path d="M6 6l12 12"></path>
-						<path d="M18 6L6 18"></path>
-					</svg>
-				</button>
-
-				<nav aria-label="Main navigation" class="hidden md:block">
-					<ul class="flex flex-wrap items-center gap-1 rounded-full border border-white/15 bg-white/5 p-1 text-sm md:text-base">
+				<nav aria-label="Main navigation" class="hidden flex-1 justify-center md:flex">
+					<ul class="flex items-center gap-1">
 						{
 							navItems.map((item) => (
 								<li>
 									<a
 										href={item.href}
-										class:list={[
-											'nav-link',
-											activePage === item.key && 'nav-link-active'
-										]}
+										class:list={['nav-link', activePage === item.key && 'nav-link-active']}
 										aria-current={activePage === item.key ? 'page' : undefined}
 									>
 										{item.label}
@@ -153,20 +141,36 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 						}
 					</ul>
 				</nav>
+
+				<div class="flex items-center gap-2">
+					<a href="/contact" class="btn-primary hidden sm:inline-flex">Start a Project</a>
+					<button
+						id="mobile-nav-toggle"
+						type="button"
+						class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-paper text-ink md:hidden"
+						aria-expanded="false"
+						aria-controls="mobile-nav"
+					>
+						<span class="sr-only" data-menu-label>Open navigation menu</span>
+						<svg data-icon="open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+							<path d="M4 7h16M4 12h16M4 17h16"></path>
+						</svg>
+						<svg data-icon="close" xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+							<path d="M6 6l12 12M18 6L6 18"></path>
+						</svg>
+					</button>
+				</div>
 			</div>
 
-			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-4 pb-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:hidden md:px-8">
+			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-4 pb-4 md:hidden">
 				<nav aria-label="Mobile navigation">
-					<ul class="grid gap-1 rounded-2xl border border-white/15 bg-white/5 p-2 text-sm">
+					<ul class="grid gap-1 rounded-2xl border border-line bg-paper p-2">
 						{
 							navItems.map((item) => (
 								<li>
 									<a
 										href={item.href}
-										class:list={[
-											'nav-link w-full justify-start',
-											activePage === item.key && 'nav-link-active'
-										]}
+										class:list={['nav-link w-full justify-start', activePage === item.key && 'nav-link-active']}
 										aria-current={activePage === item.key ? 'page' : undefined}
 									>
 										{item.label}
@@ -174,6 +178,9 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 								</li>
 							))
 						}
+						<li>
+							<a href="/contact" class="btn-primary w-full">Start a Project</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -181,29 +188,48 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 
 		<main
 			id="main-content"
-			class="content-stagger mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-8 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
+			class="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
 			tabindex="-1"
 		>
 			<slot />
 		</main>
 
-		<footer class="border-t border-white/10 bg-slate-950/90 pb-[env(safe-area-inset-bottom,0px)]">
-			<div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] text-sm text-slate-300 md:px-8">
-				<div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-					<p>© {new Date().getFullYear()} {siteName}. Built with modern TypeScript tooling.</p>
-					<p>Remote-first delivery for startups, agencies, and internal product teams.</p>
+		<footer class="border-t border-line bg-wash/60 pb-[env(safe-area-inset-bottom,0px)]">
+			<div class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8">
+				<div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+					<div>
+						<p class="font-display text-lg font-semibold">{siteName}</p>
+						<p class="mt-2 max-w-md text-sm text-muted">Custom websites for businesses, built directly with an experienced developer.</p>
+					</div>
+					<div class="text-sm text-muted">
+						<p><a class="font-medium text-ink underline-offset-4 hover:underline" href={`mailto:${siteEmail}`}>{siteEmail}</a></p>
+						<p class="mt-2">
+							<a class="underline-offset-4 hover:underline" href={urls.portfolio} target="_blank" rel="noopener noreferrer">
+								Kenneth’s portfolio <span class="sr-only">(opens in a new tab)</span>
+							</a>
+						</p>
+					</div>
 				</div>
-				<nav aria-label="Legal navigation">
-					<ul class="flex flex-wrap gap-2 text-sm text-slate-400">
-						{
-							legalLinks.map((link) => (
-								<li>
-									<a href={link.href} class="inline-flex min-h-11 items-center transition hover:text-cyan-300">{link.label}</a>
-								</li>
-							))
-						}
-					</ul>
-				</nav>
+				<div class="flex flex-col gap-3 border-t border-line/80 pt-5 text-sm text-muted md:flex-row md:items-center md:justify-between">
+					<p>© {new Date().getFullYear()} {siteName}</p>
+					<nav aria-label="Legal and secondary">
+						<ul class="flex flex-wrap gap-x-4 gap-y-2">
+							{
+								legalLinks.map((link) => (
+									<li>
+										<a href={link.href} class="inline-flex min-h-11 items-center hover:text-ink">{link.label}</a>
+									</li>
+								))
+							}
+							<li>
+								<a href="/faq" class="inline-flex min-h-11 items-center hover:text-ink">FAQ</a>
+							</li>
+							<li>
+								<a href="/rss.xml" class="inline-flex min-h-11 items-center hover:text-ink">RSS</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</footer>
 
@@ -227,28 +253,21 @@ const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? 
 					closeIcon?.classList.toggle('hidden', !open);
 				};
 
-				const closeMenu = () => setOpen(false);
-
 				toggleButton.addEventListener('click', () => {
-					const willOpen = mobileNav.classList.contains('hidden');
-					setOpen(willOpen);
+					setOpen(mobileNav.classList.contains('hidden'));
 				});
 
-				menuLinks.forEach((link) => {
-					link.addEventListener('click', closeMenu);
-				});
+				menuLinks.forEach((link) => link.addEventListener('click', () => setOpen(false)));
 
 				document.addEventListener('keydown', (event) => {
 					if (event.key === 'Escape' && !mobileNav.classList.contains('hidden')) {
-						closeMenu();
+						setOpen(false);
 						toggleButton.focus();
 					}
 				});
 
 				window.addEventListener('resize', () => {
-					if (window.innerWidth >= 768) {
-						closeMenu();
-					}
+					if (window.innerWidth >= 768) setOpen(false);
 				});
 			}
 		</script>

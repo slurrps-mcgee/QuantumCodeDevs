@@ -1,58 +1,29 @@
 ---
 import SectionHeader from '../components/SectionHeader.astro';
+import SurfaceCard from '../components/SurfaceCard.astro';
 import { pageMeta, siteEmail, siteName } from '../data/site';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout
-  title={pageMeta.terms.title}
-  description={pageMeta.terms.description}
-  activePage="none"
->
-  <section>
-    <SectionHeader
-      eyebrow="Legal"
-      title="Terms & Conditions"
-      description={`These terms govern your use of our website and any professional services provided by ${siteName}.`}
-      descriptionClass="max-w-3xl text-lg text-slate-300"
-    />
-    <p class="text-sm text-slate-400">Last updated: July 16, 2026</p>
-  </section>
+<Layout title={pageMeta.terms.title} description={pageMeta.terms.description} activePage="none">
+	<SectionHeader eyebrow="Legal" title="Terms & Conditions" description={`These terms govern use of this website and professional services provided by ${siteName}.`} />
+	<p class="mt-4 text-sm text-muted">Last updated: August 23, 2026</p>
 
-  <section class="mt-10 grid gap-4">
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Use of Website</h2>
-      <p class="mt-3 text-slate-300">
-        You may use this website for lawful purposes only. You agree not to misuse, disrupt, or attempt unauthorized access to systems connected with this website.
-      </p>
-    </article>
-
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Service Engagements</h2>
-      <p class="mt-3 text-slate-300">
-        Project scope, timelines, deliverables, and payment terms are defined in written agreements or proposals. In case of conflict, signed service agreements take precedence over website terms.
-      </p>
-    </article>
-
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Intellectual Property</h2>
-      <p class="mt-3 text-slate-300">
-        Unless otherwise agreed in writing, all pre-existing frameworks, internal tools, and reusable components remain the property of {siteName}. Client-owned deliverables are transferred according to the governing project agreement.
-      </p>
-    </article>
-
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Liability</h2>
-      <p class="mt-3 text-slate-300">
-        To the fullest extent permitted by law, we are not liable for indirect or consequential damages resulting from website use. Service liability terms are governed by signed contracts.
-      </p>
-    </article>
-
-    <article class="glass-card">
-      <h2 class="text-2xl font-semibold text-white">Contact</h2>
-      <p class="mt-3 text-slate-300">
-        Questions about these terms can be sent to {siteEmail}.
-      </p>
-    </article>
-  </section>
+	<div class="mt-10 grid gap-4">
+		<SurfaceCard title="Use of the website">
+			<p>You may use this website for lawful purposes only. You agree not to misuse, disrupt, or attempt unauthorized access to systems connected with this website.</p>
+		</SurfaceCard>
+		<SurfaceCard title="Project work">
+			<p>Scope, timeline, deliverables, and payment terms for website projects are defined in a written quote or agreement. If there is a conflict, the signed agreement controls.</p>
+		</SurfaceCard>
+		<SurfaceCard title="Intellectual property">
+			<p>Unless otherwise agreed in writing, reusable tools and internal methods remain the property of {siteName}. Client website deliverables transfer according to the project agreement.</p>
+		</SurfaceCard>
+		<SurfaceCard title="Liability">
+			<p>To the fullest extent permitted by law, we are not liable for indirect or consequential damages from website use. Liability for contracted work is governed by the project agreement.</p>
+		</SurfaceCard>
+		<SurfaceCard title="Contact">
+			<p>Questions about these terms can be sent to {siteEmail}.</p>
+		</SurfaceCard>
+	</div>
 </Layout>

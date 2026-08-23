@@ -1,0 +1,85 @@
+---
+import CtaBand from '../../components/CtaBand.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import SurfaceCard from '../../components/SurfaceCard.astro';
+import { getProject, projects } from '../../data/projects';
+import { siteName } from '../../data/site';
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { slug: project.slug }
+	}));
+}
+
+const { slug } = Astro.props;
+const project = getProject(slug);
+
+if (!project) {
+	return Astro.redirect('/work');
+}
+
+const title = `${project.title} | ${siteName}`;
+const description = project.summary;
+---
+
+<Layout title={title} description={description} activePage="work">
+	<p class="mb-8">
+		<a href="/work" class="inline-flex min-h-11 items-center text-sm font-semibold text-cta hover:underline">← All work</a>
+	</p>
+
+	<SectionHeader eyebrow={`${project.type} · ${project.origin}`} title={project.title} description={project.summary} />
+
+	<div
+		class:list={[
+			'mt-10 rounded-3xl p-6',
+			project.type === 'Website' && 'bg-wash',
+			project.type === 'Web application' && 'bg-blush',
+			project.type === 'Desktop application' && 'bg-line/40'
+		]}
+	>
+		<div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+			<div class="min-w-0 w-full rounded-2xl border border-white/80 bg-paper/85 p-5">
+				<p class="kicker">{project.type}</p>
+				<p class="mt-2 font-display text-2xl font-semibold">{project.title}</p>
+				{
+					project.image && (
+						<img src={project.image} alt="" class="mt-2 h-60 w-full rounded-lg object-cover object-top" />
+					)
+				}
+			</div>
+
+			<div class="flex min-w-0 w-full flex-col justify-center gap-2">
+				{project.liveUrl && <a href={project.liveUrl} class="btn-primary">View live site</a>}
+				{project.repo && <a href={project.repo} class="btn-secondary">View repository</a>}
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-10 grid gap-4 md:grid-cols-3">
+		<SurfaceCard title="Challenge" titleTag="h2" titleClass="text-xl font-semibold">
+			<p>{project.challenge}</p>
+		</SurfaceCard>
+		<SurfaceCard title="Solution" titleTag="h2" titleClass="text-xl font-semibold">
+			<p>{project.solution}</p>
+		</SurfaceCard>
+		<SurfaceCard title="Result" titleTag="h2" titleClass="text-xl font-semibold">
+			<p>{project.result}</p>
+		</SurfaceCard>
+	</div>
+
+	<SurfaceCard class="mt-4" title="Technology" titleTag="h2">
+		<ul class="flex flex-wrap gap-2">
+			{
+				project.tech.map((item) => (
+					<li class="rounded-full bg-canvas px-3 py-1 font-mono text-xs uppercase tracking-wide text-mauve">{item}</li>
+				))
+			}
+		</ul>
+	</SurfaceCard>
+
+	<div class="mt-16">
+		<CtaBand />
+	</div>
+</Layout>

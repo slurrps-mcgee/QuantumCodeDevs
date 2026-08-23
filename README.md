@@ -1,87 +1,28 @@
-# Quantum Code Devs Site
+# Quantum Code Devs
 
-Modern multi-page Astro + Tailwind website for an IT business that builds websites and software applications.
+Astro site for Quantum Code Devs, a solo studio that builds custom websites for businesses.
 
 ## Commands
 
 | Command | Action |
 | :------ | :----- |
 | `npm install` | Install dependencies |
-| `npm run dev` | Start local dev server |
-| `npm run build` | Build the static site output |
-| `npm run preview` | Preview the build locally |
+| `npm run dev` | Start the local dev server |
+| `npm run build` | Build the static site |
+| `npm run preview` | Preview the production build |
 
-## Blog Markdown Example
+## Contact form
 
-Blog list page: `/blog`
-
-Blog detail pages: `/blog/[slug]`
-
-Create markdown posts in `src/content/blog/` using this format:
-
-```markdown
----
-title: "How to Scope a Software MVP"
-description: "A practical framework to pick the right first features."
-publishDate: 2026-07-16
-category: "Product Strategy"
-author: "Quantum Code Devs"
----
-
-Start with one clear user outcome and build only what is required to validate it.
-
-## Define your MVP boundary
-
-- Choose one primary workflow
-- Limit launch scope to must-have features
-- Add analytics before launch
-
-## Ship, measure, iterate
-
-Use the first release to gather evidence, then expand based on real usage patterns.
-```
-
-## Contact Form Without A Server
-
-You can connect the contact form to Formspree without adding a backend.
-
-1. Create a Formspree form endpoint.
-2. Add a `.env` file in the project root.
-3. Set this variable:
+The contact page posts to Formspree when `PUBLIC_CONTACT_FORM_ENDPOINT` is set.
 
 ```env
 PUBLIC_CONTACT_FORM_ENDPOINT="https://formspree.io/f/your-form-id"
+PUBLIC_SITE_URL="https://quantumcode.dev"
 ```
 
-4. Restart the dev server.
+If the form endpoint is missing, the page falls back to a `mailto:` submit.
 
-If `PUBLIC_CONTACT_FORM_ENDPOINT` is not set, the form falls back to opening the default mail client.
+## Notes
 
-## Cloudflare Pages Deployment From GitHub
-
-This repository is set up to be deployed from GitHub to Cloudflare Pages.
-
-### Setup Steps
-
-1. Go to your GitHub repository settings.
-2. Go to **Settings > Secrets and variables > Actions** and add `PUBLIC_CONTACT_FORM_ENDPOINT` as a repository variable.
-3. Set `PUBLIC_CONTACT_FORM_ENDPOINT` to your Formspree endpoint, for example:
-
-```text
-https://formspree.io/f/your-form-id
-```
-
-4. Connect the repository in Cloudflare Pages and set the build command to `npm run build` with output directory `dist`.
-5. Push to `main` and let Cloudflare Pages deploy from GitHub.
-
-### How It Works
-
-- Cloudflare Pages builds the Astro app directly from GitHub.
-- The Formspree endpoint is injected at build time through `PUBLIC_CONTACT_FORM_ENDPOINT`.
-- If the variable is missing, the contact page falls back to opening the email client.
-
-### Notes
-
-- Set `PUBLIC_SITE_URL` as a Cloudflare / repository variable to your production origin (defaults to `https://quantumcodedevs.com`). This powers canonical URLs, Open Graph tags, the sitemap, and RSS.
-- After deploy, submit `https://your-domain/sitemap-index.xml` in Google Search Console.
-- If you want to use a custom domain or route, configure it in Cloudflare Pages.
+- Canonical URLs, Open Graph tags, the sitemap, and RSS use `PUBLIC_SITE_URL` (default `https://quantumcode.dev`).
+- After deploy, submit `https://quantumcode.dev/sitemap-index.xml` in Google Search Console.
