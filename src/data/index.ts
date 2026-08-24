@@ -1,0 +1,16 @@
+export * from "./config";
+export * from "./navigation";
+export * from "./social";
+export * from "./seo";
+export * from "./types";
+export * from "./projects";
+export * from "./faq";
+export * from "./blog";
+export { home } from "./pages/home";
+export { about } from "./pages/about";
+export { services, websiteIncludes } from "./pages/services";
+export { contact } from "./pages/contact";
+export { work } from "./pages/work";
+export { blog as blogPage } from "./pages/blog";
+export { faq as faqPageData } from "./pages/faq";
+export { legal } from "./pages/legal";

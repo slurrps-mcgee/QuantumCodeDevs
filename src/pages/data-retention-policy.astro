@@ -1,26 +1,38 @@
 ---
-import SectionHeader from '../components/SectionHeader.astro';
-import SurfaceCard from '../components/SurfaceCard.astro';
-import { pageMeta, siteName } from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import SectionHeader from "../components/SectionHeader.astro";
+import SurfaceCard from "../components/SurfaceCard.astro";
+import { legal } from "../data";
+import Layout from "../layouts/Layout.astro";
+
+const policy = legal.dataRetention;
 ---
 
-<Layout title={pageMeta.dataRetention.title} description={pageMeta.dataRetention.description} activePage="none">
-	<SectionHeader eyebrow="Legal" title="Data Retention Policy" description={`This policy describes how long ${siteName} keeps information from inquiries, project work, and website use.`} />
-	<p class="mt-4 text-sm text-muted">Last updated: August 23, 2026</p>
+<Layout
+  title={policy.meta.title}
+  description={policy.meta.description}
+  activePage="none"
+>
+  <SectionHeader
+    animate
+    eyebrow={policy.eyebrow}
+    title={policy.title}
+    description={policy.description}
+  />
+  <p class="mt-4 text-sm text-muted">Last updated: {policy.lastUpdated}</p>
 
-	<div class="mt-10 grid gap-4">
-		<SurfaceCard title="Inquiry data">
-			<p>Contact form submissions and inquiry emails are kept for up to 24 months to support follow-up, quotes, and service history.</p>
-		</SurfaceCard>
-		<SurfaceCard title="Project records">
-			<p>Contracts, invoices, and project documentation are kept for up to 7 years for legal, accounting, and operational needs.</p>
-		</SurfaceCard>
-		<SurfaceCard title="Analytics and logs">
-			<p>Technical logs and analytics, when used, are kept only as long as needed for performance, security, and service quality.</p>
-		</SurfaceCard>
-		<SurfaceCard title="Deletion requests">
-			<p>You may request deletion of personal data where legally allowed. Some records may be retained when required for tax, legal, or contractual reasons.</p>
-		</SurfaceCard>
-	</div>
+  <div class="mt-10 grid gap-4">
+    {
+      policy.sections.map((section, index) => (
+        <SurfaceCard
+          animate
+          delayIndex={Math.min(index, 4)}
+          title={section.title}
+        >
+          {section.paragraphs?.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </SurfaceCard>
+      ))
+    }
+  </div>
 </Layout>

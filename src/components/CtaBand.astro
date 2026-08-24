@@ -1,11 +1,15 @@
 ---
-import { finalCta } from '../data/site';
+import { finalCta } from "../data";
+import { aosAttrs } from "../lib/aos";
 ---
 
-<section class="rounded-3xl bg-wash px-6 py-10 md:px-10 md:py-14">
-	<div class="max-w-2xl">
-		<h2 class="text-3xl font-semibold sm:text-4xl">{finalCta.title}</h2>
-		<p class="mt-4 text-lg text-muted">{finalCta.body}</p>
-		<a href="/contact" class="btn-primary mt-6">{finalCta.button}</a>
-	</div>
+<section
+  class="rounded-3xl bg-wash px-6 py-10 md:px-10 md:py-14"
+  {...aosAttrs("fadeInUp", 1)}
+>
+  <div class="max-w-2xl">
+    <h2 class="text-3xl font-semibold sm:text-4xl">{finalCta.title}</h2>
+    <p class="mt-4 text-lg text-muted">{finalCta.body}</p>
+    <a href="/contact" class="btn-primary mt-6">{finalCta.button}</a>
+  </div>
 </section>

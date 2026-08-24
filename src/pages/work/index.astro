@@ -1,24 +1,33 @@
 ---
-import CtaBand from '../../components/CtaBand.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import SectionHeader from '../../components/SectionHeader.astro';
-import { projects } from '../../data/projects';
-import { pageMeta } from '../../data/site';
-import Layout from '../../layouts/Layout.astro';
+import CtaBand from "../../components/CtaBand.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { projects } from "../../data/projects";
+import { work } from "../../data";
+import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title={pageMeta.work.title} description={pageMeta.work.description} activePage="work">
-	<SectionHeader
-		eyebrow="Work"
-		title="Selected work."
-		description="These are real projects. Personal work is labeled as such. None of these are presented as unnamed client case studies."
-	/>
+<Layout
+  title={work.meta.title}
+  description={work.meta.description}
+  activePage="work"
+>
+  <SectionHeader
+    animate
+    eyebrow={work.workPage.eyebrow}
+    title={work.workPage.title}
+    description={work.workPage.description}
+  />
 
-	<div class="mt-10 grid gap-5 md:grid-cols-2">
-		{projects.map((project) => <ProjectCard project={project} />)}
-	</div>
+  <div class="mt-10 grid gap-5 md:grid-cols-2">
+    {
+      projects.map((project, index) => (
+        <ProjectCard project={project} delayIndex={index} />
+      ))
+    }
+  </div>
 
-	<div class="mt-16">
-		<CtaBand />
-	</div>
+  <div class="mt-16">
+    <CtaBand />
+  </div>
 </Layout>

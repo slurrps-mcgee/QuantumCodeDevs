@@ -1,275 +1,356 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 import {
-	assets,
-	defaultDescription,
-	defaultTitle,
-	legalLinks,
-	navItems,
-	organizationDescription,
-	sameAs,
-	siteEmail,
-	siteName,
-	siteUrl,
-	urls,
-	type NavKey
-} from '../data/site';
+  assets,
+  defaultDescription,
+  defaultTitle,
+  fontStylesheet,
+  legalLinks,
+  navItems,
+  siteEmail,
+  siteName,
+  siteUrl,
+  themeColor,
+  urls,
+  type NavKey,
+} from "../data";
+import {
+  buildOrganizationJsonLd,
+  mergeJsonLdBlocks,
+  resolveImageUrl,
+} from "../data/seo";
 
 interface Props {
-	title?: string;
-	description?: string;
-	activePage?: NavKey | 'none';
-	image?: string;
-	type?: 'website' | 'article';
-	noindex?: boolean;
-	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  title?: string;
+  description?: string;
+  activePage?: NavKey | "none";
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
-	title = defaultTitle,
-	description = defaultDescription,
-	activePage = 'home',
-	image = assets.ogImage,
-	type = 'website',
-	noindex = false,
-	jsonLd
+  title = defaultTitle,
+  description = defaultDescription,
+  activePage = "home",
+  image = assets.ogImage,
+  type = "website",
+  noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const site = Astro.site ?? new URL(siteUrl);
 const canonicalURL = new URL(Astro.url.pathname, site);
-const imageURL = new URL(image, site);
-const fontStylesheet =
-	'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap';
-
-const organizationJsonLd = {
-	'@context': 'https://schema.org',
-	'@type': 'ProfessionalService',
-	name: siteName,
-	url: site.href,
-	logo: new URL(assets.logo, site).href,
-	image: imageURL.href,
-	description: organizationDescription,
-	email: siteEmail,
-	areaServed: 'Worldwide',
-	priceRange: '$1,000+',
-	sameAs: [...sameAs],
-	makesOffer: {
-		'@type': 'Offer',
-		itemOffered: {
-			'@type': 'Service',
-			name: 'Website development',
-			description: 'Custom website design and development for businesses.'
-		},
-		priceSpecification: {
-			'@type': 'PriceSpecification',
-			minPrice: 1000,
-			priceCurrency: 'USD',
-			name: 'Website projects starting at $1,000'
-		}
-	}
-};
-
-const jsonLdBlocks = [organizationJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+const imageURL = resolveImageUrl(image, site);
+const jsonLdBlocks = mergeJsonLdBlocks(
+  buildOrganizationJsonLd(site, imageURL),
+  jsonLd,
+);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="stylesheet" href={fontStylesheet} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href={assets.appleTouchIcon} />
-		<link rel="canonical" href={canonicalURL} />
-		<link rel="alternate" type="application/rss+xml" title={`${siteName} Blog`} href={new URL('/rss.xml', site)} />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<meta name="theme-color" content="#E7E6F7" />
-		{noindex && <meta name="robots" content="noindex, nofollow" />}
-		<title>{title}</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fontStylesheet} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href={assets.appleTouchIcon} />
+    <link rel="canonical" href={canonicalURL} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${siteName} Blog`}
+      href={new URL("/rss.xml", site)}
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={themeColor} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title}</title>
 
-		<meta property="og:type" content={type} />
-		<meta property="og:site_name" content={siteName} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:image" content={imageURL} />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content={`${siteName} — custom websites for businesses`} />
-		<meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={`${siteName} — custom websites for businesses`}
+    />
+    <meta property="og:locale" content="en_US" />
 
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={imageURL} />
-		<meta name="twitter:image:alt" content={`${siteName} — custom websites for businesses`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta
+      name="twitter:image:alt"
+      content={`${siteName} — custom websites for businesses`}
+    />
 
-		{
-			jsonLdBlocks.map((block) => (
-				<script type="application/ld+json" set:html={JSON.stringify(block)} />
-			))
-		}
-	</head>
-	<body class="flex min-h-screen flex-col bg-canvas text-ink antialiased">
-		<a href="#main-content" class="skip-link">Skip to main content</a>
+    {
+      jsonLdBlocks.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      ))
+    }
+  </head>
+  <body class="flex min-h-screen flex-col bg-canvas text-ink antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-		<header class="sticky top-0 z-50 border-b border-line/70 bg-canvas/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-lg">
-			<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:py-4">
-				<a href="/" class="brand-mark min-w-0" aria-label={`${siteName} home`}>
-					<span class="brand-star" aria-hidden="true">✦</span>
-					<span>{siteName}</span>
-				</a>
+    <header
+      class="sticky top-0 z-50 border-b border-line/70 bg-canvas/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-lg"
+    >
+      <div
+        class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:py-4"
+      >
+        <a href="/" class="brand-mark min-w-0" aria-label={`${siteName} home`}>
+          <span class="brand-star" aria-hidden="true">✦</span>
+          <span>{siteName}</span>
+        </a>
 
-				<nav aria-label="Main navigation" class="hidden flex-1 justify-center md:flex">
-					<ul class="flex items-center gap-1">
-						{
-							navItems.map((item) => (
-								<li>
-									<a
-										href={item.href}
-										class:list={['nav-link', activePage === item.key && 'nav-link-active']}
-										aria-current={activePage === item.key ? 'page' : undefined}
-									>
-										{item.label}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</nav>
+        <nav
+          aria-label="Main navigation"
+          class="hidden flex-1 justify-center md:flex"
+        >
+          <ul class="flex items-center gap-1">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class:list={[
+                      "nav-link",
+                      activePage === item.key && "nav-link-active",
+                    ]}
+                    aria-current={activePage === item.key ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
 
-				<div class="flex items-center gap-2">
-					<a href="/contact" class="btn-primary hidden sm:inline-flex">Start a Project</a>
-					<button
-						id="mobile-nav-toggle"
-						type="button"
-						class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-paper text-ink md:hidden"
-						aria-expanded="false"
-						aria-controls="mobile-nav"
-					>
-						<span class="sr-only" data-menu-label>Open navigation menu</span>
-						<svg data-icon="open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-							<path d="M4 7h16M4 12h16M4 17h16"></path>
-						</svg>
-						<svg data-icon="close" xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-							<path d="M6 6l12 12M18 6L6 18"></path>
-						</svg>
-					</button>
-				</div>
-			</div>
+        <div class="flex items-center gap-2">
+          <a href="/contact" class="btn-primary hidden sm:inline-flex"
+            >Start a Project</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            type="button"
+            class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-paper text-ink md:hidden"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <span class="sr-only" data-menu-label>Open navigation menu</span>
+            <svg
+              data-icon="open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16"></path>
+            </svg>
+            <svg
+              data-icon="close"
+              xmlns="http://www.w3.org/2000/svg"
+              class="hidden h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6L6 18"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-			<div id="mobile-nav" class="mx-auto hidden w-full max-w-6xl px-4 pb-4 md:hidden">
-				<nav aria-label="Mobile navigation">
-					<ul class="grid gap-1 rounded-2xl border border-line bg-paper p-2">
-						{
-							navItems.map((item) => (
-								<li>
-									<a
-										href={item.href}
-										class:list={['nav-link w-full justify-start', activePage === item.key && 'nav-link-active']}
-										aria-current={activePage === item.key ? 'page' : undefined}
-									>
-										{item.label}
-									</a>
-								</li>
-							))
-						}
-						<li>
-							<a href="/contact" class="btn-primary w-full">Start a Project</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
+      <div
+        id="mobile-nav"
+        class="mx-auto hidden w-full max-w-6xl px-4 pb-4 md:hidden"
+      >
+        <nav aria-label="Mobile navigation">
+          <ul class="grid gap-1 rounded-2xl border border-line bg-paper p-2">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class:list={[
+                      "nav-link w-full justify-start",
+                      activePage === item.key && "nav-link-active",
+                    ]}
+                    aria-current={activePage === item.key ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href="/contact" class="btn-primary w-full">Start a Project</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-		<main
-			id="main-content"
-			class="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
-			tabindex="-1"
-		>
-			<slot />
-		</main>
+    <main
+      id="main-content"
+      class="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
+      tabindex="-1"
+    >
+      <slot />
+    </main>
 
-		<footer class="border-t border-line bg-wash/60 pb-[env(safe-area-inset-bottom,0px)]">
-			<div class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8">
-				<div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-					<div>
-						<p class="font-display text-lg font-semibold">{siteName}</p>
-						<p class="mt-2 max-w-md text-sm text-muted">Custom websites for businesses, built directly with an experienced developer.</p>
-					</div>
-					<div class="text-sm text-muted">
-						<p><a class="font-medium text-ink underline-offset-4 hover:underline" href={`mailto:${siteEmail}`}>{siteEmail}</a></p>
-						<p class="mt-2">
-							<a class="underline-offset-4 hover:underline" href={urls.portfolio} target="_blank" rel="noopener noreferrer">
-								Kenneth’s portfolio <span class="sr-only">(opens in a new tab)</span>
-							</a>
-						</p>
-					</div>
-				</div>
-				<div class="flex flex-col gap-3 border-t border-line/80 pt-5 text-sm text-muted md:flex-row md:items-center md:justify-between">
-					<p>© {new Date().getFullYear()} {siteName}</p>
-					<nav aria-label="Legal and secondary">
-						<ul class="flex flex-wrap gap-x-4 gap-y-2">
-							{
-								legalLinks.map((link) => (
-									<li>
-										<a href={link.href} class="inline-flex min-h-11 items-center hover:text-ink">{link.label}</a>
-									</li>
-								))
-							}
-							<li>
-								<a href="/faq" class="inline-flex min-h-11 items-center hover:text-ink">FAQ</a>
-							</li>
-							<li>
-								<a href="/rss.xml" class="inline-flex min-h-11 items-center hover:text-ink">RSS</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</footer>
+    <footer
+      class="border-t border-line bg-wash/60 pb-[env(safe-area-inset-bottom,0px)]"
+    >
+      <div
+        class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8"
+      >
+        <div
+          class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+        >
+          <div>
+            <p class="font-display text-lg font-semibold">{siteName}</p>
+            <p class="mt-2 max-w-md text-sm text-muted">
+              Custom websites for businesses, built directly with an experienced
+              developer.
+            </p>
+          </div>
+          <div class="text-sm text-muted">
+            <p>
+              <a
+                class="font-medium text-ink underline-offset-4 hover:underline"
+                href={`mailto:${siteEmail}`}>{siteEmail}</a
+              >
+            </p>
+            <p class="mt-2">
+              <a
+                class="underline-offset-4 hover:underline"
+                href={urls.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Kenneth’s portfolio <span class="sr-only"
+                  >(opens in a new tab)</span
+                >
+              </a>
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-3 border-t border-line/80 pt-5 text-sm text-muted md:flex-row md:items-center md:justify-between"
+        >
+          <p>© {new Date().getFullYear()} {siteName}</p>
+          <nav aria-label="Legal and secondary">
+            <ul class="flex flex-wrap gap-x-4 gap-y-2">
+              {
+                legalLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="inline-flex min-h-11 items-center hover:text-ink"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+              <li>
+                <a
+                  href="/faq"
+                  class="inline-flex min-h-11 items-center hover:text-ink"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/rss.xml"
+                  class="inline-flex min-h-11 items-center hover:text-ink"
+                  >RSS</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
 
-		<script is:inline>
-			const toggleButton = document.getElementById('mobile-nav-toggle');
-			const mobileNav = document.getElementById('mobile-nav');
+    <script is:inline>
+      const toggleButton = document.getElementById("mobile-nav-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-			if (toggleButton && mobileNav) {
-				const label = toggleButton.querySelector('[data-menu-label]');
-				const openIcon = toggleButton.querySelector('[data-icon="open"]');
-				const closeIcon = toggleButton.querySelector('[data-icon="close"]');
-				const menuLinks = mobileNav.querySelectorAll('a');
+      if (toggleButton && mobileNav) {
+        const label = toggleButton.querySelector("[data-menu-label]");
+        const openIcon = toggleButton.querySelector('[data-icon="open"]');
+        const closeIcon = toggleButton.querySelector('[data-icon="close"]');
+        const menuLinks = mobileNav.querySelectorAll("a");
 
-				const setOpen = (open) => {
-					mobileNav.classList.toggle('hidden', !open);
-					toggleButton.setAttribute('aria-expanded', open ? 'true' : 'false');
-					if (label) {
-						label.textContent = open ? 'Close navigation menu' : 'Open navigation menu';
-					}
-					openIcon?.classList.toggle('hidden', open);
-					closeIcon?.classList.toggle('hidden', !open);
-				};
+        const setOpen = (open) => {
+          mobileNav.classList.toggle("hidden", !open);
+          toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
+          if (label) {
+            label.textContent = open
+              ? "Close navigation menu"
+              : "Open navigation menu";
+          }
+          openIcon?.classList.toggle("hidden", open);
+          closeIcon?.classList.toggle("hidden", !open);
+        };
 
-				toggleButton.addEventListener('click', () => {
-					setOpen(mobileNav.classList.contains('hidden'));
-				});
+        toggleButton.addEventListener("click", () => {
+          setOpen(mobileNav.classList.contains("hidden"));
+        });
 
-				menuLinks.forEach((link) => link.addEventListener('click', () => setOpen(false)));
+        menuLinks.forEach((link) =>
+          link.addEventListener("click", () => setOpen(false)),
+        );
 
-				document.addEventListener('keydown', (event) => {
-					if (event.key === 'Escape' && !mobileNav.classList.contains('hidden')) {
-						setOpen(false);
-						toggleButton.focus();
-					}
-				});
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.key === "Escape" &&
+            !mobileNav.classList.contains("hidden")
+          ) {
+            setOpen(false);
+            toggleButton.focus();
+          }
+        });
 
-				window.addEventListener('resize', () => {
-					if (window.innerWidth >= 768) setOpen(false);
-				});
-			}
-		</script>
-	</body>
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) setOpen(false);
+        });
+      }
+    </script>
+
+    <script>
+      import AOS from "aos";
+
+      AOS.init({
+        duration: 650,
+        once: true,
+        disable: () =>
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      });
+    </script>
+  </body>
 </html>

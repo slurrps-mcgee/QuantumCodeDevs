@@ -1,34 +1,44 @@
 ---
-import SectionHeader from '../components/SectionHeader.astro';
-import SurfaceCard from '../components/SurfaceCard.astro';
-import { pageMeta, siteEmail, siteName } from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import SectionHeader from "../components/SectionHeader.astro";
+import SurfaceCard from "../components/SurfaceCard.astro";
+import { legal } from "../data";
+import Layout from "../layouts/Layout.astro";
+
+const policy = legal.privacy;
 ---
 
-<Layout title={pageMeta.privacy.title} description={pageMeta.privacy.description} activePage="none">
-	<SectionHeader eyebrow="Legal" title="Privacy Policy" description={`This policy explains how ${siteName} collects, uses, and protects personal information when you use this website or contact us about a project.`} />
-	<p class="mt-4 text-sm text-muted">Last updated: August 23, 2026</p>
+<Layout
+  title={policy.meta.title}
+  description={policy.meta.description}
+  activePage="none"
+>
+  <SectionHeader
+    animate
+    eyebrow={policy.eyebrow}
+    title={policy.title}
+    description={policy.description}
+  />
+  <p class="mt-4 text-sm text-muted">Last updated: {policy.lastUpdated}</p>
 
-	<div class="mt-10 grid gap-4">
-		<SurfaceCard title="Information we collect">
-			<ul class="list-disc space-y-2 pl-5">
-				<li>Contact details such as your name, email address, and company name.</li>
-				<li>Project details you send through the inquiry form, email, or calls.</li>
-				<li>Basic website usage data, such as pages viewed and referring site, if analytics are enabled.</li>
-			</ul>
-		</SurfaceCard>
-		<SurfaceCard title="How we use information">
-			<ul class="list-disc space-y-2 pl-5">
-				<li>To respond to inquiries and prepare project quotes.</li>
-				<li>To deliver contracted website work and send project updates.</li>
-				<li>To improve the website and the clarity of our services.</li>
-			</ul>
-		</SurfaceCard>
-		<SurfaceCard title="Sharing">
-			<p>We do not sell personal information. We may share details only with trusted providers used for hosting, email, forms, or analytics, under appropriate confidentiality expectations.</p>
-		</SurfaceCard>
-		<SurfaceCard title="Your rights">
-			<p>You may request access, correction, or deletion of your personal information. Contact {siteEmail} to make a request.</p>
-		</SurfaceCard>
-	</div>
+  <div class="mt-10 grid gap-4">
+    {
+      policy.sections.map((section, index) => (
+        <SurfaceCard
+          animate
+          delayIndex={Math.min(index, 4)}
+          title={section.title}
+        >
+          {section.list ? (
+            <ul class="list-disc space-y-2 pl-5">
+              {section.list.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)
+          )}
+        </SurfaceCard>
+      ))
+    }
+  </div>
 </Layout>

@@ -9,16 +9,25 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "astro check",
+    "audit": "npm audit  --audit-level=high"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.10",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.2",
+    "aos": "^2.3.4",
     "astro": "^7.2.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.8",
     "@types/node": "^26.1.1"
   }
 }

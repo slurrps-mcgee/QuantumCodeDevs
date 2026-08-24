@@ -1,54 +1,54 @@
 ---
-import CtaBand from '../components/CtaBand.astro';
-import FaqItem from '../components/FaqItem.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import { faqItems, faqPage, faqPlainText } from '../data/faq';
-import { pageMeta } from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import CtaBand from "../components/CtaBand.astro";
+import FaqItem from "../components/FaqItem.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { faqItems } from "../data/faq";
+import { buildFaqJsonLd } from "../data/seo";
+import { faqPageData } from "../data";
+import Layout from "../layouts/Layout.astro";
 
-const faqJsonLd = {
-	'@context': 'https://schema.org',
-	'@type': 'FAQPage',
-	mainEntity: faqItems.map((item) => ({
-		'@type': 'Question',
-		name: item.question,
-		acceptedAnswer: {
-			'@type': 'Answer',
-			text: faqPlainText(item)
-		}
-	}))
-};
+const faqJsonLd = buildFaqJsonLd();
 ---
 
-<Layout title={pageMeta.faq.title} description={pageMeta.faq.description} activePage="none" jsonLd={faqJsonLd}>
-	<SectionHeader eyebrow={faqPage.eyebrow} title={faqPage.title} description={faqPage.description} />
+<Layout
+  title={faqPageData.meta.title}
+  description={faqPageData.meta.description}
+  activePage="none"
+  jsonLd={faqJsonLd}
+>
+  <SectionHeader
+    animate
+    eyebrow={faqPageData.faqPage.eyebrow}
+    title={faqPageData.faqPage.title}
+    description={faqPageData.faqPage.description}
+  />
 
-	<div class="mt-10 space-y-3">
-		{
-			faqItems.map((item) => (
-				<FaqItem question={item.question}>
-					{item.paragraphs.map((paragraph) => (
-						<p>{paragraph}</p>
-					))}
-					{item.list && (
-						<ul>
-							{item.list.map((entry) => (
-								<li>{entry}</li>
-							))}
-						</ul>
-					)}
-					{item.closing && <p>{item.closing}</p>}
-					{item.link && (
-						<p>
-							<a href={item.link.href}>{item.link.label}</a>
-						</p>
-					)}
-				</FaqItem>
-			))
-		}
-	</div>
+  <div class="mt-10 space-y-3">
+    {
+      faqItems.map((item, index) => (
+        <FaqItem question={item.question} delayIndex={Math.min(index, 5)}>
+          {item.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          {item.list && (
+            <ul>
+              {item.list.map((entry) => (
+                <li>{entry}</li>
+              ))}
+            </ul>
+          )}
+          {item.closing && <p>{item.closing}</p>}
+          {item.link && (
+            <p>
+              <a href={item.link.href}>{item.link.label}</a>
+            </p>
+          )}
+        </FaqItem>
+      ))
+    }
+  </div>
 
-	<div class="mt-16">
-		<CtaBand />
-	</div>
+  <div class="mt-16">
+    <CtaBand />
+  </div>
 </Layout>

@@ -1,60 +1,81 @@
 ---
-import CtaBand from '../components/CtaBand.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import SurfaceCard from '../components/SurfaceCard.astro';
-import { pageMeta, pricing, processSteps, servicePage, websiteIncludes } from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import CtaBand from "../components/CtaBand.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import SurfaceCard from "../components/SurfaceCard.astro";
+import { services } from "../data";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title={pageMeta.services.title} description={pageMeta.services.description} activePage="services">
-	<SectionHeader eyebrow={servicePage.eyebrow} title={servicePage.title} description={servicePage.description} />
+<Layout
+  title={services.meta.title}
+  description={services.meta.description}
+  activePage="services"
+>
+  <SectionHeader
+    animate
+    eyebrow={services.servicePage.eyebrow}
+    title={services.servicePage.title}
+    description={services.servicePage.description}
+  />
 
-	<SurfaceCard class="mt-10" as="section">
-		<p class="kicker">Primary service</p>
-		<h2 class="mt-3 text-3xl font-semibold">{servicePage.primary.title}</h2>
-		<p class="mt-4 max-w-3xl text-muted">{servicePage.primary.body}</p>
-		<ul class="mt-8 grid gap-3 sm:grid-cols-2">
-			{
-				websiteIncludes.map((item) => (
-					<li class="flex items-start gap-3 text-muted">
-						<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mauve"></span>
-						{item}
-					</li>
-				))
-			}
-		</ul>
-	</SurfaceCard>
+  <SurfaceCard animate class="mt-10" as="section">
+    <p class="kicker">Primary service</p>
+    <h2 class="mt-3 text-3xl font-semibold">
+      {services.servicePage.primary.title}
+    </h2>
+    <p class="mt-4 max-w-3xl text-muted">{services.servicePage.primary.body}</p>
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+      {
+        services.websiteIncludes.map((item) => (
+          <li class="flex items-start gap-3 text-muted">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mauve" />
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </SurfaceCard>
 
-	<div class="mt-6 grid gap-4 lg:grid-cols-2">
-		<SurfaceCard>
-			<p class="kicker">Pricing</p>
-			<h2 class="mt-3 text-3xl font-semibold">{pricing.headline}</h2>
-			<p class="mt-4 text-muted">{pricing.body}</p>
-			<p class="mt-4 text-sm text-muted">We do not publish an hourly rate. Website work is quoted as a project after scope is clear.</p>
-		</SurfaceCard>
-		<SurfaceCard>
-			<p class="kicker">Beyond a website</p>
-			<h2 class="mt-3 text-3xl font-semibold">Other software, when it is needed.</h2>
-			<p class="mt-4 text-muted">{servicePage.secondary}</p>
-		</SurfaceCard>
-	</div>
+  <div class="mt-6 grid gap-4 lg:grid-cols-2">
+    <SurfaceCard animate delayIndex={1}>
+      <p class="kicker">Pricing</p>
+      <h2 class="mt-3 text-3xl font-semibold">{services.pricing.headline}</h2>
+      <p class="mt-4 text-muted">{services.pricing.body}</p>
+      <p class="mt-4 text-sm text-muted">
+        {services.servicePage.hourlyRateNote}
+      </p>
+    </SurfaceCard>
+    <SurfaceCard animate delayIndex={2}>
+      <p class="kicker">Beyond a website</p>
+      <h2 class="mt-3 text-3xl font-semibold">
+        {services.servicePage.secondaryTitle}
+      </h2>
+      <p class="mt-4 text-muted">{services.servicePage.secondary}</p>
+    </SurfaceCard>
+  </div>
 
-	<section class="mt-10">
-		<SectionHeader titleTag="h2" eyebrow="Process" title="A straightforward website project." class="mb-8" />
-		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-			{
-				processSteps.map((step) => (
-					<SurfaceCard>
-						<p class="kicker">{step.step}</p>
-						<h3 class="mt-3 text-xl font-semibold">{step.title}</h3>
-						<p class="mt-2 text-sm text-muted">{step.description}</p>
-					</SurfaceCard>
-				))
-			}
-		</div>
-	</section>
+  <section class="mt-10">
+    <SectionHeader
+      animate
+      titleTag="h2"
+      eyebrow="Process"
+      title={services.servicePage.processSectionTitle}
+      class="mb-8"
+    />
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {
+        services.processSteps.map((step, index) => (
+          <SurfaceCard animate delayIndex={index}>
+            <p class="kicker">{step.step}</p>
+            <h3 class="mt-3 text-xl font-semibold">{step.title}</h3>
+            <p class="mt-2 text-sm text-muted">{step.description}</p>
+          </SurfaceCard>
+        ))
+      }
+    </div>
+  </section>
 
-	<div class="mt-16">
-		<CtaBand />
-	</div>
+  <div class="mt-16">
+    <CtaBand />
+  </div>
 </Layout>

@@ -1,39 +1,56 @@
 ---
-import CtaBand from '../components/CtaBand.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import SurfaceCard from '../components/SurfaceCard.astro';
-import { aboutPage, aboutPreview, pageMeta, urls } from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import CtaBand from "../components/CtaBand.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import SurfaceCard from "../components/SurfaceCard.astro";
+import { about } from "../data";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title={pageMeta.about.title} description={pageMeta.about.description} activePage="about">
-	<SectionHeader eyebrow={aboutPage.eyebrow} title={aboutPage.title} description={aboutPage.description} />
+<Layout
+  title={about.meta.title}
+  description={about.meta.description}
+  activePage="about"
+>
+  <SectionHeader
+    animate
+    eyebrow={about.aboutPage.eyebrow}
+    title={about.aboutPage.title}
+    description={about.aboutPage.description}
+  />
 
-	<div class="mt-10 grid gap-4 lg:grid-cols-3">
-		{
-			aboutPage.points.map((point) => (
-				<SurfaceCard>
-					<h2 class="text-xl font-semibold">{point.title}</h2>
-					<p class="mt-3 text-muted">{point.body}</p>
-				</SurfaceCard>
-			))
-		}
-	</div>
+  <div class="mt-10 grid gap-4 lg:grid-cols-3">
+    {
+      about.aboutPage.points.map((point, index) => (
+        <SurfaceCard animate delayIndex={index}>
+          <h2 class="text-xl font-semibold">{point.title}</h2>
+          <p class="mt-3 text-muted">{point.body}</p>
+        </SurfaceCard>
+      ))
+    }
+  </div>
 
-	<SurfaceCard class="mt-6 bg-wash/70" as="section">
-		<p class="kicker">The developer</p>
-		<h2 class="mt-3 text-3xl font-semibold">Kenneth Lamb</h2>
-		<p class="mt-4 max-w-3xl text-muted">{aboutPreview.body}</p>
-		<p class="mt-4 max-w-3xl text-muted">{aboutPreview.portfolioLabel}</p>
-		<div class="mt-6 flex flex-col gap-3 sm:flex-row">
-			<a href="/contact" class="btn-primary">Start a Project</a>
-			<a href={urls.portfolio} class="btn-secondary" target="_blank" rel="noopener noreferrer">
-				View Kenneth’s portfolio <span class="sr-only">(opens in a new tab)</span>
-			</a>
-		</div>
-	</SurfaceCard>
+  <SurfaceCard animate delayIndex={1} class="mt-6 bg-wash/70" as="section">
+    <p class="kicker">{about.developer.kicker}</p>
+    <h2 class="mt-3 text-3xl font-semibold">{about.developer.name}</h2>
+    <p class="mt-4 max-w-3xl text-muted">{about.developer.body}</p>
+    <p class="mt-4 max-w-3xl text-muted">{about.developer.portfolioLabel}</p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <a href="/contact" class="btn-primary"
+        >{about.developer.startProjectLabel}</a
+      >
+      <a
+        href={about.portfolioUrl}
+        class="btn-secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {about.developer.portfolioCtaLabel}
+        <span class="sr-only">(opens in a new tab)</span>
+      </a>
+    </div>
+  </SurfaceCard>
 
-	<div class="mt-16">
-		<CtaBand />
-	</div>
+  <div class="mt-16">
+    <CtaBand />
+  </div>
 </Layout>

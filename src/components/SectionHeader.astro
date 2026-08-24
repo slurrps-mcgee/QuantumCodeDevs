@@ -1,30 +1,39 @@
 ---
+import { aosAttrs, type EntranceAnimation } from "../lib/aos";
+
 interface Props {
-	eyebrow?: string;
-	title: string;
-	description?: string;
-	class?: string;
-	titleTag?: 'h1' | 'h2' | 'h3';
-	titleClass?: string;
-	descriptionClass?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  class?: string;
+  titleTag?: "h1" | "h2" | "h3";
+  titleClass?: string;
+  descriptionClass?: string;
+  animate?: boolean;
+  animation?: EntranceAnimation;
 }
 
 const {
-	eyebrow,
-	title,
-	description,
-	class: className = '',
-	titleTag = 'h1',
-	titleClass = 'text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl',
-	descriptionClass = 'max-w-2xl text-base text-muted sm:text-lg'
+  eyebrow,
+  title,
+  description,
+  class: className = "",
+  titleTag = "h1",
+  titleClass = "text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl",
+  descriptionClass = "max-w-2xl text-base text-muted sm:text-lg",
+  animate = false,
+  animation = "fadeInUp",
 } = Astro.props;
 
 const TitleTag = titleTag;
 ---
 
-<div class:list={['space-y-4', className]}>
-	{eyebrow && <p class="kicker">{eyebrow}</p>}
-	<TitleTag class={titleClass}>{title}</TitleTag>
-	{description && <p class={descriptionClass}>{description}</p>}
-	<slot />
+<div
+  class:list={["space-y-4", className]}
+  {...animate ? aosAttrs(animation) : {}}
+>
+  {eyebrow && <p class="kicker">{eyebrow}</p>}
+  <TitleTag class={titleClass}>{title}</TitleTag>
+  {description && <p class={descriptionClass}>{description}</p>}
+  <slot />
 </div>

@@ -1,40 +1,49 @@
 ---
-import type { Project } from '../data/projects';
+import type { Project } from "../data/types";
+import { aosAttrs } from "../lib/aos";
 
 interface Props {
-	project: Project;
+  project: Project;
+  delayIndex?: number;
 }
 
-const { project } = Astro.props;
+const { project, delayIndex = 0 } = Astro.props;
 ---
 
 <a
-	href={`/work/${project.slug}`}
-	class="group surface-card flex h-full flex-col overflow-hidden p-0 transition hover:border-mauve"
+  href={`/work/${project.slug}`}
+  class="group surface-card flex h-full flex-col overflow-hidden p-0 transition hover:border-mauve"
+  {...aosAttrs("fadeInUp", delayIndex)}
 >
-	<div
-		class:list={[
-			'flex min-h-44 items-end p-5',
-			project.type === 'Website' && 'bg-wash',
-			project.type === 'Web application' && 'bg-blush',
-			project.type === 'Desktop application' && 'bg-line/40'
-		]}
-	>
-		<div class="w-full rounded-xl border border-white/70 bg-paper/80 p-4 backdrop-blur-sm">
-			<p class="kicker">{project.type}</p>
-			<p class="mt-2 font-display text-xl font-semibold">{project.title}</p>
-			{
-				project.image && (
-					<img src={project.image} alt="" class="mt-2 h-60 w-full rounded-lg object-cover object-top" />
-				)
-			}
-		</div>
-	</div>
-	<div class="flex flex-1 flex-col p-5">
-		<p class="text-sm text-mauve">{project.origin}</p>
-		<p class="mt-2 flex-1 text-muted">{project.summary}</p>
-		<p class="mt-4 text-sm font-semibold text-cta group-hover:underline">
-			View project <span aria-hidden="true">→</span>
-		</p>
-	</div>
+  <div
+    class:list={[
+      "flex min-h-44 items-end p-5",
+      project.type === "Website" && "bg-wash",
+      project.type === "Web application" && "bg-blush",
+      project.type === "Desktop application" && "bg-line/40",
+    ]}
+  >
+    <div
+      class="w-full rounded-xl border border-white/70 bg-paper/80 p-4 backdrop-blur-sm"
+    >
+      <p class="kicker">{project.type}</p>
+      <p class="mt-2 font-display text-xl font-semibold">{project.title}</p>
+      {
+        project.image && (
+          <img
+            src={project.image}
+            alt=""
+            class="mt-2 h-60 w-full rounded-lg object-cover object-top"
+          />
+        )
+      }
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-sm text-mauve">{project.origin}</p>
+    <p class="mt-2 flex-1 text-muted">{project.summary}</p>
+    <p class="mt-4 text-sm font-semibold text-cta group-hover:underline">
+      View project <span aria-hidden="true">→</span>
+    </p>
+  </div>
 </a>

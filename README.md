@@ -4,11 +4,11 @@ Astro site for Quantum Code Devs, a solo studio that builds custom websites for 
 
 ## Commands
 
-| Command | Action |
-| :------ | :----- |
-| `npm install` | Install dependencies |
-| `npm run dev` | Start the local dev server |
-| `npm run build` | Build the static site |
+| Command           | Action                       |
+| :---------------- | :--------------------------- |
+| `npm install`     | Install dependencies         |
+| `npm run dev`     | Start the local dev server   |
+| `npm run build`   | Build the static site        |
 | `npm run preview` | Preview the production build |
 
 ## Contact form

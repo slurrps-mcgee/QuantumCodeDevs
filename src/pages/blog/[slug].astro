@@ -1,78 +1,63 @@
 ---
-import SectionHeader from '../../components/SectionHeader.astro';
-import SurfaceCard from '../../components/SurfaceCard.astro';
-import { assets, siteName, siteUrl } from '../../data/site';
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import SectionHeader from "../../components/SectionHeader.astro";
+import SurfaceCard from "../../components/SurfaceCard.astro";
+import { getRelatedBlogPosts, getBlogStaticPaths } from "../../data/blog";
+import { buildArticleJsonLd, buildBlogPostMeta } from "../../data/seo";
+import { siteUrl } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import { render } from "astro:content";
+import { aosAttrs } from "../../lib/aos";
 
-export function getStaticPaths() {
-	return getCollection('blog').then((posts) =>
-		posts.map((post) => ({
-			params: { slug: post.id },
-			props: { post }
-		}))
-	);
-}
+export const getStaticPaths = getBlogStaticPaths;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 const site = Astro.site ?? new URL(siteUrl);
-const postUrl = new URL(`/blog/${post.id}/`, site);
-
-const related = (await getCollection('blog'))
-	.filter((item) => item.id !== post.id)
-	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-	.slice(0, 3);
-
-const articleJsonLd = {
-	'@context': 'https://schema.org',
-	'@type': 'BlogPosting',
-	headline: post.data.title,
-	description: post.data.description,
-	datePublished: post.data.publishDate.toISOString(),
-	author: { '@type': 'Person', name: post.data.author },
-	publisher: {
-		'@type': 'Organization',
-		name: siteName,
-		logo: { '@type': 'ImageObject', url: new URL(assets.logo, site).href }
-	},
-	mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl.href },
-	url: postUrl.href,
-	image: new URL(assets.ogImage, site).href
-};
+const related = await getRelatedBlogPosts(post.id);
+const pageMeta = buildBlogPostMeta(post.data.title, post.data.description);
+const articleJsonLd = buildArticleJsonLd(post, site);
 ---
 
 <Layout
-	title={`${post.data.title} | ${siteName}`}
-	description={post.data.description}
-	activePage="blog"
-	type="article"
-	jsonLd={articleJsonLd}
+  title={pageMeta.title}
+  description={pageMeta.description}
+  activePage="blog"
+  type="article"
+  jsonLd={articleJsonLd}
 >
-	<p class="mb-8">
-		<a href="/blog" class="inline-flex min-h-11 items-center text-sm font-semibold text-cta hover:underline">← All posts</a>
-	</p>
-	<SectionHeader
-		eyebrow={post.data.category}
-		title={post.data.title}
-		description={`Published ${post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`}
-	/>
-	<SurfaceCard class="prose-studio mt-10" as="article">
-		<Content />
-	</SurfaceCard>
-	{
-		related.length > 0 && (
-			<section class="mt-12">
-				<h2 class="text-2xl font-semibold">More posts</h2>
-				<div class="mt-5 grid gap-4">
-					{related.map((item) => (
-						<a href={`/blog/${item.id}`} class="surface-card hover:border-mauve">
-							<h3 class="text-xl font-semibold">{item.data.title}</h3>
-							<p class="mt-2 text-muted">{item.data.description}</p>
-						</a>
-					))}
-				</div>
-			</section>
-		)
-	}
+  <p class="mb-8">
+    <a
+      href="/blog"
+      class="inline-flex min-h-11 items-center text-sm font-semibold text-cta hover:underline"
+      >← All posts</a
+    >
+  </p>
+  <SectionHeader
+    animate
+    eyebrow={post.data.category}
+    title={post.data.title}
+    description={`Published ${post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`}
+  />
+  <SurfaceCard animate class="prose-studio mt-10" as="article">
+    <Content />
+  </SurfaceCard>
+  {
+    related.length > 0 && (
+      <section class="mt-12">
+        <h2 class="text-2xl font-semibold">More posts</h2>
+        <div class="mt-5 grid gap-4">
+          {related.map((item, index) => (
+            <a
+              href={`/blog/${item.id}`}
+              class="surface-card hover:border-mauve"
+              {...aosAttrs("fadeIn", index)}
+            >
+              <h3 class="text-xl font-semibold">{item.data.title}</h3>
+              <p class="mt-2 text-muted">{item.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
 </Layout>

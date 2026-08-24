@@ -1,119 +1,172 @@
 ---
-import CtaBand from '../components/CtaBand.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import SurfaceCard from '../components/SurfaceCard.astro';
-import { featuredProjects } from '../data/projects';
-import {
-	aboutPreview,
-	credibilityItems,
-	hero,
-	pageMeta,
-	pricing,
-	processSteps,
-	websiteIncludes
-} from '../data/site';
-import Layout from '../layouts/Layout.astro';
+import CtaBand from "../components/CtaBand.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import SurfaceCard from "../components/SurfaceCard.astro";
+import { featuredProjects } from "../data/projects";
+import { home } from "../data";
+import Layout from "../layouts/Layout.astro";
+import { aosAttrs } from "../lib/aos";
 ---
 
-<Layout title={pageMeta.home.title} description={pageMeta.home.description} activePage="home">
-	<section class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-		<SectionHeader eyebrow={hero.eyebrow} title={hero.title} description={hero.description} titleClass="text-4xl font-semibold leading-[1.05] sm:text-5xl md:text-6xl">
-			<div class="flex flex-col gap-3 pt-2 sm:flex-row">
-				<a href={hero.primaryCta.href} class="btn-primary">{hero.primaryCta.label}</a>
-				<a href={hero.secondaryCta.href} class="btn-secondary">{hero.secondaryCta.label}</a>
-			</div>
-		</SectionHeader>
-		<SurfaceCard class="bg-wash/70">
-			<p class="kicker">Starting price</p>
-			<p class="mt-3 font-display text-4xl font-semibold">{pricing.startingAt}</p>
-			<p class="mt-3 text-muted">Website projects start here. The final quote depends on scope, content, and timeline.</p>
-		</SurfaceCard>
-	</section>
+<Layout
+  title={home.meta.title}
+  description={home.meta.description}
+  activePage="home"
+>
+  <section class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+    <SectionHeader
+      animate
+      eyebrow={home.hero.eyebrow}
+      title={home.hero.title}
+      description={home.hero.description}
+      titleClass="text-4xl font-semibold leading-[1.05] sm:text-5xl md:text-6xl"
+    >
+      <div
+        class="flex flex-col gap-3 pt-2 sm:flex-row"
+        {...aosAttrs("fadeIn", 2)}
+      >
+        <a href={home.hero.primaryCta.href} class="btn-primary"
+          >{home.hero.primaryCta.label}</a
+        >
+        <a href={home.hero.secondaryCta.href} class="btn-secondary"
+          >{home.hero.secondaryCta.label}</a
+        >
+      </div>
+    </SectionHeader>
+    <SurfaceCard
+      animate
+      animation="fadeInRight"
+      delayIndex={1}
+      class="bg-wash/70"
+    >
+      <p class="kicker">{home.pricingCard.kicker}</p>
+      <p class="mt-3 font-display text-4xl font-semibold">
+        {home.pricing.startingAt}
+      </p>
+      <p class="mt-3 text-muted">{home.pricingCard.body}</p>
+    </SurfaceCard>
+  </section>
 
-	<section class="mt-16 md:mt-20" aria-labelledby="credibility-heading">
-		<h2 id="credibility-heading" class="sr-only">Why work with Quantum Code Devs</h2>
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-			{
-				credibilityItems.map((item) => (
-					<SurfaceCard>
-						<p class="kicker">{item.label}</p>
-						<h3 class="mt-3 text-xl font-semibold">{item.title}</h3>
-						<p class="mt-2 text-sm text-muted">{item.description}</p>
-					</SurfaceCard>
-				))
-			}
-		</div>
-	</section>
+  <section class="mt-16 md:mt-20" aria-labelledby="credibility-heading">
+    <h2 id="credibility-heading" class="sr-only">
+      {home.credibilityHeading}
+    </h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        home.credibilityItems.map((item, index) => (
+          <SurfaceCard animate delayIndex={index}>
+            <p class="kicker">{item.label}</p>
+            <h3 class="mt-3 text-xl font-semibold">{item.title}</h3>
+            <p class="mt-2 text-sm text-muted">{item.description}</p>
+          </SurfaceCard>
+        ))
+      }
+    </div>
+  </section>
 
-	<section class="mt-16 grid gap-8 md:mt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-		<SectionHeader
-			titleTag="h2"
-			eyebrow="Services"
-			title="Website development, built around the business."
-			description="A custom site designed for your audience, your content, and the action you want visitors to take."
-		/>
-		<SurfaceCard>
-			<ul class="grid gap-3 sm:grid-cols-2">
-				{
-					websiteIncludes.map((item) => (
-						<li class="flex items-start gap-3 text-muted">
-							<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mauve"></span>
-							{item}
-						</li>
-					))
-				}
-			</ul>
-			<p class="mt-6 text-sm text-muted">Need something beyond a website? Desktop and mobile application work is available as a separate conversation.</p>
-			<a href="/services" class="mt-5 inline-flex min-h-11 items-center font-semibold text-cta hover:underline">Review services and pricing</a>
-		</SurfaceCard>
-	</section>
+  <section
+    class="mt-16 grid gap-8 md:mt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
+  >
+    <SectionHeader
+      animate
+      titleTag="h2"
+      eyebrow={home.servicesPreview.eyebrow}
+      title={home.servicesPreview.title}
+      description={home.servicesPreview.description}
+    />
+    <SurfaceCard animate delayIndex={1}>
+      <ul class="grid gap-3 sm:grid-cols-2">
+        {
+          home.websiteIncludes.map((item) => (
+            <li class="flex items-start gap-3 text-muted">
+              <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mauve" />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 text-sm text-muted">{home.servicesPreview.footerNote}</p>
+      <a
+        href="/services"
+        class="mt-5 inline-flex min-h-11 items-center font-semibold text-cta hover:underline"
+        >{home.servicesPreview.linkLabel}</a
+      >
+    </SurfaceCard>
+  </section>
 
-	<section class="mt-16 md:mt-20">
-		<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-			<SectionHeader titleTag="h2" eyebrow="Selected work" title="Real projects, labeled honestly." description="Website work sits first. Other software is included as proof of engineering, not as a second sales pitch." />
-			<a href="/work" class="btn-secondary shrink-0">All work</a>
-		</div>
-		<div class="grid gap-5 md:grid-cols-2">
-			{featuredProjects.map((project) => <ProjectCard project={project} />)}
-		</div>
-	</section>
+  <section class="mt-16 md:mt-20">
+    <div
+      class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <SectionHeader
+        animate
+        titleTag="h2"
+        eyebrow={home.workPreview.eyebrow}
+        title={home.workPreview.title}
+        description={home.workPreview.description}
+      />
+      <a href="/work" class="btn-secondary shrink-0"
+        >{home.workPreview.linkLabel}</a
+      >
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        featuredProjects.map((project, index) => (
+          <ProjectCard project={project} delayIndex={index} />
+        ))
+      }
+    </div>
+  </section>
 
-	<section class="mt-16 md:mt-20">
-		<SectionHeader titleTag="h2" eyebrow="Process" title="What happens after you get in touch." class="mb-8" />
-		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-			{
-				processSteps.map((step) => (
-					<SurfaceCard>
-						<p class="kicker">{step.step}</p>
-						<h3 class="mt-3 text-xl font-semibold">{step.title}</h3>
-						<p class="mt-2 text-sm text-muted">{step.description}</p>
-					</SurfaceCard>
-				))
-			}
-		</div>
-	</section>
+  <section class="mt-16 md:mt-20">
+    <SectionHeader
+      animate
+      titleTag="h2"
+      eyebrow={home.processPreview.eyebrow}
+      title={home.processPreview.title}
+      class="mb-8"
+    />
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {
+        home.processSteps.map((step, index) => (
+          <SurfaceCard animate delayIndex={index}>
+            <p class="kicker">{step.step}</p>
+            <h3 class="mt-3 text-xl font-semibold">{step.title}</h3>
+            <p class="mt-2 text-sm text-muted">{step.description}</p>
+          </SurfaceCard>
+        ))
+      }
+    </div>
+  </section>
 
-	<section class="mt-16 grid gap-6 md:mt-20 lg:grid-cols-2">
-		<SurfaceCard class="bg-blush/50">
-			<p class="kicker">Pricing</p>
-			<h2 class="mt-3 text-3xl font-semibold">{pricing.headline}</h2>
-			<p class="mt-4 text-muted">{pricing.body}</p>
-		</SurfaceCard>
-		<SurfaceCard>
-			<p class="kicker">{aboutPreview.eyebrow}</p>
-			<h2 class="mt-3 text-3xl font-semibold">{aboutPreview.title}</h2>
-			<p class="mt-4 text-muted">{aboutPreview.body}</p>
-			<div class="mt-6 flex flex-col gap-3 sm:flex-row">
-				<a href={aboutPreview.cta.href} class="btn-primary">{aboutPreview.cta.label}</a>
-				<a href={aboutPreview.portfolioHref} class="btn-secondary" target="_blank" rel="noopener noreferrer">
-					Kenneth’s portfolio <span class="sr-only">(opens in a new tab)</span>
-				</a>
-			</div>
-		</SurfaceCard>
-	</section>
+  <section class="mt-16 grid gap-6 md:mt-20 lg:grid-cols-2">
+    <SurfaceCard animate class="bg-blush/50">
+      <p class="kicker">Pricing</p>
+      <h2 class="mt-3 text-3xl font-semibold">{home.pricing.headline}</h2>
+      <p class="mt-4 text-muted">{home.pricing.body}</p>
+    </SurfaceCard>
+    <SurfaceCard animate delayIndex={1}>
+      <p class="kicker">{home.aboutPreview.eyebrow}</p>
+      <h2 class="mt-3 text-3xl font-semibold">{home.aboutPreview.title}</h2>
+      <p class="mt-4 text-muted">{home.aboutPreview.body}</p>
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <a href={home.aboutPreview.cta.href} class="btn-primary"
+          >{home.aboutPreview.cta.label}</a
+        >
+        <a
+          href={home.aboutPreview.portfolioHref}
+          class="btn-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Kenneth's portfolio <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </div>
+    </SurfaceCard>
+  </section>
 
-	<div class="mt-16 md:mt-20">
-		<CtaBand />
-	</div>
+  <div class="mt-16 md:mt-20">
+    <CtaBand />
+  </div>
 </Layout>
