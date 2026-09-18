@@ -5,16 +5,16 @@ import {
   organizationDescription,
   siteEmail,
   siteName,
-  urls
-} from '../data';
-import type { NavKey } from '../data/types';
-import './SiteFooter.css';
+  urls,
+} from "../data";
+import type { NavKey } from "../data/types";
+import "./SiteFooter.css";
 
 interface Props {
-  activePage?: NavKey | 'none';
+  activePage?: NavKey | "none";
 }
 
-const { activePage = 'home' } = Astro.props;
+const { activePage = "home" } = Astro.props;
 ---
 
 <footer class="site-footer">
@@ -48,7 +48,7 @@ const { activePage = 'home' } = Astro.props;
                 <a
                   href={item.href}
                   class="site-footer__link"
-                  aria-current={activePage === item.key ? 'page' : undefined}
+                  aria-current={activePage === item.key ? "page" : undefined}
                 >
                   {item.label}
                 </a>
@@ -67,7 +67,9 @@ const { activePage = 'home' } = Astro.props;
       </div>
     </div>
 
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div
+      class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+    >
       <p>© {new Date().getFullYear()} {siteName}</p>
       <nav aria-label="Legal and secondary">
         <ul class="site-footer__legal">

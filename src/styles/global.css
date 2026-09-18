@@ -1,10 +1,10 @@
-@import 'tailwindcss';
-@import 'aos/dist/aos.css';
+@import "tailwindcss";
+@import "aos/dist/aos.css";
 
 @theme {
-  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --color-canvas: #b9b8cc;
   --color-wash: #c6d2ed;
@@ -35,7 +35,7 @@
   color-scheme: light;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --color-canvas: #2a2433;
   --color-wash: #3a3348;
   --color-blush: #3d3038;

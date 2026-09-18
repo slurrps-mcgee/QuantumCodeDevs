@@ -1,5 +1,5 @@
 ---
-import './Typewriter.css';
+import "./Typewriter.css";
 
 interface Props {
   text: string;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { text, typeSpeed = 100 } = Astro.props;
-const plainText = text.replace(/<[^>]+>/g, '');
+const plainText = text.replace(/<[^>]+>/g, "");
 ---
 
 <span class="typewriter" data-type-speed={typeSpeed}>
@@ -26,18 +26,18 @@ const plainText = text.replace(/<[^>]+>/g, '');
 <script>
   function sliceHtml(html: string, start: number, end: number): string {
     if (end <= start) {
-      return '';
+      return "";
     }
 
     const doc = new DOMParser().parseFromString(
       `<body>${html}</body>`,
-      'text/html'
+      "text/html",
     );
     let index = 0;
 
     function walk(node: Node): Node | null {
       if (node.nodeType === Node.TEXT_NODE) {
-        const value = node.textContent ?? '';
+        const value = node.textContent ?? "";
         const from = Math.max(0, start - index);
         const to = Math.max(0, end - index);
         const sliced = value.slice(from, Math.min(to, value.length));
@@ -60,7 +60,7 @@ const plainText = text.replace(/<[^>]+>/g, '');
       return clone.childNodes.length ? clone : null;
     }
 
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement("div");
     for (const child of Array.from(doc.body.childNodes)) {
       const kept = walk(child);
       if (kept) {
@@ -71,17 +71,17 @@ const plainText = text.replace(/<[^>]+>/g, '');
     return wrapper.innerHTML;
   }
 
-  const root = document.querySelector('.typewriter') as HTMLElement | null;
+  const root = document.querySelector(".typewriter") as HTMLElement | null;
 
   if (root) {
-    const htmlEl = root.querySelector('.typewriter-html') as HTMLElement;
-    const typedEl = root.querySelector('.typewriter-typed') as HTMLElement;
-    const restEl = root.querySelector('.typewriter-rest') as HTMLElement;
+    const htmlEl = root.querySelector(".typewriter-html") as HTMLElement;
+    const typedEl = root.querySelector(".typewriter-typed") as HTMLElement;
+    const restEl = root.querySelector(".typewriter-rest") as HTMLElement;
     const html = htmlEl.innerHTML;
     const total = htmlEl.textContent?.length ?? 0;
-    const typeSpeed = parseInt(root.dataset.typeSpeed || '100', 10);
+    const typeSpeed = parseInt(root.dataset.typeSpeed || "100", 10);
     const reduceMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     let charIndex = 0;

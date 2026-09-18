@@ -79,10 +79,7 @@ const hasEndpoint = Boolean(formEndpoint);
             value={contact.contactForm.subject}
           />
         ) : (
-          <p
-            class="surface-card px-3 py-2 text-sm"
-            role="status"
-          >
+          <p class="surface-card px-3 py-2 text-sm" role="status">
             The form endpoint is not configured yet, so submit will open your
             email app. Set <strong>PUBLIC_CONTACT_FORM_ENDPOINT</strong> to
             connect Formspree.

@@ -1,13 +1,13 @@
 ---
-import { navItems, siteName } from '../data';
-import './SiteHeader.css';
-import type { NavKey } from '../data/types';
+import { navItems, siteName } from "../data";
+import "./SiteHeader.css";
+import type { NavKey } from "../data/types";
 
 interface Props {
-  activePage?: NavKey | 'none';
+  activePage?: NavKey | "none";
 }
 
-const { activePage = 'home' } = Astro.props;
+const { activePage = "home" } = Astro.props;
 ---
 
 <header class="site-header">
@@ -25,10 +25,10 @@ const { activePage = 'home' } = Astro.props;
               <a
                 href={item.href}
                 class:list={[
-                  'nav-link',
-                  activePage === item.key && 'nav-link-active'
+                  "nav-link",
+                  activePage === item.key && "nav-link-active",
                 ]}
-                aria-current={activePage === item.key ? 'page' : undefined}
+                aria-current={activePage === item.key ? "page" : undefined}
               >
                 {item.label}
               </a>
@@ -76,7 +76,8 @@ const { activePage = 'home' } = Astro.props;
         </svg>
       </button>
 
-      <a href="/contact" class="btn-primary site-header__cta">Start a Project</a>
+      <a href="/contact" class="btn-primary site-header__cta">Start a Project</a
+      >
 
       <button
         id="mobile-nav-toggle"
@@ -114,11 +115,11 @@ const { activePage = 'home' } = Astro.props;
               <a
                 href={item.href}
                 class:list={[
-                  'nav-link',
-                  'nav-link--full',
-                  activePage === item.key && 'nav-link-active'
+                  "nav-link",
+                  "nav-link--full",
+                  activePage === item.key && "nav-link-active",
                 ]}
-                aria-current={activePage === item.key ? 'page' : undefined}
+                aria-current={activePage === item.key ? "page" : undefined}
               >
                 {item.label}
               </a>
@@ -135,34 +136,31 @@ const { activePage = 'home' } = Astro.props;
 
 <script is:inline>
   (() => {
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.getElementById("theme-toggle");
     const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
     const getTheme = () =>
-      document.documentElement.getAttribute('data-theme') === 'dark'
-        ? 'dark'
-        : 'light';
+      document.documentElement.getAttribute("data-theme") === "dark"
+        ? "dark"
+        : "light";
 
     const syncThemeToggle = () => {
       if (!(themeToggle instanceof HTMLButtonElement)) return;
-      const isDark = getTheme() === 'dark';
+      const isDark = getTheme() === "dark";
       themeToggle.setAttribute(
-        'aria-label',
-        isDark ? 'Switch to light mode' : 'Switch to dark mode'
+        "aria-label",
+        isDark ? "Switch to light mode" : "Switch to dark mode",
       );
-      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute("aria-pressed", String(isDark));
       if (themeColorMeta) {
-        themeColorMeta.setAttribute(
-          'content',
-          isDark ? '#2a2433' : '#b9b8cc'
-        );
+        themeColorMeta.setAttribute("content", isDark ? "#2a2433" : "#b9b8cc");
       }
     };
 
     const setTheme = (theme) => {
-      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute("data-theme", theme);
       try {
-        localStorage.setItem('theme', theme);
+        localStorage.setItem("theme", theme);
       } catch {
         /* ignore quota / private mode */
       }
@@ -171,38 +169,38 @@ const { activePage = 'home' } = Astro.props;
 
     if (themeToggle) {
       syncThemeToggle();
-      themeToggle.addEventListener('click', () => {
-        setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+      themeToggle.addEventListener("click", () => {
+        setTheme(getTheme() === "dark" ? "light" : "dark");
       });
     }
 
-    const toggleButton = document.getElementById('mobile-nav-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
+    const toggleButton = document.getElementById("mobile-nav-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
 
     if (toggleButton && mobileNav) {
-      const firstLink = () => mobileNav.querySelector('a');
+      const firstLink = () => mobileNav.querySelector("a");
 
       const closeMenu = ({ returnFocus = false } = {}) => {
-        mobileNav.classList.remove('is-open');
-        toggleButton.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        mobileNav.classList.remove("is-open");
+        toggleButton.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
         if (returnFocus) {
           toggleButton.focus();
         }
       };
 
       const openMenu = () => {
-        mobileNav.classList.add('is-open');
-        toggleButton.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
+        mobileNav.classList.add("is-open");
+        toggleButton.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
         const link = firstLink();
         if (link instanceof HTMLElement) {
           link.focus();
         }
       };
 
-      toggleButton.addEventListener('click', () => {
-        const isOpen = mobileNav.classList.contains('is-open');
+      toggleButton.addEventListener("click", () => {
+        const isOpen = mobileNav.classList.contains("is-open");
         if (isOpen) {
           closeMenu();
         } else {
@@ -210,17 +208,17 @@ const { activePage = 'home' } = Astro.props;
         }
       });
 
-      mobileNav.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => closeMenu());
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => closeMenu());
       });
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && mobileNav.classList.contains("is-open")) {
           closeMenu({ returnFocus: true });
         }
       });
 
-      window.addEventListener('resize', () => {
+      window.addEventListener("resize", () => {
         if (window.innerWidth >= 768) {
           closeMenu();
         }

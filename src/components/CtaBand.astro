@@ -3,7 +3,10 @@ import { finalCta } from "../data";
 import { aosAttrs } from "../lib/aos";
 ---
 
-<section class="surface-card px-6 py-10 md:px-10 md:py-14" {...aosAttrs("fadeInUp", 1)}>
+<section
+  class="surface-card px-6 py-10 md:px-10 md:py-14"
+  {...aosAttrs("fadeInUp", 1)}
+>
   <div class="max-w-2xl">
     <h2 class="text-3xl font-semibold sm:text-4xl">{finalCta.title}</h2>
     <p class="mt-4 text-lg text-muted">{finalCta.body}</p>
