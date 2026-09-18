@@ -1,0 +1,93 @@
+---
+import {
+  legalLinks,
+  navItems,
+  organizationDescription,
+  siteEmail,
+  siteName,
+  urls
+} from '../data';
+import type { NavKey } from '../data/types';
+import './SiteFooter.css';
+
+interface Props {
+  activePage?: NavKey | 'none';
+}
+
+const { activePage = 'home' } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__col">
+        <p class="site-footer__name">{siteName}</p>
+        <p>{organizationDescription}</p>
+        <div class="site-footer__links">
+          <a class="site-footer__link" href={`mailto:${siteEmail}`}>
+            {siteEmail}
+          </a>
+          <a
+            class="site-footer__link"
+            href={urls.portfolio}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Kenneth’s portfolio
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+
+      <nav aria-label="Footer" class="site-footer__col">
+        <p class="kicker">Navigation</p>
+        <ul class="site-footer__nav-list">
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="site-footer__link"
+                  aria-current={activePage === item.key ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <p class="kicker">Get in touch</p>
+        <p>Tell us what you want to launch.</p>
+        <div class="pt-3">
+          <a href="/contact" class="btn-primary">Start a Project</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <p>© {new Date().getFullYear()} {siteName}</p>
+      <nav aria-label="Legal and secondary">
+        <ul class="site-footer__legal">
+          {
+            legalLinks.map((link) => (
+              <li>
+                <a href={link.href} class="site-footer__link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="/faq" class="site-footer__link">FAQ</a>
+          </li>
+          <li>
+            <a href="/rss.xml" class="site-footer__link">RSS</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

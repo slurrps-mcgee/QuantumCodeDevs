@@ -1,17 +1,15 @@
 ---
 import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import {
   assets,
   defaultDescription,
   defaultTitle,
   fontStylesheet,
-  legalLinks,
-  navItems,
-  siteEmail,
   siteName,
   siteUrl,
   themeColor,
-  urls,
   type NavKey,
 } from "../data";
 import {
@@ -50,13 +48,32 @@ const jsonLdBlocks = mergeJsonLdBlocks(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          const theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : prefersDark
+                ? "dark"
+                : "light";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontStylesheet} />
@@ -105,242 +122,19 @@ const jsonLdBlocks = mergeJsonLdBlocks(
       ))
     }
   </head>
-  <body class="flex min-h-screen flex-col bg-canvas text-ink antialiased">
+  <body class="flex min-h-screen flex-col text-ink antialiased">
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <header
-      class="sticky top-0 z-50 border-b border-line/70 bg-canvas/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-lg"
-    >
-      <div
-        class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:py-4"
-      >
-        <a href="/" class="brand-mark min-w-0" aria-label={`${siteName} home`}>
-          <span class="brand-star" aria-hidden="true">✦</span>
-          <span>{siteName}</span>
-        </a>
-
-        <nav
-          aria-label="Main navigation"
-          class="hidden flex-1 justify-center md:flex"
-        >
-          <ul class="flex items-center gap-1">
-            {
-              navItems.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    class:list={[
-                      "nav-link",
-                      activePage === item.key && "nav-link-active",
-                    ]}
-                    aria-current={activePage === item.key ? "page" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
-
-        <div class="flex items-center gap-2">
-          <a href="/contact" class="btn-primary hidden sm:inline-flex"
-            >Start a Project</a
-          >
-          <button
-            id="mobile-nav-toggle"
-            type="button"
-            class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-paper text-ink md:hidden"
-            aria-expanded="false"
-            aria-controls="mobile-nav"
-          >
-            <span class="sr-only" data-menu-label>Open navigation menu</span>
-            <svg
-              data-icon="open"
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <path d="M4 7h16M4 12h16M4 17h16"></path>
-            </svg>
-            <svg
-              data-icon="close"
-              xmlns="http://www.w3.org/2000/svg"
-              class="hidden h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <path d="M6 6l12 12M18 6L6 18"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div
-        id="mobile-nav"
-        class="mx-auto hidden w-full max-w-6xl px-4 pb-4 md:hidden"
-      >
-        <nav aria-label="Mobile navigation">
-          <ul class="grid gap-1 rounded-2xl border border-line bg-paper p-2">
-            {
-              navItems.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    class:list={[
-                      "nav-link w-full justify-start",
-                      activePage === item.key && "nav-link-active",
-                    ]}
-                    aria-current={activePage === item.key ? "page" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))
-            }
-            <li>
-              <a href="/contact" class="btn-primary w-full">Start a Project</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <SiteHeader activePage={activePage} />
 
     <main
       id="main-content"
-      class="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8 md:pb-24 md:pt-14"
+      class="content-stagger mx-auto w-full max-w-6xl flex-1 px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-14"
       tabindex="-1"
     >
       <slot />
     </main>
 
-    <footer
-      class="border-t border-line bg-wash/60 pb-[env(safe-area-inset-bottom,0px)]"
-    >
-      <div
-        class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:px-8"
-      >
-        <div
-          class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
-        >
-          <div>
-            <p class="font-display text-lg font-semibold">{siteName}</p>
-            <p class="mt-2 max-w-md text-sm text-muted">
-              Custom websites for businesses, built directly with an experienced
-              developer.
-            </p>
-          </div>
-          <div class="text-sm text-muted">
-            <p>
-              <a
-                class="font-medium text-ink underline-offset-4 hover:underline"
-                href={`mailto:${siteEmail}`}>{siteEmail}</a
-              >
-            </p>
-            <p class="mt-2">
-              <a
-                class="underline-offset-4 hover:underline"
-                href={urls.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Kenneth’s portfolio <span class="sr-only"
-                  >(opens in a new tab)</span
-                >
-              </a>
-            </p>
-          </div>
-        </div>
-        <div
-          class="flex flex-col gap-3 border-t border-line/80 pt-5 text-sm text-muted md:flex-row md:items-center md:justify-between"
-        >
-          <p>© {new Date().getFullYear()} {siteName}</p>
-          <nav aria-label="Legal and secondary">
-            <ul class="flex flex-wrap gap-x-4 gap-y-2">
-              {
-                legalLinks.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      class="inline-flex min-h-11 items-center hover:text-ink"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))
-              }
-              <li>
-                <a
-                  href="/faq"
-                  class="inline-flex min-h-11 items-center hover:text-ink"
-                  >FAQ</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/rss.xml"
-                  class="inline-flex min-h-11 items-center hover:text-ink"
-                  >RSS</a
-                >
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </footer>
-
-    <script is:inline>
-      const toggleButton = document.getElementById("mobile-nav-toggle");
-      const mobileNav = document.getElementById("mobile-nav");
-
-      if (toggleButton && mobileNav) {
-        const label = toggleButton.querySelector("[data-menu-label]");
-        const openIcon = toggleButton.querySelector('[data-icon="open"]');
-        const closeIcon = toggleButton.querySelector('[data-icon="close"]');
-        const menuLinks = mobileNav.querySelectorAll("a");
-
-        const setOpen = (open) => {
-          mobileNav.classList.toggle("hidden", !open);
-          toggleButton.setAttribute("aria-expanded", open ? "true" : "false");
-          if (label) {
-            label.textContent = open
-              ? "Close navigation menu"
-              : "Open navigation menu";
-          }
-          openIcon?.classList.toggle("hidden", open);
-          closeIcon?.classList.toggle("hidden", !open);
-        };
-
-        toggleButton.addEventListener("click", () => {
-          setOpen(mobileNav.classList.contains("hidden"));
-        });
-
-        menuLinks.forEach((link) =>
-          link.addEventListener("click", () => setOpen(false)),
-        );
-
-        document.addEventListener("keydown", (event) => {
-          if (
-            event.key === "Escape" &&
-            !mobileNav.classList.contains("hidden")
-          ) {
-            setOpen(false);
-            toggleButton.focus();
-          }
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth >= 768) setOpen(false);
-        });
-      }
-    </script>
+    <SiteFooter activePage={activePage} />
 
     <script>
       import AOS from "aos";

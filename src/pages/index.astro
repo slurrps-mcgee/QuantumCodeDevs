@@ -3,10 +3,10 @@ import CtaBand from "../components/CtaBand.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import SurfaceCard from "../components/SurfaceCard.astro";
+import Typewriter from "../components/Typewriter.astro";
 import { featuredProjects } from "../data/projects";
 import { home } from "../data";
 import Layout from "../layouts/Layout.astro";
-import { aosAttrs } from "../lib/aos";
 ---
 
 <Layout
@@ -14,18 +14,21 @@ import { aosAttrs } from "../lib/aos";
   description={home.meta.description}
   activePage="home"
 >
-  <section class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-    <SectionHeader
-      animate
-      eyebrow={home.hero.eyebrow}
-      title={home.hero.title}
-      description={home.hero.description}
-      titleClass="text-4xl font-semibold leading-[1.05] sm:text-5xl md:text-6xl"
-    >
-      <div
-        class="flex flex-col gap-3 pt-2 sm:flex-row"
-        {...aosAttrs("fadeIn", 2)}
+  <section
+    class="grid gap-10 lg:min-h-[calc(100dvh-12rem)] lg:grid-cols-[1.25fr_0.75fr] lg:items-center"
+  >
+    <div class="space-y-7">
+      <p class="kicker">{home.hero.eyebrow}</p>
+      <h1
+        class="text-3xl font-semibold leading-tight text-ink sm:text-4xl md:text-6xl"
       >
+        <Typewriter
+          text={`${home.hero.headingLead} <span class="gradient">${home.hero.headingAccent}</span>`}
+          typeSpeed={100}
+        />
+      </h1>
+      <p class="max-w-2xl text-lg text-muted">{home.hero.description}</p>
+      <div class="flex flex-wrap gap-3">
         <a href={home.hero.primaryCta.href} class="btn-primary"
           >{home.hero.primaryCta.label}</a
         >
@@ -33,13 +36,8 @@ import { aosAttrs } from "../lib/aos";
           >{home.hero.secondaryCta.label}</a
         >
       </div>
-    </SectionHeader>
-    <SurfaceCard
-      animate
-      animation="fadeInRight"
-      delayIndex={1}
-      class="bg-wash/70"
-    >
+    </div>
+    <SurfaceCard animate animation="fadeInRight" delayIndex={1}>
       <p class="kicker">{home.pricingCard.kicker}</p>
       <p class="mt-3 font-display text-4xl font-semibold">
         {home.pricing.startingAt}
@@ -141,7 +139,7 @@ import { aosAttrs } from "../lib/aos";
   </section>
 
   <section class="mt-16 grid gap-6 md:mt-20 lg:grid-cols-2">
-    <SurfaceCard animate class="bg-blush/50">
+    <SurfaceCard animate>
       <p class="kicker">Pricing</p>
       <h2 class="mt-3 text-3xl font-semibold">{home.pricing.headline}</h2>
       <p class="mt-4 text-muted">{home.pricing.body}</p>

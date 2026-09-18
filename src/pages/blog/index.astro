@@ -26,7 +26,7 @@ const posts = await getSortedBlogPosts();
         {posts.map((post, index) => (
           <a
             href={`/blog/${post.id}`}
-            class="surface-card group flex h-full min-h-11 flex-col hover:border-mauve"
+            class="surface-card group flex h-full min-h-11 flex-col"
             {...aosAttrs("fadeInUp", index)}
           >
             <h2 class="text-xl font-semibold group-hover:text-cta">

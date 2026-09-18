@@ -1,0 +1,112 @@
+---
+import './Typewriter.css';
+
+interface Props {
+  text: string;
+  typeSpeed?: number;
+}
+
+const { text, typeSpeed = 100 } = Astro.props;
+const plainText = text.replace(/<[^>]+>/g, '');
+---
+
+<span class="typewriter" data-type-speed={typeSpeed}>
+  <span class="typewriter-sizer" aria-hidden="true">
+    <span class="typewriter-html" set:html={text} />
+    <span class="typewriter-cursor"></span>
+  </span>
+  <span class="typewriter-live" aria-hidden="true">
+    <span class="typewriter-typed"></span>
+    <span class="typewriter-cursor"></span>
+    <span class="typewriter-rest" set:html={text} />
+  </span>
+  <span class="sr-only">{plainText}</span>
+</span>
+
+<script>
+  function sliceHtml(html: string, start: number, end: number): string {
+    if (end <= start) {
+      return '';
+    }
+
+    const doc = new DOMParser().parseFromString(
+      `<body>${html}</body>`,
+      'text/html'
+    );
+    let index = 0;
+
+    function walk(node: Node): Node | null {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const value = node.textContent ?? '';
+        const from = Math.max(0, start - index);
+        const to = Math.max(0, end - index);
+        const sliced = value.slice(from, Math.min(to, value.length));
+        index += value.length;
+        return sliced ? document.createTextNode(sliced) : null;
+      }
+
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        return null;
+      }
+
+      const clone = (node as Element).cloneNode(false);
+      for (const child of Array.from(node.childNodes)) {
+        const kept = walk(child);
+        if (kept) {
+          clone.appendChild(kept);
+        }
+      }
+
+      return clone.childNodes.length ? clone : null;
+    }
+
+    const wrapper = document.createElement('div');
+    for (const child of Array.from(doc.body.childNodes)) {
+      const kept = walk(child);
+      if (kept) {
+        wrapper.appendChild(kept);
+      }
+    }
+
+    return wrapper.innerHTML;
+  }
+
+  const root = document.querySelector('.typewriter') as HTMLElement | null;
+
+  if (root) {
+    const htmlEl = root.querySelector('.typewriter-html') as HTMLElement;
+    const typedEl = root.querySelector('.typewriter-typed') as HTMLElement;
+    const restEl = root.querySelector('.typewriter-rest') as HTMLElement;
+    const html = htmlEl.innerHTML;
+    const total = htmlEl.textContent?.length ?? 0;
+    const typeSpeed = parseInt(root.dataset.typeSpeed || '100', 10);
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let charIndex = 0;
+
+    function render() {
+      typedEl.innerHTML = sliceHtml(html, 0, charIndex);
+      restEl.innerHTML = sliceHtml(html, charIndex, total);
+    }
+
+    function type() {
+      charIndex += 1;
+      render();
+
+      if (charIndex < total) {
+        setTimeout(type, typeSpeed);
+      }
+    }
+
+    if (total > 0) {
+      if (reduceMotion) {
+        charIndex = total;
+        render();
+      } else {
+        type();
+      }
+    }
+  }
+</script>

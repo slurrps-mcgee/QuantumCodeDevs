@@ -5,7 +5,7 @@ export const siteUrl = "https://quantumcode.dev";
 export const siteEmail = "quantumcodedevs@gmail.com";
 
 export const defaultDescription =
-  "Custom websites for small businesses, built directly with an experienced software developer.";
+  "Quantum Code Devs builds and ships custom websites for businesses, from the first screen to a working launch.";
 
 export const defaultTitle = `${siteName} | Custom Website Development`;
 
@@ -21,7 +21,7 @@ export const assets = {
 export const fontStylesheet =
   "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap";
 
-export const themeColor = "#E7E6F7";
+export const themeColor = "#b9b8cc";
 
 export const rss = {
   title: `${siteName} Blog`,

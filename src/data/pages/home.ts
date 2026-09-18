@@ -4,14 +4,15 @@ import { urls } from "../social";
 export const meta = {
   title: `${siteName} | Custom Websites for Businesses`,
   description:
-    "Quantum Code Devs builds custom, modern websites for small businesses. Work directly with an experienced software developer. Website projects start at $1,000.",
+    "Quantum Code Devs builds and ships custom websites for businesses, from the first screen to a working launch. Projects start at $1,000.",
 } as const;
 
 export const hero = {
   eyebrow: "Website development studio",
-  title: "Websites built by a software developer.",
+  headingLead: "We build websites",
+  headingAccent: "that ship",
   description:
-    "Custom, modern websites designed to help businesses look professional online and turn visitors into customers.",
+    "Custom freelance work with a clear finish line: design, build, and launch.",
   primaryCta: { label: "Start a Project", href: "/contact" },
   secondaryCta: { label: "View Our Work", href: "/work" },
 } as const;

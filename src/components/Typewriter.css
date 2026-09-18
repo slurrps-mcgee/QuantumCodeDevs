@@ -1,0 +1,52 @@
+h1:has(.typewriter) {
+  text-wrap: wrap;
+}
+
+.typewriter {
+  display: grid;
+  justify-items: start;
+}
+
+.typewriter-sizer,
+.typewriter-live {
+  grid-area: 1 / 1;
+}
+
+.typewriter-sizer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.typewriter-rest,
+.typewriter-rest * {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 0.075em;
+  height: 0.9em;
+  margin: 0 0.08em 0 0.04em;
+  background: var(--color-ink);
+  vertical-align: -0.05em;
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    animation: none;
+    background-color: var(--color-ink);
+  }
+}

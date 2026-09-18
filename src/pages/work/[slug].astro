@@ -47,19 +47,9 @@ const detailCards = [
     description={project.summary}
   />
 
-  <div
-    class:list={[
-      "mt-10 rounded-3xl p-6",
-      project.type === "Website" && "bg-wash",
-      project.type === "Web application" && "bg-blush",
-      project.type === "Desktop application" && "bg-line/40",
-    ]}
-    {...aosAttrs("fadeIn")}
-  >
+  <div class="surface-card mt-10 p-6" {...aosAttrs("fadeIn")}>
     <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-      <div
-        class="min-w-0 w-full rounded-2xl border border-white/80 bg-paper/85 p-5"
-      >
+      <div class="min-w-0 w-full">
         <p class="kicker">{project.type}</p>
         <p class="mt-2 font-display text-2xl font-semibold">{project.title}</p>
         {
@@ -118,9 +108,7 @@ const detailCards = [
     <ul class="flex flex-wrap gap-2">
       {
         project.tech.map((item) => (
-          <li class="rounded-full bg-canvas px-3 py-1 font-mono text-xs uppercase tracking-wide text-mauve">
-            {item}
-          </li>
+          <li class="chip-pill">{item}</li>
         ))
       }
     </ul>
