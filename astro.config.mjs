@@ -11,6 +11,10 @@ const siteUrl = process.env.PUBLIC_SITE_URL || defaultSiteUrl;
 export default defineConfig({
   site: siteUrl,
   integrations: [sitemap()],
+  build: {
+    // Keep CSS in external files so CSP can omit style-src 'unsafe-inline'.
+    inlineStylesheets: "never",
+  },
   vite: {
     plugins: [tailwindcss()],
   },

@@ -55,25 +55,7 @@ const jsonLdBlocks = mergeJsonLdBlocks(
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <script is:inline>
-      (() => {
-        try {
-          const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-          ).matches;
-          const theme =
-            stored === "light" || stored === "dark"
-              ? stored
-              : prefersDark
-                ? "dark"
-                : "light";
-          document.documentElement.setAttribute("data-theme", theme);
-        } catch {
-          document.documentElement.setAttribute("data-theme", "light");
-        }
-      })();
-    </script>
+    <script is:inline src="/scripts/theme-init.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontStylesheet} />
@@ -118,7 +100,11 @@ const jsonLdBlocks = mergeJsonLdBlocks(
 
     {
       jsonLdBlocks.map((block) => (
-        <script type="application/ld+json" set:html={JSON.stringify(block)} />
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(block)}
+        />
       ))
     }
   </head>
