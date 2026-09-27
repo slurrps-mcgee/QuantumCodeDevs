@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "astro check",
-    "audit": "npm audit  --audit-level=high"
+    "audit": "npm audit  --audit-level=high",
+    "verify": "npm run audit && npm run format:check && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
